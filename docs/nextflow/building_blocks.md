@@ -16,15 +16,25 @@ blastp -query sample.fasta -outfmt 6 \
 
 Starting with a shebang line, the `blastp` command is piped through multiple times to eventually result in an output file `sequences.txt`. 
 
-```{admonition} question
+
+```{tab} Question
 What is the downside of similar relatively simple pipelines?   
 ```
 
-<!--
-Sequential flow.
+```{tab} Solution
+There are a couple of suboptimal things happening here:
+- Sequential flow of data, there is no parallelization
+- Unclear which version of tools are used
+- Will it work on my machine? Are the tools installed, is the data there? What about HPC clusters or Cloud environments?
+- What if the pipeline fails somewhere in the middle, we need to restart the pipeline from the beginning
 
--->
-In response to that, pipeline tools were built which are aimed to deal with more complex situations. Nextflow is designed around the idea that Linux has many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations. 
+```
+
+
+
+---
+
+In response to that, workflow managers such as Nextflow were built, aimed to deal with more complex situations. Nextflow is designed around the idea that Linux has many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations. 
 
 
 By definition, Nextflow is a reactive workflow framework and a programming Domain Specific Language that eases the writing of data-intensive computational pipelines[[1](https://www.nextflow.io/)]. Nextflow scripting is an extension of the Groovy programming language, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in a way that simplifies the writing of code and is more approachable. 
@@ -39,20 +49,13 @@ Nextflow is not the only player in the field[[2](https://github.com/pditommaso/a
 + Parallelization: processes are automatically scheduled based on available resources 
 + Scalability: simple scaling from local to HPC-cluster usage
 + Portability: run across different platforms
-+ Reproducible: native support for containers, conda environments, and interaction with Git.
-+ Continuous checkpoints for resuming / expanding pipelines (which is usually the case for workflow pipelines)
-+ Community[[3](https://nf-co.re/)]
-
-<!--
-Reproducibility, replicate results over time
-Portability, run across different platforms
-Scalability, deploy big distributed workloads
-Usability, streamline execution and deployment of complex workloads, remove complexity instead of adding new one
-Consistency, track changes and revisions consistently for code, config files and binary dependencies
--->
++ Reproducible: native support for containers, conda environments, and interaction with Git. 
++ Re-usability: with the introduction of modules it becomes (theoretically) simple to re-use processes written in other pipelines
++ Community[[3](https://nf-co.re/)]: even though the community is never a reason why to choose for a tool (functionality is more important), it is still very relevant to know that when you are facing problems, there are people out there ready to help you out. 
 
 
-Some thoughts or disadvantages from my personal point of view, it takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis. 
+
+Some thoughts or disadvantages from my personal point of view. It takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis. 
 
 
 <!-- Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic)
@@ -60,17 +63,45 @@ Some thoughts or disadvantages from my personal point of view, it takes some tim
 
 ## Main abstractions
 Nextflow consists of three main components: channels, operators and processes. 
-- *Channels*: connect processes/operators with each other. On a more technical level, channels are unidirectional async queues that allows the processes to communicate with each other. 
+- *Channels*: contain the input of the workflows used by the processes. Channels connect processes/operators with each other. 
 - *Operators*: transform the content of channels by applying functions or transformations. Usually operators are applied on channels to get the input of a process in the right format.  
-- *Processes*: define the piece of script that is actually being run (e.g. an alignment process with STAR)  
-The script `02-basic-concepts/firstscript.nf` is using these three components and gives an idea of how Nextflow scripts are being build. 
+- *Processes*: define the piece of script that is actually being run (e.g. an alignment process with STAR). 
 
-Since the introduction of the new DSL2, *workflows* can be added to this list. This will be discussed in the next chapter. 
-
+Since the introduction of the new DSL2, *workflows* can be added to this list. This will be discussed later. 
 
 
 ```{image} ../img/nextflow/nextflow-conceptually.png
 :align: center
+```
+
+The script [`firstscript.nf`](https://github.com/tmuylder/nextflow-workshop/scripts/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
+
+```
+#!/usr/bin/env nextflow
+nextflow.enable.dsl=2
+
+// Creating channels
+numbers_ch = Channel.from(1,2,3)
+strings_ch = Channel.from('a','b')
+
+// Defining the process that is executed
+process valuesToFile {
+    input: 
+    val nums
+    val strs
+    
+    output:
+    path 'result.txt', emit: result_ch
+    
+    """
+    echo $nums and $strs > result.txt
+    """
+}
+
+workflow{
+    valuesToFile(numbers_ch, strings_ch)
+    valuesToFile.out.result_ch.view()
+}
 ```
 
 <!--
@@ -243,3 +274,21 @@ process python {
 Directives will be handled further on in the course, conditionals are not considered here.
 ```
 
+
+
+Exercises:
+
+Using the operator view to inspect the result, print out a message in the output of Nextflow running 
+
+```
+The results file can be found in: /path/to/...
+The results file can be found in: /path/to/...
+
+
+Solution
+```
+result_ch.view{ "The results file can be found in: $it"  }
+```
+
+Exercise:  
+Input is a csv file with names of files 
