@@ -28,6 +28,7 @@ process valuesToFile {
     """
 }
 
+// Running a workflow with the defined processes  
 workflow{
     valuesToFile(numbers_ch, strings_ch)
     valuesToFile.out.result_ch.view()

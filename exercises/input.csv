@@ -1,0 +1,5 @@
+sampleId,forward_read,reverse_read
+1,reads/sample_01_read_1.fq.gz,reads/sample_01_read_2.fq.gz
+2,reads/sample_02_read_1.fq.gz,reads/sample_02_read_2.fq.gz
+3,reads/sample_03_read_1.fq.gz,reads/sample_03_read_2.fq.gz
+4,reads/sample_04_read_1.fq.gz,reads/sample_04_read_2.fq.gz

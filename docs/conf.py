@@ -48,7 +48,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'furo'
-html_title = "Bioinformatics courses & tutorials"
+html_title = "Nextflow workshop"
 
 html_theme_options = {
     "light_css_variables": {
