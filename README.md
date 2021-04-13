@@ -1,8 +1,11 @@
-# Bioinformatics tutorials & courses
+# Nextflow workshop
 
-A collection of courses and tutorials. [Have a look if you will](https://rtd-bioinformatics.readthedocs.io/en/latest/index.html)! 
+This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. If you would like to get started with the materials, please visit https://nextflow-workshop.readthedocs.io/en/latest/.
+ 
 
-[![Documentation Status](https://readthedocs.org/projects/rtd-bioinformatics/badge/?version=latest)](https://rtd-bioinformatics.readthedocs.io/en/latest/?badge=latest)
+
+## Website
+The website was generated with Sphinx read-the-docs with Furo template.
 
 Local test build with: 
 ```
@@ -10,7 +13,4 @@ sphinx-autobuild docs docs/_build/html
 ```
 Then go to: http://127.0.0.1:8000/index.html
 
-
-# Contributions:
-Lay-outs please follow: https://pradyunsg.me/furo/reference/
-
+[![Documentation Status](https://readthedocs.org/projects/rtd-bioinformatics/badge/?version=latest)](https://rtd-bioinformatics.readthedocs.io/en/latest/?badge=latest)

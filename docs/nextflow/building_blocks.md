@@ -1,9 +1,9 @@
 
-# Basic concepts
+# Building blocks 
 In the first chapter we will elaborate on how Nextflow is designed, its advantages and disadvantages, the basic components, etc. 
 
 ## Introduction
-Writing workflows to automate processes is not something new. In the `data/` folder we've written a bash script that downloads the data that we will use throughout this tutorial. These bash scripts are probably one of the oldest forms of workflows. Let's have a look at another example:
+Writing pipelines to automate processes is not something new. In the `data/` folder we've written a bash script that downloads the data that we will use throughout this tutorial. These bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at another example:
 
 ```
 #!/bin/bash
@@ -14,7 +14,17 @@ blastp -query sample.fasta -outfmt 6 \
 	| blastdbcmd -entry - > sequences.txt
 ```
 
-Starting with a shebang line, the `blastp` command is piped through multiple times to eventually result in an output file `sequences.txt`. The downside of this very basic and intuitive pipeline is that it has a sequential flow. In response to that, pipeline tools were built which are aimed to deal with more complex situations. Nextflow is designed around the idea that Linux has many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations. 
+Starting with a shebang line, the `blastp` command is piped through multiple times to eventually result in an output file `sequences.txt`. 
+
+```{admonition} question
+What is the downside of similar relatively simple pipelines?   
+```
+
+<!--
+Sequential flow.
+
+-->
+In response to that, pipeline tools were built which are aimed to deal with more complex situations. Nextflow is designed around the idea that Linux has many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations. 
 
 
 By definition, Nextflow is a reactive workflow framework and a programming Domain Specific Language that eases the writing of data-intensive computational pipelines[[1](https://www.nextflow.io/)]. Nextflow scripting is an extension of the Groovy programming language, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in a way that simplifies the writing of code and is more approachable. 

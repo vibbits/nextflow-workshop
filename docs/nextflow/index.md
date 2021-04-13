@@ -4,7 +4,7 @@
 This tutorial aims to get you familiarized with Nextflow. After this course you should be able to understand workflow pipelines that are written in Nextflow and write simple pipelines yourself! Here's an overview of the materials that we will cover:
 
 - General introduction to Nextflow 
-- Basic concepts: processes, channels and operators
+- Building blocks of Nextflow: processes, channels and operators, workflows and modules
 - Creating our first Nextflow script(s)
 - Managing configurations: parameters, portability, execution
 - Creating reports
@@ -12,26 +12,22 @@ This tutorial aims to get you familiarized with Nextflow. After this course you 
 ```{toctree}
 :hidden:
 
-basic_concepts
+building_blocks
 first_pipeline
 configs
 reports
 ```
 
-After a brief introduction and example in DSL1, we will immediately change to the newer version of Nextflow with DSL2. It's important to have an idea of the differences between the two versions as most of the pipelines today are written in DSL1, but being transformed or enriched with new pipelines written in DSL2. 
-
-<!--
-On the day of writing (November 2020), DSL2 has been introduced for quite a while and DSL1 is supposed to be fading out. Chances are that support for DSL1 will be gone within a year or so.)
---> 
+The course materials are focused on the newer version of Nextflow DSL2. This is the newest version of the Nextflow language and the *de-facto* standard for writing new pipelines in Nextflow. In fact, DSL1 is supposed to be fading out and chances are that the support for DSL1 will be gone within a year or so. Must you have any questions regarding pipelines written in DSL1, feel free to ask any questions during the workshop. 
 
 ## Prerequisites
 This course requires familiarity with the command-line. You should feel confident interacting with the command-line and launch commands and tools from there. Additionally, Docker containers will be used during the course. 
 
 ## Installations
-The following software should be installed on your machine:
+The following software is installed for you and is essential to follow the course and write your own pipelines:
 - [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html#installation)
 - [Docker](https://docs.docker.com/engine/install/)
-- Optionally, [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/)
+- [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/)
 
 ## References and further reading
 Here are some great tips of where you can learn more and where to get inspiration for writing your own pipelines: 
