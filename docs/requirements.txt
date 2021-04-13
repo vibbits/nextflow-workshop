@@ -1,0 +1,6 @@
+pymdown-extensions
+furo
+myst_parser
+sphinx_inline_tabs
+sphinx-autobuild
+sphinx-copybutton
