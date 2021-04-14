@@ -333,93 +333,6 @@ The **`output`** declaration block defines the channels created by the process t
 
 **Conditionals** are not considered in this course.
 
-## Running our first pipeline
-If we want to run a Nextflow script in its most basic form, we will use the following command:
-```
-nextflow run <pipeline-name.nf>
-```
-
-with `<pipeline-name.nf>` the name of our pipeline, e.g. `firstscript.nf`. Change the directory to `scripts/01_building_blocks` from where we will run the scripts. Inspect the script `firstscript.nf` again and notice how the channels and process are being created, how the workflow calls the process as a function with the channels as input arguments, how they are passed on as the processes' inputs, to the script section and then given to the output. 
-
-When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
-
-Nextflow will generate an output that has a standard lay-out:
-```
-N E X T F L O W  ~  version 20.10.0
-Launching `firstscript.nf` [elegant_curie] - revision: 9f886cc00a
-executor >  local (2)
-[5e/195314] process > valuesToFile (2) [100%] 2 of 2 ✔
-results file: /path/to/work/51/7023ee62af2cb4fdd9ef654265506a/result.txt
-results file: /path/to/work/5e/195314955591a705e5af3c3ed0bd5a/result.txt
-```
-
-The output consists of:
-- Version of nextflow 
-- Information regarding the script that has ran with an identifier name
-- Hash with process ID, progress and caching information
-- Optional output printed to the screen as defined in the script (if present)
-
-The results are stored in the results file as described in the two last lines. By default the results of a process are stored in the `work/` directory in subfolders with names defined by the hashes. Besides the output that we generated, also a bunch of hidden `.command.*` files are present:
-
-```
-|- work/
-|   |
-|   |- 51
-|   |   |
-|   |   |- .command.begin
-|   |   |- .command.err
-|   |   |- .command.log
-|   |   |- ...
-|   |   
-|   |- 5e
-|   |   |- ...
-... 
-
-
-```{tab} .command.log
-`.command.log`, contains the log of the command execution. Often is identical to .command.out
-```
-```{tab} .command.out
-`.command.out`, contains the standard output of the command execution
-```
-```{tab} .command.err
-`.command.err`, contains the standard error of the command execution
-```
-```{tab} .command.begin
-`.command.begin`, contains what has to be executed before .command.sh
-```
-```{tab} .command.sh
-`.command.sh`, contains the block of code indicated in the process
-```
-```{tab} .command.run
-`.command.run`, contains the code made by nextflow for the execution of .command.sh and contains environmental variables, eventual invocations of linux containers etc
-```
-```{tab} .exitcode
-`.exitcode`, contains 0 if everything is ok, another value if there was a problem.
-```
-
----
-
-
-Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `fifo.nf` and inspect the order that the channels are being processed. 
-
-```
-N E X T F L O W  ~  version 20.10.0
-Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
-[-        ] process > whosfirst -
-This is job number 6
-This is job number 3
-This is job number 7
-This is job number 8
-This is job number 5
-This is job number 4
-This is job number 1
-This is job number 2
-This is job number 9
-executor >  local (10)
-[4b/aff57f] process > whosfirst (10) [100%] 10 of 10
-```
-
 ---
 
 A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. 
@@ -439,27 +352,28 @@ process python {
 }
 ```
 
-
-
-Two types of parameters!
+Check the output of the script in the `.command.out` file of the work-directory. 
 
 
 
-## Exercises:
+ 
 
-Using the operator view to inspect the result, print out a message in the output of Nextflow running 
+## Exercise
+````{tab} Exercise 1.3.1
+Use the `view` operator to print out a message in the output of Nextflow running that looks like this: 
 
 ```
 The results file can be found in: /path/to/...
 The results file can be found in: /path/to/...
 ```
-
-Solution
+````
+````{tab} Solution 1.3.1
 ```
 result_ch.view{ "The results file can be found in: $it"  }
 ```
+````
 
-Exercise:  
+````{tab} Exercise 1.3.2
 
 You need to execute a task for each record in one or more CSV files.
 
@@ -478,8 +392,10 @@ Given the file `input.csv` with the following content:
 | 03       | reads/sample_03_read_1.fq.gz  | reads/sample_03_read_2.fq.gz  |
 | 04       | reads/sample_04_read_1.fq.gz  | reads/sample_04_read_2.fq.gz  |
 
+```` 
 
-Solution:
+````{tab} Solution 1.3.2
+
 ```
 #!/usr/bin/env nextflow
 nextflow.enable.dsl=2
@@ -506,6 +422,9 @@ workflow{
     split_csv(samples_ch)
 }
 ``` 
+````
+
+--- 
 
 ## Futher reading on DSL2
 Nextflow recently went through a big make-over. The premise of the next version, using DSL2, is to make the pipelines more modular and simplify the writing of complex data analysis pipelines. 

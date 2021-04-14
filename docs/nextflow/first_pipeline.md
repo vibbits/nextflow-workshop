@@ -186,13 +186,64 @@ workflow {
 }
 ```
 
+Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to index our reads and afterwards we can map our reads. These modules are called from the main script `RNAseq.nf`. 
 
 
+````{tab} Exercise 2.6
+In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. Complete the script `RNAseq.nf` so it includes these processes and hence the pipeline is extended with an indexing and alignment step. The parameters used in the modules are already defined for you. 
+````
+
+````{tab} Solution 2.6
+Solution in `RNAseq_final.nf`. The following lines were added. 
+```
+genome = file(params.genome)
+gtf = file(params.gtf)
+
+include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
+
+workflow{
+  ...
+  star_idx(genome, gtf)
+  star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)
+}
+
+```` 
+
+---
+
+````{tab} Exercise 2.7
+In the folder `modules/` find the script `multiqc.nf`. Import the process in the main script so we can call it as a function in the workflow. This process expects all of the zipped and html files from the fastqc processes (raw & trimmed) as one input. Thus it is necessary to use the operators `.mix()` and `.collect()` on the outputs of `fastqc_raw` and `fastqc_trim` to generate one channel with all the files.  
+````
+
+````{tab} Solution 2.7
+```
+include { multiqc } from "${launchDir}/../../modules/multiqc" 
+
+workflow {
+  ...
+  multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
+} 
+```
+```` 
+
+
+---
+
+This pipeline is still subject to optimizations which will be further elaborated in the next chapter. 
 
 
 ## Subworkflows
 
-The workflow keyword allows the definition of **sub-workflow** components that enclose the invocation of one or more processes and operators. It also allows you to use this workflow from within another workflow. The workflow that does not cary any name is considered to be the main workflow and will be executed implicitly. 
+The workflow keyword allows the definition of **sub-workflow** components that enclose the invocation of one or more processes and operators. Here we have created a sub-workflow for a hypothetical `hisat` aligner. 
+
+```
+workflow hisat{
+  hisat_index(arg1)
+  hisat_alignment(arg1, arg2)
+}
+```
+
+These sub-workflows allow us to use this workflow from within another workflow. The workflow that does not cary any name is considered to be the main workflow and will be executed implicitly. This is thus the entry point of the workflow, however alternatively we can overwrite it by using the `-entry` parameter. The following code snippet defines two sub-workflows and one main workflow. If we would only be interested in the star alignment workflow, then we would use `nextflow run pipeline.nf -entry star`. 
 
 ```
 workflow star{
@@ -220,15 +271,10 @@ workflow {
   star(arg1, arg2, arg3)
   hisat2(arg1, arg2)
 }
-
 ```
 
+```{note}
+The `take:` declaration block defines the input channels of the sub-workflow, `main:` is the declaration block that contains the processes (functions) and is required when to separate the inputs from the workflow body. These options are useful when the workflow is growing with multiple entry-levels to keep a tidy overview. 
+```
 
-
-
-## RNAseq pipeline
-Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to index our reads and afterwards we can map our reads. In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. 
-These modules are called from the main script `03-first-pipeline/dsl2-RNAseq.nf`. 
-
-This pipeline is still subject to optimizations which will be elaborated in the next section. 
 
