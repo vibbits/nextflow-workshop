@@ -6,7 +6,7 @@ docs/_build/*
 data/*
 !data/downl-data.sh
 
-results/*
+results*
 
 # Don't include any files of the following type:
 *.fq

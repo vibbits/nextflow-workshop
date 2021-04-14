@@ -227,7 +227,7 @@ samples_ch = Channel
 ---
 
 ### 3. Processes
-Processes are the backbone of the pipeline. They represent each individual subpart of the analysis. In the code-snippet below, you can see that it consists of a couple of blocks: directives, input, output, when-clause and the script itself. 
+Processes are the backbone of the pipeline. They represent each individual subpart of the analysis. In the code-snippet below, you can see that it consists of a couple of blocks: directives, input, output, when-clause and the script itself.  
 
 ```
 process < name > {
@@ -321,47 +321,91 @@ process trimmomatic {
 
 ---
 
+The `input` declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name. The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
+
+```{warning}
+The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials (and in the official Nextflow documentation). 
+```
+
+The **`output`** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
+
+**Directives** are defined at the top of the process (see `trimmomatic` example) and can be any of the [following long list of possibilities](https://www.nextflow.io/docs/edge/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way.  
+
+**Conditionals** are not considered in this course.
+
 ## Running our first pipeline
 If we want to run a Nextflow script in its most basic form, we will use the following command:
 ```
-nextflow run example.nf
+nextflow run <pipeline-name.nf>
 ```
-In our case, we will replace `example.nf` with `02-basic-consepts/firstscript.nf`. First, inspect the script `02-basic-consepts/firstscript.nf` and notice how the channels are being created, passed on to the process' inputs, processed by the script section and then given to the output. 
+
+with `<pipeline-name.nf>` the name of our pipeline, e.g. `firstscript.nf`. Change the directory to `scripts/01_building_blocks` from where we will run the scripts. Inspect the script `firstscript.nf` again and notice how the channels and process are being created, how the workflow calls the process as a function with the channels as input arguments, how they are passed on as the processes' inputs, to the script section and then given to the output. 
 
 When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
 
 Nextflow will generate an output that has a standard lay-out:
 ```
-N E X T F L O W  ~  version 20.07.1
-Launching `02-basic-concepts/firstscript.nf` [elegant_curie] - revision: 9f886cc00a
-executor >  local (2)
+N E X T F L O W  ~  version 20.10.0
+Launching `firstscript.nf` [elegant_curie] - revision: 9f886cc00a
 executor >  local (2)
 [5e/195314] process > valuesToFile (2) [100%] 2 of 2 ✔
 results file: /path/to/work/51/7023ee62af2cb4fdd9ef654265506a/result.txt
 results file: /path/to/work/5e/195314955591a705e5af3c3ed0bd5a/result.txt
 ```
+
 The output consists of:
 - Version of nextflow 
 - Information regarding the script that has ran with an identifier name
 - Hash with process ID, progress and caching information
 - Optional output printed to the screen as defined in the script (if present)
-The results are stored in the results file as described in the two last lines. By default the results of a process are stored in the `work/` directory in subfolders with names defined by the hashes. 
 
-Besides the output, also a bunch of hidden `.command.*` files are present:
-
-- .exitcode, contains 0 if everything is ok, another value if there was a problem.
-- .command.log, contains the log of the command execution. Often is identical to .command.out
-- .command.out, contains the standard output of the command execution
-- .command.err, contains the standard error of the command execution
-- .command.begin, contains what has to be executed before .command.sh
-- .command.sh, contains the block of code indicated in the process
-- .command.run, contains the code made by nextflow for the execution of .command.sh and contains environmental variables, eventual invocations of linux containers etc
-
-Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `02-basic-consepts/fifo.nf` and inspect the order that the channels are being processed. 
+The results are stored in the results file as described in the two last lines. By default the results of a process are stored in the `work/` directory in subfolders with names defined by the hashes. Besides the output that we generated, also a bunch of hidden `.command.*` files are present:
 
 ```
-N E X T F L O W  ~  version 20.07.1
-Launching `02-basic-concepts/fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
+|- work/
+|   |
+|   |- 51
+|   |   |
+|   |   |- .command.begin
+|   |   |- .command.err
+|   |   |- .command.log
+|   |   |- ...
+|   |   
+|   |- 5e
+|   |   |- ...
+... 
+
+
+```{tab} .command.log
+`.command.log`, contains the log of the command execution. Often is identical to .command.out
+```
+```{tab} .command.out
+`.command.out`, contains the standard output of the command execution
+```
+```{tab} .command.err
+`.command.err`, contains the standard error of the command execution
+```
+```{tab} .command.begin
+`.command.begin`, contains what has to be executed before .command.sh
+```
+```{tab} .command.sh
+`.command.sh`, contains the block of code indicated in the process
+```
+```{tab} .command.run
+`.command.run`, contains the code made by nextflow for the execution of .command.sh and contains environmental variables, eventual invocations of linux containers etc
+```
+```{tab} .exitcode
+`.exitcode`, contains 0 if everything is ok, another value if there was a problem.
+```
+
+---
+
+
+Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `fifo.nf` and inspect the order that the channels are being processed. 
+
+```
+N E X T F L O W  ~  version 20.10.0
+Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
 [-        ] process > whosfirst -
 This is job number 6
 This is job number 3
@@ -395,13 +439,13 @@ process python {
 }
 ```
 
-```{note}
-Directives will be handled further on in the course, conditionals are not considered here.
-```
+
+
+Two types of parameters!
 
 
 
-Exercises:
+## Exercises:
 
 Using the operator view to inspect the result, print out a message in the output of Nextflow running 
 
@@ -462,3 +506,14 @@ workflow{
     split_csv(samples_ch)
 }
 ``` 
+
+## Futher reading on DSL2
+Nextflow recently went through a big make-over. The premise of the next version, using DSL2, is to make the pipelines more modular and simplify the writing of complex data analysis pipelines. 
+
+Here is a list of the major changes: 
+- Following the shebang line, the nf-script wil start with the following line: `nextflow.enable.dsl=2` (not to be mistaken with *preview*).
+- When using DSL1 each channel could only be consumed once, this is ommited in DSL2. Once created, a channel can be consumed indefinitely. 
+- A process on the other hand can still only be used once in DSL2 
+- A new term is introduced: `workflow`. In the workflow, the processes are called as functions with input arguments being the channels. 
+- Regarding the processes, the new DSL separates the definition of a process from its invocation. This means that in DSL1 the process was defined and also run when the script was invoked, however in DSL2, the definition of a process does not necessarily mean that it will be run. 
+- Moreover, within processes there are no more references to channels (i.e. `from` and `into`). The channels are passed as inputs to the processes which are defined and invoked in the `workflow`. 
