@@ -30,7 +30,3 @@ There are several ways of accessing the VM via SSH:
 ## Communication platform
 We will use Zoom for this training. Participants should have received the link to the Zoom meeting. 
 
-## Course materials
-The course materials are available in the following repositories and websites:
-- [Containers: presentation & theory]() 
-Nextflow: Course materials can be found on the website: https://nextflow-workshop.readthedocs.io/en/latest/
