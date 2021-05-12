@@ -73,7 +73,7 @@ myst_enable_extensions = [
 ]
 myst_heading_anchors = 3
 
-html_logo = 'img/ELIXIR_BELGIUM_white_background.png'
+#html_logo = 'img/ELIXIR_BELGIUM_white_background.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

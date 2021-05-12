@@ -22,15 +22,6 @@ to-do
 
 The course materials are focused on the newer version of Nextflow DSL2. This is the newest version of the Nextflow language and the *de-facto* standard for writing new pipelines in Nextflow. In fact, DSL1 is supposed to be fading out and chances are that the support for DSL1 will be gone within a year or so. Must you have any questions regarding pipelines written in DSL1, feel free to ask any questions during the workshop. 
 
-## Prerequisites
-This course requires familiarity with the command-line. You should feel confident interacting with the command-line and launch commands and tools from there. Additionally, Docker containers will be used during the course. 
-
-## Installations
-The following software is installed for you and is essential to follow the course and write your own pipelines:
-- [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html#installation)
-- [Docker](https://docs.docker.com/engine/install/)
-- [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/)
-
 ## References and further reading
 Here are some great tips of where you can learn more and where to get inspiration for writing your own pipelines: 
 - Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
