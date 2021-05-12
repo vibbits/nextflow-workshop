@@ -1,6 +1,6 @@
 # Nextflow workshop
 
-This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. If you would like to get started with the materials, please visit https://nextflow-workshop.readthedocs.io/en/latest/.
+This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. If you would like to get started with the materials, please visit the website: [nextflow-workshop.rtfd.io](https://nextflow-workshop.rtfd.io).
  
 
 
