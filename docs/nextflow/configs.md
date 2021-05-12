@@ -185,10 +185,10 @@ params {
 
 ## Extra exercises
 
-````{tab} Exercise 4.1
+````{tab} Extra exercise 1
 Run the nextflow-io/rnaseq-nf locally with Docker. 
 ```` 
-````{tab} Solution 4.1
+````{tab} Solution 1
 ```
 nextflow run nextflow-io/rnaseq-nf -profiles standard -with-docker
 ```
@@ -199,11 +199,11 @@ nextflow run nextflow-io/rnaseq-nf -profiles standard,docker
 ```` 
 --- 
 
-````{tab} Exercise 4.2
+````{tab} Extra exercise 2
 Knowing the above, change the parameters of the standard profile so it takes different reads. How does the pipeline react, which reads are being used as inputs?
 ````
 
-````{tab} Solution 4.2
+````{tab} Solution 2
 To change anything in the configuration file, the nextflow.config file needs to be in the same directory from where we are running the pipeline. For this, you can use the following command: `nextflow clone <pipeline-name>` to clone (download) the pipeline locally. Then, open an editor and change the `nextflow.config` file so it contains the following:
 ```
 standard {

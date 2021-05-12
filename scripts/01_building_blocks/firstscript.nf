@@ -15,6 +15,7 @@ strings_ch = Channel.from('a','b')
 
 // Defining the process that is executed
 process valuesToFile {
+    tag  "$nums,$strs" 	
 
     input: 
     val nums

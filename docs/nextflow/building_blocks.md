@@ -256,7 +256,7 @@ Each process is executed independently and isolated from any other process. They
 :align: center
 ```
 
-Here is a couple of examples of processes:
+Here are a couple of examples of processes:
 
 ````{tab} FastQC
 Quality control process with `fastqc`
@@ -321,15 +321,15 @@ process trimmomatic {
 
 ---
 
-The `input` declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name. The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
+The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name. The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
 
 ```{warning}
 The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials (and in the official Nextflow documentation). 
 ```
 
-The **`output`** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
+The **output** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
 
-**Directives** are defined at the top of the process (see `trimmomatic` example) and can be any of the [following long list of possibilities](https://www.nextflow.io/docs/edge/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way.  
+**Directives** are defined at the top of the process (see `trimmomatic` example) and can be any of the [following long list of possibilities](https://www.nextflow.io/docs/edge/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way. 
 
 **Conditionals** are not considered in this course.
 
@@ -354,12 +354,72 @@ process python {
 
 Check the output of the script in the `.command.out` file of the work-directory. 
 
+---
 
+Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `fifo.nf` and inspect the order that the channels are being processed. 
 
- 
+```
+N E X T F L O W  ~  version 20.10.0
+Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
+[-        ] process > whosfirst -
+This is job number 6
+This is job number 3
+This is job number 7
+This is job number 8
+This is job number 5
+This is job number 4
+This is job number 1
+This is job number 2
+This is job number 9
+executor >  local (10)
+[4b/aff57f] process > whosfirst (10) [100%] 10 of 10
+```
 
-## Exercise
 ````{tab} Exercise 1.3.1
+The `tag` directive is added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `firstscript.nf` and inspect the output. 
+````
+````{tab} Solution 1.3.1
+The process should be adapted, containing the following tag line in the directives. 
+```
+// Defining the process that is executed
+process valuesToFile {
+    tag  "$nums,$strs" 	
+
+    input: 
+    val nums
+    val strs
+    
+    output:
+    path 'result.txt', emit: result_ch
+    
+    """
+    echo $nums and $strs > result.txt
+    """
+}
+```
+When you execute the pipeline, the processes overwrite into one line and it is not very clear in which hashed work directory the outputs are. Therefore, you can use the following to follow the execution of your pipeline:
+```
+nextflow run firstscript.nf -bg > nf.log
+tail -f nf.log
+```
+````
+
+---
+
+### 4. Workflows
+Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow`, the processes are called as functions with input arguments being the channels. 
+
+The output that is generated in a process, needs to be emited (`emit`) in order to serve as an input for a next process. The `trimmomatic` process defined above emits the paired trimmed and unpaired trimmed (not passing the filtering thresholds) reads as two separate outputs, resp. `trim_fq` and `untrim_fq`. The following workflow calls the `trimmomatic` process with `reads` as its input channel. Now we an access the output of this process using `trimmomatic.out.trim_fq`.
+```
+workflow{
+    trimmomatic(reads)
+}
+```
+
+
+
+## Extra exercises
+````{tab} Extra exercise 1
 Use the `view` operator to print out a message in the output of Nextflow running that looks like this: 
 
 ```
@@ -367,13 +427,15 @@ The results file can be found in: /path/to/...
 The results file can be found in: /path/to/...
 ```
 ````
-````{tab} Solution 1.3.1
+````{tab} Solution 1
 ```
 result_ch.view{ "The results file can be found in: $it"  }
 ```
 ````
 
-````{tab} Exercise 1.3.2
+---
+
+````{tab} Extra exercise 2
 
 You need to execute a task for each record in one or more CSV files.
 
@@ -394,7 +456,7 @@ Given the file `input.csv` with the following content:
 
 ```` 
 
-````{tab} Solution 1.3.2
+````{tab} Solution 2
 
 ```
 #!/usr/bin/env nextflow

@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'bioinformatics-tutorials'
+project = 'containers-workflows-workshop'
 copyright = '2021, tmuylder'
 author = 'tmuylder'
 
@@ -48,7 +48,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'furo'
-html_title = "Nextflow workshop"
+html_title = "Containers and Workflows workshop"
 
 html_theme_options = {
     "light_css_variables": {

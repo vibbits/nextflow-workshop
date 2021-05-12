@@ -1,3 +1,15 @@
+# to do
+
+
+## Processes:
+Exercise with when-clause in process:
+- https://github.com/nextflow-io/patterns/blob/master/docs/conditional-process.adoc
+
+Optional file:
+- https://github.com/nextflow-io/patterns/blob/master/docs/optional-input.adoc
+
+Rename process output file:
+- https://github.com/nextflow-io/patterns/blob/master/docs/publish-rename-outputs.adoc
 
 Implicit variables: 
 - https://www.nextflow.io/docs/edge/script.html#implicit-variables

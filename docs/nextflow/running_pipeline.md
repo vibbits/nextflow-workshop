@@ -102,24 +102,7 @@ The results are stored in the results file as described in the two last lines. B
 ---
 
 
-Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `fifo.nf` and inspect the order that the channels are being processed. 
 
-```
-N E X T F L O W  ~  version 20.10.0
-Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
-[-        ] process > whosfirst -
-This is job number 6
-This is job number 3
-This is job number 7
-This is job number 8
-This is job number 5
-This is job number 4
-This is job number 1
-This is job number 2
-This is job number 9
-executor >  local (10)
-[4b/aff57f] process > whosfirst (10) [100%] 10 of 10
-```
 
 ## Pipeline vs Nextflow parameters
 
