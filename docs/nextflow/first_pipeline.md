@@ -46,16 +46,16 @@ The first line of our script is always a shebang line, declaring the environment
 
 ```{note}
 - `$launchDir`: The directory from where the script is launched (replaces `$baseDir` in version >20). 
-- There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created, assigning channel values to a variable or using `.set{}`, etc.) 
+- There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created,...
 ```
 
-Let's first run this script with the following command. If you have `htop` installed, keep an eye on the distribution of the workload and notice how Nextflow implicitly parallelises the jobs. 
+Let's first run this script with the following command. If you have `htop` installed, keep an eye on the distribution of the workload and notice how Nextflow parallelises the jobs. 
 ```
 nextflow run fastqc_1.nf
 ```
 
 ```{note}
-Make sure to `conda create -n nf-workshop environment.yml` and `conda activate nf-workshop`.  
+Make sure that the tool `fastQC` is installed. We can create a Conda environment with: `conda create -n nf-workshop environment.yml` and `conda activate nf-workshop`.  
 ```
 
 
@@ -95,11 +95,8 @@ Run in the background and push output of nextflow to the log file. No need of ex
 
 ````{tab} Exercise 2.4
 Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html?highlight=fromfilepairs)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run fastqc_1.nf --reads wrongfilename`.
-```{hint}
-
-``` 
-
 ````
+
 ````{tab} Solution 2.4
 Result: `fastqc_3.nf` 
 ````
@@ -107,8 +104,8 @@ Result: `fastqc_3.nf`
 --- 
 
 ````{tab} Exercise 2.5
-Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/process.html?highlight=publishdir#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output.
-- Can you guess what might happen if we set the mode to move? (`mode: 'move'`)  
+Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/process.html?highlight=publishdir#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results. 
+
 
 ````
 ````{tab} Solution 2.5
@@ -125,7 +122,7 @@ Files are copied into the specified directory in an asynchronous manner, thus th
 --- 
 
 
-The final FastQC script is given in `fastqc.final.nf`. 
+The final FastQC script is given in `fastqc_final.nf`. 
 
 
 ## Quality filtering with `trimmomatic` 
@@ -171,7 +168,7 @@ include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/modul
 ```
 Now we're ready to use a process, defined in a module, multiple times in a workflow. 
 
-Investigate & run the script `subworkflow.nf` which contains the following code snippet
+Investigate & run the script `modules.nf` which contains the following code snippet
 ```
 ...
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/../../modules/fastqc" 
@@ -278,3 +275,22 @@ The `take:` declaration block defines the input channels of the sub-workflow, `m
 ```
 
 
+
+
+## Extra exercises
+
+````{tab} Extra exercise 1
+Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/edge/metadata.html). 
+````
+````{tab} Solution 1
+The solution is given in `RNAseq_final.nf`
+````
+
+---
+
+````{tab} Extra exercise 2
+Write a Nextflow script for a tool that you use in your research. Use the same approach with parameters, channels, process in a module, and a workflow. 
+````
+````{tab} Solution 2
+If you are stuck, don't hesitate to ask for help! 
+````

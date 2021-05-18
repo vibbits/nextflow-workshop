@@ -51,13 +51,13 @@ SAindexNbases    : $params.genomeSAindexNbases
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-genome = file(params.genome)
-gtf = file(params.gtf)
+// Define the channels for the genome and reference file
+...
 
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
 include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
-include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
-include { multiqc } from "${launchDir}/../../modules/multiqc" 
+// Import the star indexing and alignment processes from the modules
+...
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -69,9 +69,9 @@ workflow {
   fastqc_trim(trimmomatic.out.trim_fq)
 	
   // Mapping
-  star_idx(genome, gtf)
-  star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)
+  ... // <indexing_process(genome_channel, gtf_channel)
+  ... // <mapping_process(trimmed_reads_ch, indexed_genome_ch, gtf_channel)
+
+  // Multi QC
   
-  // Multi QC on all results
-  multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
 }

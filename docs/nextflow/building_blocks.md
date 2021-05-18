@@ -23,10 +23,11 @@ What is the downside of similar relatively simple pipelines?
 
 ```{tab} Solution
 There are a couple of suboptimal things happening here:
-- Sequential flow of data, there is no parallelization
-- Unclear which version of tools are used
-- Will it work on my machine? Are the tools installed, is the data there? What about HPC clusters or Cloud environments?
-- What if the pipeline fails somewhere in the middle, we need to restart the pipeline from the beginning
+- Will it use the available resources optimally? 
+- Which versions of the tools are being used? 
+- Will it work on my machine (cfr. installation of tools)? 
+- Can we scale it to HPC clusters or Cloud environments?
+- What if the pipeline fails somewhere in the middle, we need to restart the pipeline from the beginning?
 
 ```
 
@@ -88,7 +89,7 @@ process valuesToFile {
     val strs
     
     output:
-    path 'result.txt', emit: result_ch
+    path 'result.txt'
     
     """
     echo $nums and $strs > result.txt
@@ -98,7 +99,6 @@ process valuesToFile {
 // Running a workflow with the defined processes  
 workflow{
     valuesToFile(numbers_ch, strings_ch)
-    valuesToFile.out.result_ch.view()
 }
 ```
 
@@ -110,7 +110,7 @@ Besides these main building blocks, we also already highlight the existence of t
 params.input_read = '/path/to/read_1.fq'
 
 // use the input_read parameter as an input for the channel
-input_read_ch = fromPath(input_read)
+input_read_ch = Channel.fromPath(input_read)
 ```
 
 Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime. 
@@ -145,14 +145,15 @@ These channels can then be used by operators or serve as an input for the proces
 
 
 ````{tab} Exercise 1.1.1
-Create a channel consisting of multiple paired-end files by using wildcard * and options {1,2}.
+Inspect and edit the `template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
+
+Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
+
 ````
 
 ````{tab} Solution 1.1.1
-```
-paired_ch = Channel.fromFilePairs('data/*{1,2}.fastq')
+The solution is available in the file `template-paired-end.nf`
 
-```
 ````
 
 ---
@@ -161,15 +162,25 @@ paired_ch = Channel.fromFilePairs('data/*{1,2}.fastq')
 
 
 ````{tab} Exercise 1.1.2
-Which operators do you need to create a channel from a csv-file (`input.csv`)? Write how you would generate the channel. 
+Which operators do you need to create a channel from a csv-file (`input.csv`)? Write how you would generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder. 
+
+| sampleId | Read 1                        | Read 2                        |
+|----------|-------------------------------|-------------------------------|
+| 01       | data/WT_lib1_R1.fq.gz         | data/WT_lib1_R2.fq.gz         |
+| 02       | data/mut_lib1_R1.fq.gz        | data/mut_lib1_R2.fq.gz        |
+
+Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
+
 ````
 
 ````{tab} Solution 1.1.2
+The solution is available in the file `template-csv.nf`
+
 The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
 
 ```
 samples_ch = Channel
-                .fromPath('input.csv')
+                .fromPath('input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
                 .view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
 ```
@@ -180,7 +191,7 @@ samples_ch = Channel
 
 ### 2. Operators
 Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
-- `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process. 
+- `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type). 
 ```
 Channel
     .from( 1, 2, 3, 4 )
@@ -210,19 +221,6 @@ z
 ```
 
 
-````{tab} Exercise 1.2.1
-Change the last operator in the script from the previous exercise (where we read in the `input.csv` file). Use a transforming operator to prepare the data for further usage. 
-````
-
-````{tab} Solution 1.2.1
-
-```
-samples_ch = Channel
-                .fromPath('input.csv')
-                .splitCsv(header:true)
-                .map{ row-> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
-```
-````
 
 ---
 
@@ -257,6 +255,27 @@ Each process is executed independently and isolated from any other process. They
 ```
 
 Here are a couple of examples of processes:
+
+
+````{tab} Writing a file
+Creating an output file `results.txt` with inputs from channels `nums` and `strs`
+```
+process valuesToFile {
+    input: 
+    val nums
+    val strs
+    
+    output:
+    path 'result.txt'
+    
+    script:
+    """
+    echo $nums and $strs > result.txt
+    """
+}
+```
+````
+
 
 ````{tab} FastQC
 Quality control process with `fastqc`
@@ -321,7 +340,7 @@ process trimmomatic {
 
 ---
 
-The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name. The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
+The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name ([more information](https://www.nextflow.io/docs/edge/process.html#inputs)). The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
 
 ```{warning}
 The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials (and in the official Nextflow documentation). 
@@ -376,7 +395,7 @@ executor >  local (10)
 ```
 
 ````{tab} Exercise 1.3.1
-The `tag` directive is added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `firstscript.nf` and inspect the output. 
+A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `firstscript.nf` and inspect the output. 
 ````
 ````{tab} Solution 1.3.1
 The process should be adapted, containing the following tag line in the directives. 
@@ -420,16 +439,16 @@ workflow{
 
 ## Extra exercises
 ````{tab} Extra exercise 1
-Use the `view` operator to print out a message in the output of Nextflow running that looks like this: 
+Use the `view` operator on the output of the `valuesToFile` process in the script `firstscript.nf`.  
 
-```
-The results file can be found in: /path/to/...
-The results file can be found in: /path/to/...
-```
 ````
 ````{tab} Solution 1
 ```
-result_ch.view{ "The results file can be found in: $it"  }
+// Running a workflow with the defined processes  
+workflow{
+    valuesToFile(numbers_ch, strings_ch)
+    valuesToFile.out.result_ch.view()
+}
 ```
 ````
 
@@ -437,22 +456,24 @@ result_ch.view{ "The results file can be found in: $it"  }
 
 ````{tab} Extra exercise 2
 
-You need to execute a task for each record in one or more CSV files.
+You need to execute a hypothetical task for each record in a CSV files. Write a Nextflow script containging the following: 
 
-Strategy:  
+1. Create a channel for the input (`input.csv`):
+    - Read the CSV file line-by-line using the `splitCsv` operator, then use the `map` operator to return a tuple with the required field for each line. Finally use the resulting channel as input for the process.
 
-Read the CSV file line-by-line using the `splitCsv` operator, then use the `map` operator to return a tuple with the required field for each line. Finally use the resulting channel as input for the process.
+2. Create a process that:
+    - accepts a tuple with the information for each line as an input. 
+    - has the following script: `echo your_command --sample $samplevariable --reads $readvariable1 $readvariable2`
 
-Code:   
+3. Create a workflow that calls the process with the input channel. 
 
-Given the file `input.csv` with the following content:  
+Given the file `input.csv` (in the exercises folder) with the following content:  
 
 | sampleId | Read 1                        | Read 2                        |
 |----------|-------------------------------|-------------------------------|
-| 01       | reads/sample_01_read_1.fq.gz  | reads/sample_01_read_2.fq.gz  |
-| 02       | reads/sample_02_read_1.fq.gz  | reads/sample_02_read_2.fq.gz  |
-| 03       | reads/sample_03_read_1.fq.gz  | reads/sample_03_read_2.fq.gz  |
-| 04       | reads/sample_04_read_1.fq.gz  | reads/sample_04_read_2.fq.gz  |
+| 01       | data/WT_lib1_R1.fq.gz         | data/WT_lib1_R2.fq.gz         |
+| 02       | data/mut_lib1_R1.fq.gz        | data/mut_lib1_R2.fq.gz        |
+
 
 ```` 
 
@@ -483,8 +504,11 @@ workflow{
     samples_ch.view()
     split_csv(samples_ch)
 }
+
 ``` 
 ````
+
+
 
 --- 
 

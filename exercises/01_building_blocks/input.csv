@@ -1,0 +1,3 @@
+sampleId,forward_read,reverse_read
+1,data/WT_lib1_R1.fq.gz,data/WT_lib1_R2.fq.gz
+2,data/mut_lib1_R1.fq.gz,data/mut_lib1_R2.fq.gz

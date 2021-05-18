@@ -167,9 +167,9 @@ The parameters can be defined with `params.<name> = <value>` or join them all in
 // Define project parameters needed for running the pipeline
 params {
     // General parameters
-    projdir = "az://nf-blob-container/data"
-    refdir = "az://nf-blob-container/references"
-    outdir = "az://nf-blob-container/data-analysis"
+    projdir = "/path/to/data"
+    refdir = "/path/to/references"
+    outdir = "/path/to/data-analysis"
 
     // Reference genome and annotation files
     genome = "${refdir}/Drosophila_melanogaster.BDGP6.dna.fa"
@@ -190,12 +190,10 @@ Run the nextflow-io/rnaseq-nf locally with Docker.
 ```` 
 ````{tab} Solution 1
 ```
-nextflow run nextflow-io/rnaseq-nf -profiles standard -with-docker
-```
-Actually, by default the local executor will be chosen and it is hence not necessary to select the standard profile. Or,
-```
 nextflow run nextflow-io/rnaseq-nf -profiles standard,docker
 ```
+The local executor will be chosen and it is hence not necessary to select the standard profile. 
+
 ```` 
 --- 
 

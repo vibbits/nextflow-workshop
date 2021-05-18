@@ -75,7 +75,7 @@ The results are stored in the results file as described in the two last lines. B
 |   |- 5e
 |   |   |- ...
 ... 
-
+```
 
 ```{tab} .command.log
 `.command.log`, contains the log of the command execution. Often is identical to .command.out
@@ -106,45 +106,17 @@ The results are stored in the results file as described in the two last lines. B
 
 ## Pipeline vs Nextflow parameters
 
-There are two types of parameters! Let's have a look at the `fastqc.nf` script:
+There are two types of parameters! 
 
-```bash
-#!/usr/bin/env nextflow
-nextflow.enable.dsl=2
+Pipeline-specific parameters are the parameters defined in the pipeline script (e.g. `params.reads`). They are related to the pipeline and can be modified/overwritten on the command-line with a **double dash**: e.g parameter `params.reads` in the `fastqc.nf` script can be set as `--reads` in the command-line. 
 
-params.reads = "$launchDir/../../data/*.fq.gz"
-
-/**
- * Quality control fastq
- */
-
-reads_ch = Channel
-    .fromPath( params.reads )
-    
-process fastqc {
-
-    input:
-    file read  
-    
-    script:
-    """
-    fastqc ${read}
-    """
-}
-
-workflow{
-    fastqc(reads_ch)
-}
-```
-
-The parameters defined in the pipeline script (e.g. `params.reads`) are parameters related to the pipeline and can be modified/overwritten on the command-line with a double dash: e.g parameter `params.reads` in the `fastqc.nf` script can be set as `--reads` in the command-line. 
-
-Nextflow-specific parameters are set in the command-line with a **single** dash and are predefined in Nextflow's language. Here are some examples:
-- `-bg` runs the workflow in the background
+Nextflow-specific parameters are set in the command-line with a **single dash** and are predefined in Nextflow's language. Here are some examples:
+- `-bg` runs the workflow in the background.
 - `-resume` resumes the parameter from where it failed last time and uses cached information from the `work/` directory.
-- `-with-report` creates a report of how the pipeline ran (performance, memory usages etc.)
-- `-work-dir` overwrite the name of the directory where intermediate result files are written
+- `-with-report` creates a report of how the pipeline ran (performance, memory usages etc.).
+- `-work-dir` overwrite the name of the directory where intermediate result files are written.
 - ...   
+
 We will discover these parameters while going through the course materials. 
 
 
@@ -164,7 +136,7 @@ One of them is to pull the pipeline using `nextflow pull`, like so:
 ```
 nextflow pull nextflow-io/rnaseq-nf
 ```
-The latest version of the pipeline is implemented using DSL2, the new syntax extension enables Nextflow to use modules. Imagine that you would like to run the last DSL1 version of the pipeline (v1.2), we can pull this specific version using:
+The latest version of the pipeline is written in DSL2. Imagine that you would like to run the last DSL1 version of the pipeline (v1.2), we can pull this specific version using:
 ```
 nextflow pull nextflow-io/rnaseq-nf -r v1.2
 ```
@@ -184,16 +156,6 @@ After importing our pipeline of interest, we can run it on the command-line usin
 ```{note}  
 When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), the pipeline will also immediately be fetched from GitHub and run locally. 
 ``` 
-
-With the reproducibility aspect in mind, at a certain point we want to be sure that we are running a specific version of the pipeline. Combining this with the above, we get:
-```
-nextflow run nextflow-io/rnaseq-nf -r v1.2
-```
-
-
-
-
-
 
 
 
