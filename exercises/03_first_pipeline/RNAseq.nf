@@ -10,8 +10,8 @@ params.outdir = "$launchDir/results"
 
 // Input parameters
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
-params.genome = "${params.datadir}/Drosophila_melanogaster.BDGP6.dna.fa"
-params.gtf = "${params.datadir}/Drosophila_melanogaster.BDGP6.85.sample.gtf"
+params.genome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+params.gtf = "${params.datadir}/ggal_1_48850000_49020000.bed.gff"
 
 // Trimmomatic
 params.slidingwindow = "SLIDINGWINDOW:4:15"
@@ -21,7 +21,6 @@ params.avgqual = "AVGQUAL:30"
 params.threads = 2
 params.genomeSAindexNbases = 10
 params.lengthreads = 98
-params.indexpath = "${params.datadir}/index/"
 
 
 println """\

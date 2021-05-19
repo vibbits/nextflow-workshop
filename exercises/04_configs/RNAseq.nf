@@ -10,8 +10,8 @@ params.outdir = "$launchDir/results"
 
 // Input parameters
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
-params.genome = "${params.datadir}/Drosophila_melanogaster.BDGP6.dna.fa"
-params.gtf = "${params.datadir}/Drosophila_melanogaster.BDGP6.85.sample.gtf"
+params.genome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+params.gtf = "${params.datadir}/ggal_1_48850000_49020000.bed.gff"
 
 // Trimmomatic
 params.slidingwindow = "SLIDINGWINDOW:4:15"
@@ -21,8 +21,6 @@ params.avgqual = "AVGQUAL:30"
 params.threads = 2
 params.genomeSAindexNbases = 10
 params.lengthreads = 98
-params.indexpath = "${params.datadir}/index/"
-
 
 println """\
       LIST OF PARAMETERS
@@ -41,6 +39,7 @@ Sliding window   : $params.slidingwindow
 Average quality  : $params.avgqual
 ================================
              STAR
+Threads          : $params.threads
 Length-reads     : $params.lengthreads
 SAindexNbases    : $params.genomeSAindexNbases
 ================================
@@ -78,7 +77,8 @@ workflow {
 
 workflow.onComplete {
     println "Pipeline completed at: $workflow.complete"
-    println "Execution status: $workflow.success ? 'Succesful' : 'Failed' }"
+    println "Time to complete workflow execution: $workflow.duration"
+    println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
 }
 
 workflow.onError {

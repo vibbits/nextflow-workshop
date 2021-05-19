@@ -188,8 +188,6 @@ Similarly as described above, we can extend this pipeline and map our trimmed re
 
 ````{tab} Exercise 2.6
 In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. Complete the script `RNAseq.nf` so it includes these processes and hence the pipeline is extended with an indexing and alignment step. The parameters used in the modules are already defined for you. 
-
-The alignment tool `star` is not installed locally. It can be installed with Conda: `conda install -c bioconda star`
 ````
 
 ````{tab} Solution 2.6
@@ -291,8 +289,19 @@ The solution is given in `RNAseq_final.nf`
 ---
 
 ````{tab} Extra exercise 2
-Write a Nextflow script for a tool that you use in your research. Use the same approach with parameters, channels, process in a module, and a workflow. 
+Adapt the `RNAseq_final.nf` script so it uses Salmon as an aligner and quantifier. In our temporary solution the alignment with Star has been replaced with Salmon, it would be better to create a subworkflow so you can choose upon `-entry` to work with Star or Salmon.  
 ````
 ````{tab} Solution 2
+The solution is given in `RNAseq_salmon.nf`. 
+````
+
+
+
+---
+
+````{tab} Extra exercise 3
+Write a Nextflow script for a tool that you use in your research. Use the same approach with parameters, channels, process in a module, and a workflow. 
+````
+````{tab} Solution 3
 If you are stuck, don't hesitate to ask for help! 
 ````

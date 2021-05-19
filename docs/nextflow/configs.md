@@ -189,16 +189,16 @@ params {
 Complete the `nextflow.config` and `params.config` files. These config files should accompany the script `RNAseq.nf`. The commmand to run this pipeline should be: `nextflow run RNAseq.nf -profile docker`. 
 ```` 
 ````{tab} Solution 1
-
+The solution is available in the folder with exercises of the next chapter `05_reports`. 
 ```` 
 --- 
 
 ````{tab} Extra exercise 2
-Run the nextflow-io/rnaseq-nf locally with Docker. 
+Run the `nextflow-io/rnaseq-nf` locally with Docker. 
 ```` 
 ````{tab} Solution 2
 ```
-nextflow run nextflow-io/rnaseq-nf -profiles standard,docker
+nextflow run nextflow-io/rnaseq-nf -profile standard,docker
 ```
 The local executor will be chosen and it is hence not necessary to select the standard profile. 
 
@@ -206,17 +206,29 @@ The local executor will be chosen and it is hence not necessary to select the st
 --- 
 
 ````{tab} Extra exercise 3
-Knowing the above, change the parameters of the standard profile so it takes different reads. How does the pipeline react, which reads are being used as inputs?
+In the previous extra exercise we ran a Nextflow pipeline residing on GitHub. Imagine that we want to run this pipeline, however we need to do some minor configurations to it. Let's say that we want to change the docker profile. Find a way to edit the `nextflow.config` file and change the contents of docker profile so it includes the following: 
+```
+...
+    docker.enabled = true
+    docker.runOptions = '-u \$(id -u):\$(id -g)'
+``` 
 ````
 
 ````{tab} Solution 3
-To change anything in the configuration file, the nextflow.config file needs to be in the same directory from where we are running the pipeline. For this, you can use the following command: `nextflow clone <pipeline-name>` to clone (download) the pipeline locally. Then, open an editor and change the `nextflow.config` file so it contains the following:
+To change anything in the configuration file, the `nextflow.config` file needs to be edited. There are two options for this: in the `assets` where the pipeline is stored or by cloning the pipeline in our local folder structure. For this, you can use the following command: `nextflow clone <pipeline-name>` to clone (download) the pipeline locally. Then, open an editor and change the `nextflow.config` file so it contains the following:
+
+```{warning}
+Watch out with nested `git` folders!
 ```
-standard {
-    process.container = 'quay.io/nextflow/rnaseq-nf:latest'
-    params.reads = "$launchDir/../../data/*{1,2}.fq.gz"
+
+```
+profiles {
+    docker {
+        docker.enabled = true
+        docker.runOptions = '-u \$(id -u):\$(id -g)'
+    }
 }
-```
+``` 
 ````
 
 

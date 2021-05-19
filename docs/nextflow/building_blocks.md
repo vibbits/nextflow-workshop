@@ -3,7 +3,7 @@
 In the first chapter we will elaborate on how Nextflow is designed, its advantages and disadvantages, the basic components, etc. 
 
 ## Introduction
-Writing pipelines to automate processes is not something new. In the `data/` folder we've written a bash script that downloads the data that we will use throughout this tutorial. These bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at another example:
+Writing pipelines to automate processes is not something new. In the `data/` folder we've written a bash script that can download some extra data (note: originally we wanted to use this data, however due to low resources on our VMs we have already installed some other data in the `data/` folder). These bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at another example:
 
 ```
 #!/bin/bash
