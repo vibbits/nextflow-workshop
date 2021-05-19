@@ -1,7 +1,9 @@
 #!/usr/bin/env nextflow
+nextflow.enable.dsl=2
 
 process python {
     
+    script:
     """
     #!/usr/bin/python3
 
@@ -11,4 +13,9 @@ process python {
     """
 }
 
+workflow {
+    python()
+}
+
 // result visible in work directory in .command.out
+

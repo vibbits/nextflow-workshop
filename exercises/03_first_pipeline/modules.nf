@@ -33,7 +33,8 @@ include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.  
 workflow {
-	fastqc_raw(read_pairs_ch) 
+  read_pairs_ch.view()
+  fastqc_raw(read_pairs_ch) 
   trimmomatic(read_pairs_ch)
   fastqc_trim(trimmomatic.out.trim_fq)
 }

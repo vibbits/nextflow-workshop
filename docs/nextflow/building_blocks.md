@@ -152,8 +152,13 @@ Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
 ````
 
 ````{tab} Solution 1.1.1
-The solution is available in the file `template-paired-end.nf`
+The solution is available in the file `template-paired-end.nf`.
 
+Note that the content of the channel is constructed in a following manner:
+```
+[common-name, [/path/to/read1.fq, /path/to/read2.fq]]
+```
+This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again. 
 ````
 
 ---
@@ -171,6 +176,10 @@ Which operators do you need to create a channel from a csv-file (`input.csv`)? W
 
 Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
 
+Additionally, you can use the following expression to view the contents in a clean way:
+```
+samples_ch.view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
+```
 ````
 
 ````{tab} Solution 1.1.2
@@ -182,7 +191,6 @@ The file is imported with `.fromPath()`, followed by the `splitCsv()` operator w
 samples_ch = Channel
                 .fromPath('input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
-                .view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
 ```
 ````
 
@@ -219,7 +227,6 @@ b
 3
 z
 ```
-
 
 
 ---
@@ -361,6 +368,7 @@ A script, as part of the process, can be written in any language (bash, Python, 
  
 process python {
     
+    script:
     """
     #!/usr/bin/python3
 
@@ -409,7 +417,7 @@ process valuesToFile {
     val strs
     
     output:
-    path 'result.txt', emit: result_ch
+    path 'result.txt'
     
     """
     echo $nums and $strs > result.txt
@@ -439,11 +447,18 @@ workflow{
 
 ## Extra exercises
 ````{tab} Extra exercise 1
-Use the `view` operator on the output of the `valuesToFile` process in the script `firstscript.nf`.  
+Use the `view` operator on the output of the `valuesToFile` process in the script `firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/edge/dsl2.html#process-named-output).
 
 ````
 ````{tab} Solution 1
 ```
+...
+process ... 
+    output:
+    path 'result.txt', emit: result_ch
+...
+
+
 // Running a workflow with the defined processes  
 workflow{
     valuesToFile(numbers_ch, strings_ch)
@@ -456,14 +471,14 @@ workflow{
 
 ````{tab} Extra exercise 2
 
-You need to execute a hypothetical task for each record in a CSV files. Write a Nextflow script containging the following: 
+You need to execute a hypothetical task for each record in a CSV files. Write a Nextflow script containing the following: 
 
 1. Create a channel for the input (`input.csv`):
     - Read the CSV file line-by-line using the `splitCsv` operator, then use the `map` operator to return a tuple with the required field for each line. Finally use the resulting channel as input for the process.
 
 2. Create a process that:
-    - accepts a tuple with the information for each line as an input. 
-    - has the following script: `echo your_command --sample $samplevariable --reads $readvariable1 $readvariable2`
+    - Accepts a tuple as input channel with the information from the csv-file. 
+    - Has the following script: `echo your_command --sample $samplevariable --reads $readvariable1 $readvariable2`
 
 3. Create a workflow that calls the process with the input channel. 
 
@@ -478,17 +493,17 @@ Given the file `input.csv` (in the exercises folder) with the following content:
 ```` 
 
 ````{tab} Solution 2
-
+Find the solution also in `split-csv.nf`. Inspect the command that has ran in the intermediate `work/` directory following the hashed folders and look in the file `.command.sh`.
 ```
 #!/usr/bin/env nextflow
 nextflow.enable.dsl=2
 
-params.input_csv = 'exercises/input.csv'
+params.input_csv = 'input.csv'
 
 samples_ch = Channel
                 .fromPath(params.input_csv)
                 .splitCsv(header:true)
-                .map{ row-> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
+                .map{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
 
 process split_csv {
     input:
@@ -504,7 +519,6 @@ workflow{
     samples_ch.view()
     split_csv(samples_ch)
 }
-
 ``` 
 ````
 

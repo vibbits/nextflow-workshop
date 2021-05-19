@@ -55,7 +55,7 @@ nextflow run fastqc_1.nf
 ```
 
 ```{note}
-Make sure that the tool `fastQC` is installed. We can create a Conda environment with: `conda create -n nf-workshop environment.yml` and `conda activate nf-workshop`.  
+Make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
 ```
 
 
@@ -76,7 +76,7 @@ In the following steps we will add new features to this script:
 ````{tab} Exercise 2.2
 Change the the script in order to accept & work with paired-end reads. For this we will need to:
 - Adapt something in the reads parameter (`params.reads`)
-- Change how the channel is generated (`from`)
+- Change how the channel is generated 
 - Change the `input` declaration in the process (from `path` to a `tuple`).  
 ````
 ````{tab} Solution 2.2
@@ -94,7 +94,7 @@ Run in the background and push output of nextflow to the log file. No need of ex
 --- 
 
 ````{tab} Exercise 2.4
-Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html?highlight=fromfilepairs)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run fastqc_1.nf --reads wrongfilename`.
+Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run fastqc_1.nf --reads wrongfilename`.
 ````
 
 ````{tab} Solution 2.4
@@ -177,7 +177,7 @@ include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
 // Running a workflow with the defined processes here.  
 workflow {
   read_pairs_ch.view()
-	fastqc_raw(read_pairs_ch) 
+  fastqc_raw(read_pairs_ch) 
   trimmomatic(read_pairs_ch)
   fastqc_trim(trimmomatic.out.trim_fq)
 }
@@ -188,6 +188,8 @@ Similarly as described above, we can extend this pipeline and map our trimmed re
 
 ````{tab} Exercise 2.6
 In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. Complete the script `RNAseq.nf` so it includes these processes and hence the pipeline is extended with an indexing and alignment step. The parameters used in the modules are already defined for you. 
+
+The alignment tool `star` is not installed locally. It can be installed with Conda: `conda install -c bioconda star`
 ````
 
 ````{tab} Solution 2.6

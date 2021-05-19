@@ -18,7 +18,7 @@ process star_idx {
     """
     mkdir index_dir
     
-    STAR --runThreadN $task.cpus \\
+    STAR --runThreadN $params.threads \\
       --runMode genomeGenerate \\
       --genomeDir index_dir/ \\
       --genomeFastaFiles $genome \\

@@ -155,14 +155,11 @@ After importing our pipeline of interest, we can run it on the command-line usin
 
 ```{note}  
 When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), the pipeline will also immediately be fetched from GitHub and run locally. 
+
+`nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our VMs. To fix this, simply add the parameter `-with-docker`. We will later discover what is happening when we enable this setting`. 
 ``` 
 
-
-
-
-
 ---
-
 
 
 ## Extra exercises
