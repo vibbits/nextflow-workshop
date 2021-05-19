@@ -52,7 +52,7 @@ nextflow run RNAseq.nf -profile docker -with-report -with-dag rnaseq.PNG
 The visualization will not render since the `graphviz` package is not installed, for this use: `apt install graphviz` and resume the pipeline.
 ```` 
 
-
+---
 
 ````{tab} Exercise 2
 Make an account on [`tower.nf`](https://tower.nf), add the Tower access tokens and run the workflow again so the reports is available on the tower platform. 
