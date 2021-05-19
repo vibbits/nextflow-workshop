@@ -39,7 +39,6 @@ process star_alignment {
     path gtf
 
     output:
-    //tuple val(sample), path("*.bam") ,  emit: align_bam
     path("*.bam"), emit: align_bam
 
     script:
