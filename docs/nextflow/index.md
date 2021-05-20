@@ -5,9 +5,10 @@ This tutorial aims to get you familiarized with Nextflow. After this course you 
 
 - General introduction to Nextflow 
 - Building blocks of Nextflow: processes, channels and operators, workflows and modules
+- Executing pipelines  
 - Creating our first Nextflow script(s)
-- Managing configurations: parameters, portability, execution
-- Creating reports
+- Managing configurations: parameters, portability, executors
+- Creating reports & monitoring on tower.nf
 
 ```{toctree}
 :hidden:
