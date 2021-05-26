@@ -62,11 +62,11 @@ Make sure that the tool `fastQC` is installed. Conda is already installed and ac
 In the following steps we will add new features to this script:
 
 ````{tab} Exercise 2.1
-- Overwrite the parameter `reads` on runtime (when running Nextflow on the command-line) so it only takes `WT_lib1_R1.fq.gz` as an input read. 
+- Overwrite the parameter `reads` on runtime (when running Nextflow on the command-line) so it only takes `ggal_gut_1.fq.gz` as an input read. 
 - Additionally, FastQC generates an html- and zip-file for each read. Where are the output files located? 
 ````
 ````{tab} Solution 2.1
-- `nextflow run fastqc_1.nf --reads ../../data/WT_lib1_R1.fq.gz`
+- `nextflow run fastqc_1.nf --reads ../../data/ggal_gut_1.fq.gz`
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process. 
 ````
 
