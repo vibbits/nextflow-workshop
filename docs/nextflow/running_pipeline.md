@@ -7,7 +7,7 @@ If we want to run a Nextflow script in its most basic form, we will use the foll
 nextflow run <pipeline-name.nf>
 ```
 
-with `<pipeline-name.nf>` the name of our pipeline, e.g. `firstscript.nf`. Change the directory to `scripts/02_run_first_script/` from where we will run the scripts. Inspect the script `firstscript.nf` again and notice how the channels and process are being created, how the workflow calls the process as a function with the channels as input arguments, how they are passed on as the processes' inputs, to the script section and then given to the output. 
+with `<pipeline-name.nf>` the name of our pipeline, e.g. `firstscript.nf`. Change the directory to `exercises/02_run_first_script/` from where we will run the scripts. Inspect the script `firstscript.nf` again and notice how the channels and process are being created, how the workflow calls the process as a function with the channels as input arguments, how they are passed on as the processes' inputs, to the script section and then given to the output. 
 
 ```
 #!/usr/bin/env nextflow
