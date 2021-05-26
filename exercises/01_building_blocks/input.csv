@@ -1,4 +1,3 @@
 sampleId,forward_read,reverse_read
 1,data/ggal_gut_1.fq.gz,data/ggal_gut_2.fq.gz
 2,data/ggal_liver_1.fq.gz,data/ggal_liver_2.fq.gz
-
