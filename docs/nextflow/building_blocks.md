@@ -171,8 +171,8 @@ Which operators do you need to create a channel from a csv-file (`input.csv`)? W
 
 | sampleId | Read 1                        | Read 2                        |
 |----------|-------------------------------|-------------------------------|
-| 01       | data/WT_lib1_R1.fq.gz         | data/WT_lib1_R2.fq.gz         |
-| 02       | data/mut_lib1_R1.fq.gz        | data/mut_lib1_R2.fq.gz        |
+| 01       | data/ggal_gut_1.fq.gz         | data/ggal_gut_2.fq.gz         |
+| 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
 
 Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
 
@@ -486,8 +486,8 @@ Given the file `input.csv` (in the exercises folder) with the following content:
 
 | sampleId | Read 1                        | Read 2                        |
 |----------|-------------------------------|-------------------------------|
-| 01       | data/WT_lib1_R1.fq.gz         | data/WT_lib1_R2.fq.gz         |
-| 02       | data/mut_lib1_R1.fq.gz        | data/mut_lib1_R2.fq.gz        |
+| 01       | data/ggal_gut_1.fq.gz         | data/ggal_gut_2.fq.gz         |
+| 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
 
 
 ```` 
