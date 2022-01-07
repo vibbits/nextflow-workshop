@@ -166,7 +166,7 @@ When you use `nextflow run` without pulling the pipeline first (`nextflow pull`)
 
 
 ````{tab} Extra exercise 1
-Try to modify the name of the folder where results are dumped by using a different parameter on the command-line.
+Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the name of the folder where results are dumped by using a different parameter on the command-line.
 ````
 
 ````{tab} Solution 1
@@ -183,7 +183,7 @@ nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults'
 --- 
 
 ````{tab} Extra exercise 2
-What other parameters can you modify in the rnaseq-nf pipeline?
+Which pipeline specific parameters are defined and can you modify in the rnaseq-nf pipeline?
 ````
 
 ````{tab} Solution 2
@@ -208,12 +208,12 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 - How do you download the `BABS-aDNASeq` pipeline locally?
 ````
 ````{tab} Solution 3
-3.1. As of 6/04/2021: 50 pipelines are available, of which 18 under development, 28 relased and 4 archived. 
+3.1. 07/01/2022: 57 pipelines are available, of which 19 under development, 33 relased and 5 archived. 
 
 3.2 [link](https://nf-co.re/atacseq)   
- - 1.2.1 (6/04/2021)  
- - 5 versions (as of 6/04/2021): current (1.2.1), 1.2.0, 1.1.0, 1.0.0, dev.  
- - Only 1 required parameter: `--input` (Path to comma-separated file containing information about the samples in the experiment)  
+ - 1.2.1 (07/01/2022)  
+ - 4 versions: current (1.2.1), 1.2.0, 1.1.0, and 1.0.0.  
+ - Only one required parameter: `--input` (Path to comma-separated file containing information about the samples in the experiment)  
  - `./results` (parameter `--outdir`)  
  - If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the PATH. More information is available [here](https://nf-co.re/atacseq/1.2.1/usage#main-arguments).   
 
@@ -221,6 +221,5 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
  - `samtools mpileup`  
  - version 0.30.2 (Note that the current version is 20.10.0 (6/04/2021))  
  - `git clone https://github.com/crickbabs/BABS-aDNASeq`  
-
 
 ````
