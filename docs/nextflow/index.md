@@ -20,10 +20,10 @@ configs
 reports
 ```
 
-The course materials are focused on the newer version of Nextflow DSL2. This is the newest version of the Nextflow language and the *de-facto* standard for writing new pipelines in Nextflow. In fact, DSL1 is supposed to be fading out and chances are that the support for DSL1 will be gone within a year or so. Must you have any questions regarding pipelines written in DSL1, feel free to ask any questions during the workshop. 
+The course materials are focused on the newer version of Nextflow DSL2. This is the newest version of the Nextflow language and the *de-facto* standard for writing new pipelines in Nextflow. In fact, DSL1 is supposed to be fading out and chances are that the support for DSL1 will be gone within a near future. Must you have any questions regarding pipelines written in DSL1, feel free to ask any questions during the workshop. 
 
 ## References and further reading
-Here are some great tips of where you can learn more and where to get inspiration for writing your own pipelines: 
+Here are some great tips for learning and to get inspired for writing your own pipelines: 
 - Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
 - Reach out to the community on Gitter ([link](https://gitter.im/nextflow-io/nextflow))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
