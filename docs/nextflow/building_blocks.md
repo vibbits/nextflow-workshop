@@ -36,7 +36,7 @@ There are a couple of suboptimal things happening here:
 In response to that, workflow managers such as Nextflow were built, aimed to deal with more complex situations. Nextflow is designed around the idea that Linux has many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations. 
 
 
-By definition, Nextflow is a reactive workflow framework and a programming Domain Specific Language that eases the writing of data-intensive computational pipelines[[1](https://www.nextflow.io/)]. Nextflow scripting is an extension of the Groovy programming language, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in a way that simplifies the writing of code and is more approachable. 
+By definition, Nextflow is a reactive workflow framework and a programming Domain Specific Language that eases the writing of data-intensive computational pipelines[[1](https://www.nextflow.io/)]. Nextflow scripting is an extension of the Groovy programming language, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in a way that simplifies the writing of code and is more approachable. 
 
 ```{image} ../img/nextflow/java-groovy-nextflow.png
 :align: center
@@ -161,42 +161,6 @@ Note that the content of the channel is constructed in a following manner:
 This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again. 
 ````
 
----
-
-
-
-
-````{tab} Exercise 1.1.2
-Which operators do you need to create a channel from a csv-file (`input.csv`)? Write how you would generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder. 
-
-| sampleId | Read 1                        | Read 2                        |
-|----------|-------------------------------|-------------------------------|
-| 01       | data/ggal_gut_1.fq.gz         | data/ggal_gut_2.fq.gz         |
-| 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
-
-Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
-
-Additionally, you can use the following expression to view the contents in a clean way:
-```
-samples_ch.view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
-```
-````
-
-````{tab} Solution 1.1.2
-The solution is available in the file `template-csv.nf`
-
-The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
-
-```
-samples_ch = Channel
-                .fromPath('input.csv')  // make sure that the path towards the file is correct
-                .splitCsv(header:true)
-```
-````
-
----
-
-
 ### 2. Operators
 Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type). 
@@ -228,6 +192,35 @@ b
 z
 ```
 
+
+````{tab} Exercise 1.2.1
+Create a channel from a csv-file (`input.csv`). Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content: 
+
+| sampleId | Read 1                        | Read 2                        |
+|----------|-------------------------------|-------------------------------|
+| 01       | data/ggal_gut_1.fq.gz         | data/ggal_gut_2.fq.gz         |
+| 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
+
+Test your Nextflow script with: `nextflow run <name>.nf`.
+
+````
+
+````{tab} Solution 1.2.1
+The solution is available in the file `template-csv.nf`
+
+The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
+
+```
+samples_ch = Channel
+                .fromPath('input.csv')  // make sure that the path towards the file is correct
+                .splitCsv(header:true)
+```
+
+Additionally, you can use the following expression to view the contents in a clean way:
+```
+samples_ch.view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
+```
+````
 
 ---
 
