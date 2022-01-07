@@ -1,6 +1,9 @@
 # Website related 
 docs/_build/*
 
+# Slides md file
+presentation.md
+
 # Nextflow ignoring
 .nextflow*
 work/
