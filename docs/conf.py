@@ -48,14 +48,13 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'furo'
-html_title = "Containers and Workflows workshop"
+html_title = "Nextflow workshop"
 
 html_theme_options = {
     "light_css_variables": {
         "color-brand-primary": "orange",
     },
     "navigation_with_keys": True,
-    
 }
 
 extensions = [
