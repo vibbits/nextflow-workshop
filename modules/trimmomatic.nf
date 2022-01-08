@@ -1,8 +1,3 @@
-#!/usr/bin/env nextflow
-
-// This is needed for activating the new DLS2
-nextflow.enable.dsl=2
-
 // Process trimmomatic
 process trimmomatic {
     publishDir "$params.outdir/trimmed-reads", mode: 'copy' , overwrite: true
