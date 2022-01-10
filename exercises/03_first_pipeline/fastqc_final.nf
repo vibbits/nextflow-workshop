@@ -7,7 +7,7 @@ nextflow.enable.dsl=2
 params.reads = "$launchDir/../../data/*{1,2}.fq.gz"
 params.outdir = "$launchDir/results"
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
 Reads            : $params.reads

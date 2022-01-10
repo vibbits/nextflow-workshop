@@ -18,7 +18,7 @@ params.avgqual = "AVGQUAL:30"
 // Salmon
 params.threads = 2
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL

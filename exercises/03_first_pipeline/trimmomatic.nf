@@ -11,7 +11,7 @@ params.slidingwindow = "SLIDINGWINDOW:4:15"
 params.avgqual = "AVGQUAL:30"
 
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL
