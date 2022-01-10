@@ -68,9 +68,9 @@ workflow {
   fastqc_trim(trimmomatic.out.trim_fq)
 	
   // Mapping
-  ... // <indexing_process(genome_channel, gtf_channel)
-  ... // <mapping_process(trimmed_reads_ch, indexed_genome_ch, gtf_channel)
-
+  ... 
+  ... 
+  
   // Multi QC
   
 }
