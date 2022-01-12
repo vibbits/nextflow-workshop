@@ -100,7 +100,12 @@ Combine the FastQC and MultiQC processes into a named workflow.
 --- 
 ### Step 4: Find unique sequences and plot
 
-To closely examine amplicon sequencing data and to extract from these the unique 16S sequence variants, there is an incredibly useful package in R called DADA2. You have been provided with a small R script which uses this package to count the abundance of each unique sequence in each sample. Moreover, this script also outputs a dendrogram of a hierarchical clustering of the samples based on this abundance table, giving us an idea of the beta-diversity of our samples. This script takes the preprocessed forward & reverse reads (in no specific order) as input arguments on the command line.
+To closely examine amplicon sequencing data and to extract from these the unique 16S sequence variants, there is an incredibly useful package in R called DADA2. You have been provided with a small R script which uses this package to count the abundance of each unique sequence in each sample. Based on these abundances, the script can compare samples to each other and can construct a distance tree (also known as a dendrogram):
+
+```{image} ../img/nextflow/dendrogram.png
+:align: center
+```
+The script takes the preprocessed forward & reverse reads (in no specific order) as input arguments on the command line.
 
 ````{tab} Objective 7 
 Write and incorporate a process that executes this Rscript and outputs the `counts_matrix.csv` and `dendrogram.png` files.
@@ -125,7 +130,7 @@ Run your pipeline on the sequencing data in the `data2` directory.
 There are a few things left that you can implement in your pipeline so others can more easily work with it as well.
 
 - Use directives to output data from different processes to separate directories.
-- Make a cool header that displays every time you run your pipeline using the `[log.info](http://log.info)` command.
+- Make a cool header that displays every time you run your pipeline using the `log.info` command.
 - Add an onComplete printout to your pipeline that tells the user where they can find the output files.
 - Speed up the slow processes in your pipeline by allocating more cpus and memory to them.
 - Have nextflow create a report when you run the pipeline to see some cool stats.
