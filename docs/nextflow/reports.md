@@ -32,7 +32,7 @@ export NXF_VER=21.04.0
 ```
 Verify the Nextflow version (NXF_VER) with `nextflow -v`. The access token can be obtained from clicking on the top-right profile icon, select *Your tokens* and create *New token*. 
 
-The last update with major changes was released a couple of weeks ago. Therefore we are just linking this useful demo. More information is also available at [seqera.io](https://seqera.io/).
+Tower is undergoing a lot of changes, hence we refer to this useful video. More information is also available at [seqera.io](https://seqera.io/).
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe width="1280" height="720" src="https://www.youtube.com/embed/P7LUtBFzSww" title="Nextflow Tower" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
