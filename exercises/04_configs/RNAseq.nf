@@ -22,7 +22,7 @@ params.threads = 2
 params.genomeSAindexNbases = 10
 params.lengthreads = 98
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL

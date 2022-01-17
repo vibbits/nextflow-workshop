@@ -11,7 +11,7 @@ params.slidingwindow = "SLIDINGWINDOW:4:15"
 params.avgqual = "AVGQUAL:30"
 
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL
@@ -32,7 +32,8 @@ read_pairs_ch = Channel
 // A process being defined, does not mean it's invoked (see workflow)
 process fastqc {
   publishDir "$params.outdir/quality-control/", mode: 'copy', overwrite: true
-    
+  container 'quay.io/biocontainers/fastqc:0.11.9--0'
+  
   input:
   tuple val(sample), path(reads)
 
@@ -44,20 +45,21 @@ process fastqc {
 
 // Process trimmomatic
 process trimmomatic {
-    publishDir "$params.outdir/trimmed-reads", mode: 'copy'
+  publishDir "$params.outdir/trimmed-reads", mode: 'copy'
+  container 'quay.io/biocontainers/trimmomatic:0.35--6'
 
-    // Same input as fastqc on raw reads, comes from the same channel. 
-    input:
-    tuple val(sample), path(reads) 
+  // Same input as fastqc on raw reads, comes from the same channel. 
+  input:
+  tuple val(sample), path(reads) 
 
-    output:
-    tuple val("${sample}"), path("${sample}*_P.fq"), emit: paired_fq
-    tuple val("${sample}"), path("${sample}*_U.fq"), emit: unpaired_fq
+  output:
+  tuple val("${sample}"), path("${sample}*_P.fq"), emit: paired_fq
+  tuple val("${sample}"), path("${sample}*_U.fq"), emit: unpaired_fq
 
-    script:
-    """
-    trimmomatic PE -threads $params.threads ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq $params.slidingwindow $params.avgqual 
-    """
+  script:
+  """
+  trimmomatic PE -threads $params.threads ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq $params.slidingwindow $params.avgqual 
+  """
 }
 
 // Running a workflow with the defined processes here.  

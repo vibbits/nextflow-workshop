@@ -1,8 +1,3 @@
-#!/usr/bin/env nextflow
-
-// This is needed for activating the new DLS2
-nextflow.enable.dsl=2
-
 process bowtie_idx {
     publishDir "$params.refdir/bt2idx/", mode: 'copy', pattern: "*.bt2"  
     label 'high'

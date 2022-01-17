@@ -7,7 +7,7 @@ nextflow.enable.dsl=2
 params.reads = "$launchDir/../../data/*{1,2}.fq.gz"
 params.outdir = "$launchDir/results"
 
-println """\
+log.info """\
       LIST OF PARAMETERS
 ================================
 Reads            : $params.reads
@@ -22,7 +22,8 @@ read_pairs_ch = Channel
 // A process being defined, does not mean it's invoked (see workflow)
 process fastqc {
   publishDir "$params.outdir/quality-control-$sample/", mode: 'copy', overwrite: true
-    
+  container 'quay.io/biocontainers/fastqc:0.11.9--0'
+  
   input:
   tuple val(sample), path(reads)  // from is omitted
 

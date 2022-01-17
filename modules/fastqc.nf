@@ -1,8 +1,3 @@
-#!/usr/bin/env nextflow
-
-// This is needed for activating the new DLS2
-nextflow.enable.dsl=2
-
 process fastqc {
   publishDir "$params.outdir/quality-control-$sample/", mode: 'copy', overwrite: true
   label 'low'

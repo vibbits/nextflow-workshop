@@ -1,9 +1,3 @@
-#!/usr/bin/env nextflow
-
-// This is needed for activating the new DLS2
-nextflow.enable.dsl=2
-
-
 process salmon_idx {
     label 'med'
     container 'biocontainers/salmon:v0.12.0ds1-1b1-deb_cv1'

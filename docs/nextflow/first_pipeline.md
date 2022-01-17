@@ -66,7 +66,7 @@ In the following steps we will add new features to this script:
 - Additionally, FastQC generates an html- and zip-file for each read. Where are the output files located? 
 ````
 ````{tab} Solution 2.1
-- `nextflow run fastqc_1.nf --reads ../../data/ggal_gut_1.fq.gz`
+- `nextflow run fastqc_1.nf --reads path/to/ggal_gut_1.fq.gz`
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process. 
 ````
 
