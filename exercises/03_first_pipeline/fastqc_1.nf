@@ -12,6 +12,7 @@ reads_ch = Channel
     .view()
     
 process fastqc {
+    container 'quay.io/biocontainers/fastqc:0.11.9--0'
 
     input:
     file read  

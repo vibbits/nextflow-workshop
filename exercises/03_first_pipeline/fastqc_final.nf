@@ -22,7 +22,8 @@ read_pairs_ch = Channel
 // A process being defined, does not mean it's invoked (see workflow)
 process fastqc {
   publishDir "$params.outdir/quality-control-$sample/", mode: 'copy', overwrite: true
-    
+  container 'quay.io/biocontainers/fastqc:0.11.9--0'
+  
   input:
   tuple val(sample), path(reads)  // from is omitted
 
