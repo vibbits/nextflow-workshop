@@ -92,7 +92,7 @@ Write a process that executes Cutadapt to filter and trim the reads.
 As hopefully Cutadapt has done job, we’d now like to take another look at the quality report of the preprocessed reads to see if this has improved the stats.
 
 ````{tab} Objective 6
-Write a workflow in your `[main.nf](http://main.nf)` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
+Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
 ````
 ````{tab} Hint
 Combine the FastQC and MultiQC processes into a named workflow.
