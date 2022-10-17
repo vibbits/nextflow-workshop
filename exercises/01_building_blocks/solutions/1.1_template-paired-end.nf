@@ -1,8 +1,7 @@
 #!/usr/bin/env nextflow
 
-
 // Create the channels
-strings_ch = Channel.of('This', 'is', 'a', 'channel')
+paired_ch = Channel.fromFilePairs('./data/*{1,2}.fq.gz')
 
 // Inspect a channels contents with the operator .view()
-strings_ch.view()
+paired_ch.view()

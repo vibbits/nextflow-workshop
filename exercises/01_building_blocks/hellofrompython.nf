@@ -1,11 +1,10 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 process python {
     
     script:
     """
-    #!/usr/bin/python3
+    #!/usr/bin/env python3
 
     firstWord = 'hello'
     secondWord = 'folks'

@@ -1,6 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
-
 
 // set default input parameters (these can be altered by calling their flag on the command line, e.g., nextflow run main.nf --reads 'data2/*_R{1,2}.fastq')
 params.reads = 'data1/*_R{1,2}.fastq'

@@ -15,7 +15,6 @@ In this chapter we will build a basic RNA-seq pipeline consisting of quality con
 The following script can be found and run in `fastqc_1.nf`.
 ```bash
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 params.reads = "$launchDir/../../data/*.fq.gz"
 

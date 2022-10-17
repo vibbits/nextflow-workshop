@@ -1,5 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 process CUTADAPT {
     // DIRECTIVES: set the docker container, the directory to output to, and a tag to follow along which sample is currently being processed

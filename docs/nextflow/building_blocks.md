@@ -2,8 +2,10 @@
 # Building blocks 
 In the first chapter we will elaborate on how Nextflow is designed, its advantages and disadvantages, the basic components, etc. 
 
+In the `data/` folder we have already installed some data for you to use in the following exercises. 
+
 ## Introduction
-Writing pipelines to automate processes is not something new. In the `data/` folder we've written a bash script that can download some extra data (note: originally we wanted to use this data, however due to low resources on our VMs we have already installed some other data in the `data/` folder). These bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at another example:
+Writing pipelines to automate processes is not something new, Bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at an example:
 
 ```
 #!/bin/bash
@@ -72,15 +74,14 @@ Nextflow consists of four main components: channels, operators, processes and wo
 :align: center
 ```
 
-The script [`firstscript.nf`](https://github.com/tmuylder/nextflow-workshop/blob/main/scripts/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
+The script [`firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/37c1e07f159ad2690335f50a200e616265955bcd/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
 
 ```bash
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 // Creating channels
-numbers_ch = Channel.from(1,2,3)
-strings_ch = Channel.from('a','b')
+numbers_ch = Channel.of(1,2,3)
+strings_ch = Channel.of('a','b')
 
 // Defining the process that is executed
 process valuesToFile {
@@ -133,7 +134,7 @@ Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_r
 The input of the analysis is stored in a channel, these are generally files like sequencing, reference fasta, annotation files, etc. however the input can be of any kind like numbers, strings, lists, etc. To have a complete overview, we refer to the official documentation[[4](https://www.nextflow.io/docs/latest/channel.html#)]. Here are some examples of how a channel is being created:
 ```
 # Channel consisting of strings
-strings_ch = Channel.from('This', 'is', 'a', 'channel')
+strings_ch = Channel.of('This', 'is', 'a', 'channel')
 
 # Channel consisting of a single file
 file_ch = Channel.fromPath('data/sequencefile.fastq')
@@ -144,15 +145,15 @@ multfiles_ch = Channel.fromPath('data/*.fastq')
 These channels can then be used by operators or serve as an input for the processes.
 
 
-````{tab} Exercise 1.1.1
+````{tab} Exercise 1.1
 Inspect and edit the `template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
 
 Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
 
 ````
 
-````{tab} Solution 1.1.1
-The solution is available in the file `template-paired-end.nf`.
+````{tab} Solution 1.1
+The solution is available in the file `1.1_template-paired-end.nf`.
 
 Note that the content of the channel is constructed in a following manner:
 ```
@@ -177,11 +178,12 @@ Channel
 - `mix`: e.g. when assembling items from multiple channels into one channel for a next process (e.g. multiqc)
 
 ```
-c1 = Channel.from( 1,2,3 )
-c2 = Channel.from( 'a','b' )
-c3 = Channel.from( 'z' )
+c1 = Channel.of( 1,2,3 )
+c2 = Channel.of( 'a','b' )
+c3 = Channel.of( 'z' )
 
 c1 .mix(c2,c3)
+   .view()
 
 # possible output
 a
@@ -193,7 +195,7 @@ z
 ```
 
 
-````{tab} Exercise 1.2.1
+````{tab} Exercise 1.2
 Create a channel from a csv-file (`input.csv`). Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content: 
 
 | sampleId | Read 1                        | Read 2                        |
@@ -205,14 +207,14 @@ Test your Nextflow script with: `nextflow run <name>.nf`.
 
 ````
 
-````{tab} Solution 1.2.1
-The solution is available in the file `template-csv.nf`
+````{tab} Solution 1.2
+The solution is available in the file `1.2_template-csv.nf`
 
 The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
 
 ```
 samples_ch = Channel
-                .fromPath('input.csv')  // make sure that the path towards the file is correct
+                .fromPath('exercises/01_building_blocks/input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
 ```
 
@@ -354,7 +356,7 @@ The **output** declaration block defines the channels created by the process to 
 
 ---
 
-A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. 
+A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. An example can be found in `exercises/01_building_blocks/hellofrompython.nf`.
 
 ```
 #!/usr/bin/env nextflow
@@ -363,7 +365,7 @@ process python {
     
     script:
     """
-    #!/usr/bin/python3
+    #!/usr/bin/env python3
 
     firstWord = 'hello'
     secondWord = 'folks'
@@ -373,6 +375,14 @@ process python {
 ```
 
 Check the output of the script in the `.command.out` file of the work-directory. 
+
+```{note}
+The work-directory of the last process can be seen in the output of nextflow.
+
+`[f6/4916cd] process > python [100%] 1 of 1 ✔`
+
+In this case, the output would be in the directory starting `work/f6/4916cd...`
+```
 
 ---
 
@@ -395,10 +405,10 @@ executor >  local (10)
 [4b/aff57f] process > whosfirst (10) [100%] 10 of 10
 ```
 
-````{tab} Exercise 1.3.1
+````{tab} Exercise 1.3
 A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `firstscript.nf` and inspect the output. 
 ````
-````{tab} Solution 1.3.1
+````{tab} Solution 1.3
 The process should be adapted, containing the following tag line in the directives. 
 ```
 // Defining the process that is executed
@@ -429,9 +439,9 @@ tail -f nf.log
 ### 4. Workflows
 Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow`, the processes are called as functions with input arguments being the channels. 
 
-The output that is generated in a process, needs to be emited (`emit`) in order to serve as an input for a next process. The `trimmomatic` process defined above emits the paired trimmed and unpaired trimmed (not passing the filtering thresholds) reads as two separate outputs, resp. `trim_fq` and `untrim_fq`. The following workflow calls the `trimmomatic` process with `reads` as its input channel. Now we an access the output of this process using `trimmomatic.out.trim_fq`.
+The output that is generated in a process, needs to be emited (`emit`) in order to serve as an input for a next process. The `trimmomatic` process defined above emits the paired trimmed and unpaired trimmed (not passing the filtering thresholds) reads as two separate outputs, `trim_fq` and `untrim_fq` respectively. The following workflow calls the `trimmomatic` process with `reads` as its input channel. Now we an access the output of this process using `trimmomatic.out.trim_fq`.
 ```
-workflow{
+workflow {
     trimmomatic(reads)
 }
 ```
@@ -453,7 +463,7 @@ process ...
 
 
 // Running a workflow with the defined processes  
-workflow{
+workflow {
     valuesToFile(numbers_ch, strings_ch)
     valuesToFile.out.result_ch.view()
 }
@@ -464,14 +474,14 @@ workflow{
 
 ````{tab} Extra exercise 2
 
-You need to execute a hypothetical task for each record in a CSV files. Write a Nextflow script containing the following: 
+You need to execute a hypothetical task for each record in a CSV file. Write a Nextflow script containing the following: 
 
 1. Create a channel for the input (`input.csv`):
     - Read the CSV file line-by-line using the `splitCsv` operator, then use the `map` operator to return a tuple with the required field for each line. Finally use the resulting channel as input for the process.
 
 2. Create a process that:
     - Accepts a tuple as input channel with the information from the csv-file. 
-    - Has the following script: `echo your_command --sample $samplevariable --reads $readvariable1 $readvariable2`
+    - Has the following script: `echo your_command --sample $sampleId --reads $read1 $read2`
 
 3. Create a workflow that calls the process with the input channel. 
 
@@ -489,7 +499,6 @@ Given the file `input.csv` (in the exercises folder) with the following content:
 Find the solution also in `split-csv.nf`. Inspect the command that has ran in the intermediate `work/` directory following the hashed folders and look in the file `.command.sh`.
 ```
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 params.input_csv = 'input.csv'
 
@@ -523,7 +532,7 @@ workflow{
 Nextflow recently went through a big make-over. The premise of the next version, using DSL2, is to make the pipelines more modular and simplify the writing of complex data analysis pipelines. 
 
 Here is a list of the major changes: 
-- Following the shebang line, the nf-script wil start with the following line: `nextflow.enable.dsl=2` (not to be mistaken with *preview*).
+- Since version 22.03.0-edge, Nextflow defaults to using DSL2 and you do not need to manually enable it.
 - When using DSL1 each channel could only be consumed once, this is ommited in DSL2. Once created, a channel can be consumed indefinitely. 
 - A process on the other hand can still only be used once in DSL2 
 - A new term is introduced: `workflow`. In the workflow, the processes are called as functions with input arguments being the channels. 

@@ -1,5 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 process DADA2 {
     // DIRECTIVES: set the docker container, the directory to output to, and the amount of cpus to allocate to this process

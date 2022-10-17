@@ -1,8 +1,7 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 // Create channel
-fifo = Channel.from(1,2,3,4,5,6,7,8,9,10)
+fifo = Channel.of(1,2,3,4,5,6,7,8,9,10)
 
 // Define the process
 process whosfirst {

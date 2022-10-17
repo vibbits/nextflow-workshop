@@ -1,5 +1,4 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
 // Some comment
 
@@ -10,8 +9,8 @@ nextflow.enable.dsl=2
  */
 
 // Creating a channel
-numbers_ch = Channel.from(1,2,3)
-strings_ch = Channel.from('a','b')
+numbers_ch = Channel.of(1,2,3)
+strings_ch = Channel.of('a','b')
 
 // Defining the process that is executed
 process valuesToFile {
@@ -29,7 +28,7 @@ process valuesToFile {
 }
 
 // Running a workflow with the defined processes  
-workflow{
+workflow {
     valuesToFile(numbers_ch, strings_ch)
     valuesToFile.out.result_ch.view()
 }

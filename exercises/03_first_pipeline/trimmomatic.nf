@@ -1,7 +1,5 @@
 #!/usr/bin/env nextflow
 
-// This is needed for activating the new DLS2
-nextflow.enable.dsl=2
 
 // Similar to DSL1, the input data is defined in the beginning.
 params.reads = "$launchDir/../../data/*{1,2}.fq.gz"

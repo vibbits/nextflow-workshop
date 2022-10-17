@@ -1,7 +1,6 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
 
-params.input_csv = 'input.csv'
+params.input_csv = 'exercises/01_building_blocks/input.csv'
 
 samples_ch = Channel
                 .fromPath(params.input_csv)
