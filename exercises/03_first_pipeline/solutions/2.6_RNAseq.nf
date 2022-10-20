@@ -38,6 +38,7 @@ Sliding window   : ${params.slidingwindow}
 Average quality  : ${params.avgqual}
 ================================
              STAR
+Threads          : ${params.threads}
 Length-reads     : ${params.lengthreads}
 SAindexNbases    : ${params.genomeSAindexNbases}
 ================================
@@ -48,14 +49,12 @@ SAindexNbases    : ${params.genomeSAindexNbases}
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-// Define the channels for the genome and reference file
-...
+genome = file(params.genome)
+gtf = file(params.gtf)
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
-
-// Import the star indexing and alignment processes from the modules
-...
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "${projectDir}/../../../modules/trimmomatic"
+include { star_idx; star_alignment } from "${projectDir}/../../../modules/star"
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -67,9 +66,6 @@ workflow {
   fastqc_trim(trimmomatic.out.trim_fq)
 	
   // Mapping
-  ... 
-  ... 
-  
-  // Multi QC
-  
+  star_idx(genome, gtf)
+  star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)
 }

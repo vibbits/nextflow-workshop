@@ -3,8 +3,8 @@
 
 
 // General parameters
-params.datadir = "$launchDir/../../data"
-params.outdir = "$launchDir/results"
+params.datadir = "${launchDir}/data"
+params.outdir = "${launchDir}/results"
 
 // Input parameters
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
@@ -25,22 +25,22 @@ log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL
-Data-folder      : $params.datadir
-Results-folder   : $params.outdir
+Data-folder      : ${params.datadir}
+Results-folder   : ${params.outdir}
 ================================
       INPUT & REFERENCES 
-Input-files      : $params.reads
-Reference genome : $params.genome
-GTF-file         : $params.gtf
+Input-files      : ${params.reads}
+Reference genome : ${params.genome}
+GTF-file         : ${params.gtf}
 ================================
           TRIMMOMATIC
-Sliding window   : $params.slidingwindow
-Average quality  : $params.avgqual
+Sliding window   : ${params.slidingwindow}
+Average quality  : ${params.avgqual}
 ================================
              STAR
-Threads          : $params.threads
-Length-reads     : $params.lengthreads
-SAindexNbases    : $params.genomeSAindexNbases
+Threads          : ${params.threads}
+Length-reads     : ${params.lengthreads}
+SAindexNbases    : ${params.genomeSAindexNbases}
 ================================
 """
 
@@ -52,10 +52,10 @@ read_pairs_ch = Channel
 genome = file(params.genome)
 gtf = file(params.gtf)
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
-include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
-include { multiqc } from "${launchDir}/../../modules/multiqc" 
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "${projectDir}/../../../modules/trimmomatic"
+include { star_idx; star_alignment } from "${projectDir}/../../../modules/star"
+include { multiqc } from "${projectDir}/../../../modules/multiqc" 
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -75,11 +75,11 @@ workflow {
 }
 
 workflow.onComplete {
-    println "Pipeline completed at: $workflow.complete"
-    println "Time to complete workflow execution: $workflow.duration"
+    println "Pipeline completed at: ${workflow.complete}"
+    println "Time to complete workflow execution: ${workflow.duration}"
     println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
 }
 
 workflow.onError {
-    println "Oops... Pipeline execution stopped with the following message: $workflow.errorMessage"
+    println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
 }

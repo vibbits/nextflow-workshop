@@ -8,17 +8,14 @@ params.outdir = "${launchDir}/results"
 
 // Input parameters
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
-params.genome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
-params.gtf = "${params.datadir}/ggal_1_48850000_49020000.bed.gff"
+params.transcriptome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
 
 // Trimmomatic
 params.slidingwindow = "SLIDINGWINDOW:4:15"
 params.avgqual = "AVGQUAL:30"
 
-// Star
+// Salmon
 params.threads = 2
-params.genomeSAindexNbases = 10
-params.lengthreads = 98
 
 
 log.info """\
@@ -31,15 +28,13 @@ Results-folder   : ${params.outdir}
       INPUT & REFERENCES 
 Input-files      : ${params.reads}
 Reference genome : ${params.genome}
-GTF-file         : ${params.gtf}
 ================================
           TRIMMOMATIC
 Sliding window   : ${params.slidingwindow}
 Average quality  : ${params.avgqual}
 ================================
-             STAR
-Length-reads     : ${params.lengthreads}
-SAindexNbases    : ${params.genomeSAindexNbases}
+             SALMON
+Threads          : ${params.threads}
 ================================
 """
 
@@ -48,14 +43,12 @@ SAindexNbases    : ${params.genomeSAindexNbases}
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-// Define the channels for the genome and reference file
-...
+transcriptome = file(params.transcriptome)
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
-
-// Import the star indexing and alignment processes from the modules
-...
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "${projectDir}/../../../modules/trimmomatic"
+include { salmon_idx ; salmon_quant } from "${projectDir}/../../../modules/salmon"
+include { multiqc } from "${projectDir}/../../../modules/multiqc" 
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -66,10 +59,20 @@ workflow {
   trimmomatic(read_pairs_ch)
   fastqc_trim(trimmomatic.out.trim_fq)
 	
-  // Mapping
-  ... 
-  ... 
+  // Mapping salmon
+  salmon_idx(transcriptome)
+  salmon_quant(salmon_idx.out, read_pairs_ch)
   
-  // Multi QC
-  
+  // Multi QC on all results
+  multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
+}
+
+workflow.onComplete {
+    println "Pipeline completed at: ${workflow.complete}"
+    println "Time to complete workflow execution: ${workflow.duration}"
+    println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
+}
+
+workflow.onError {
+    println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
 }

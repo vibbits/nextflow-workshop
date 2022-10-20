@@ -142,9 +142,9 @@ At this point we're interested in the result of the `trimmomatic` process. Hence
 Hmm, error? `Process fastqc has been already used -- If you need to reuse the same component include it with a different name or include in a different workflow context`. It means that processes can only be used once in a workflow. This means that we need to come up with a smarter solution (see below). 
 
 ## Modules
-Uptil now, we have written the processes and the workflow in the same file. However, if we want to be truly modular, we can write a library of modules and import a specific component from that library. A module can contain the definition of a function, process and workflow definitions. 
+Until now, we have written the processes and the workflow in the same file. However, if we want to be truly modular, we can write a library of modules and import a specific component from that library. A module can contain the definition of a function, process and workflow definitions. 
 
-The figure below gives an overview of how the structure would look like. On the left we have the main Nextflow script (`main.nf`) that defines the parameters, channels and the workflow. It imports the processes from the modules, in this case available in a folder `modules/`. The configuration files `nextflow.config` will be discussed in the next chapter.  
+The figure below gives an overview of how the structure could look like. On the left we have the main Nextflow script (`main.nf`) that defines the parameters, channels and the workflow. It imports the processes from the modules, in this case available in a folder `modules/`. The configuration file `nextflow.config` will be further discussed in the next chapter.  
 
 
 ```{image} ../img/nextflow/overview-folder-structure.png
@@ -153,25 +153,25 @@ The figure below gives an overview of how the structure would look like. On the 
 
 A module is generally imported with 
 ```
-include {<process-name>} from 'path/to/modules/script.nf'
+include {<process-name>} from './path/to/modules/script.nf'
 ```
-with `<process-name>` the name of the process defined in the `script.nf`. The origin of the module defined by a relative path must start with `./`, alternatively use `launchDir` to use the absolute path. Navigate to the modules folder and find a script called `fastqc.nf`. This script consists of a process and a workflow. This module can be imported into our pipeline script (main workflow) like this:
+with `<process-name>` the name of the process defined in the `script.nf`. The origin of the module defined by a relative path must start with `./`, alternatively use `projectDir` to use the absolute path. Navigate to the modules folder and find a script called `fastqc.nf`. This script consists of a process and a workflow. This module can be imported into our pipeline script (main workflow) like this:
 
 ```
-include {fastqc} from 'path/to/modules/fastqc.nf'
+include {fastqc} from './modules/fastqc.nf'
 ```
 
 This doesn't overcome the problem that we can only use a process once. However, when including a module component it’s possible to specify a name alias. This allows the inclusion and the invocation of the same component multiple times in your script using different names. For example:
 ``` 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/modules/fastqc"
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/modules/fastqc"
 ```
 Now we're ready to use a process, defined in a module, multiple times in a workflow. 
 
 Investigate & run the script `modules.nf` which contains the following code snippet
 ```
 ...
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/../../modules/fastqc" 
-include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" 
+include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -182,7 +182,7 @@ workflow {
 }
 ```
 
-Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to index our reads and afterwards we can map our reads. These modules are called from the main script `RNAseq.nf`. 
+Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to create an index for our genome and afterwards we can map our reads onto it. These modules are called from the main script `RNAseq.nf`. 
 
 
 ````{tab} Exercise 2.6
@@ -190,12 +190,12 @@ In the folder `modules/` find the script `star.nf` which contains two processes:
 ````
 
 ````{tab} Solution 2.6
-Solution in `RNAseq_final.nf`. The following lines were added. 
+Solution in `exercises/03_first_pipeline/solutions/2.6_RNAseq.nf`. The following lines were added. 
 ```
 genome = file(params.genome)
 gtf = file(params.gtf)
 
-include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
+include { star_idx; star_alignment } from "${projectDir}/../../modules/star"
 
 workflow {
   ...
@@ -212,8 +212,9 @@ In the folder `modules/` find the script `multiqc.nf`. Import the process in the
 ````
 
 ````{tab} Solution 2.7
+Solution in `exercises/03_first_pipeline/solutions/2.7_RNAseq.nf`. The following lines were added. 
 ```
-include { multiqc } from "${launchDir}/../../modules/multiqc" 
+include { multiqc } from "${projectDir}/../../modules/multiqc" 
 
 workflow {
   ...
@@ -233,16 +234,16 @@ This pipeline is still subject to optimizations which will be further elaborated
 The workflow keyword allows the definition of **sub-workflow** components that enclose the invocation of one or more processes and operators. Here we have created a sub-workflow for a hypothetical `hisat` aligner. 
 
 ```
-workflow hisat{
+workflow hisat {
   hisat_index(arg1)
   hisat_alignment(arg1, arg2)
 }
 ```
 
-These sub-workflows allow us to use this workflow from within another workflow. The workflow that does not cary any name is considered to be the main workflow and will be executed implicitly. This is thus the entry point of the workflow, however alternatively we can overwrite it by using the `-entry` parameter. The following code snippet defines two sub-workflows and one main workflow. If we would only be interested in the star alignment workflow, then we would use `nextflow run pipeline.nf -entry star`. 
+These sub-workflows allow us to use this workflow from within another workflow. The workflow that does not cary any name is considered to be the main workflow and will be executed implicitly. This is thus the entry point of the pipeline, however alternatively we can overwrite it by using the `-entry` parameter. The following code snippet defines two sub-workflows and one main workflow. If we would only be interested in the star alignment workflow, then we would use `nextflow run pipeline.nf -entry star`. 
 
 ```
-workflow star{
+workflow star {
   take:
   arg1
   arg2
@@ -253,7 +254,7 @@ workflow star{
   star_alignment(arg1, arg2, arg3)
 }
 
-workflow hisat2{
+workflow hisat2 {
   take:
   arg1
   arg2
@@ -270,7 +271,7 @@ workflow {
 ```
 
 ```{note}
-The `take:` declaration block defines the input channels of the sub-workflow, `main:` is the declaration block that contains the processes (functions) and is required when to separate the inputs from the workflow body. These options are useful when the workflow is growing with multiple entry-levels to keep a tidy overview. 
+The `take:` declaration block defines the input channels of the sub-workflow, `main:` is the declaration block that contains the processes (functions) and is required in order to separate the inputs from the workflow body. These options are useful when the pipeline is growing with multiple entry-levels to keep a tidy overview. 
 ```
 
 
@@ -282,16 +283,16 @@ The `take:` declaration block defines the input channels of the sub-workflow, `m
 Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/edge/metadata.html). 
 ````
 ````{tab} Solution 1
-The solution is given in `RNAseq_final.nf`
+The solution is given in `exercises/03_first_pipeline/solutions/ex.1_RNAseq.nf`
 ````
 
 ---
 
 ````{tab} Extra exercise 2
-Adapt the `RNAseq_final.nf` script so it uses Salmon as an aligner and quantifier. In our temporary solution the alignment with Star has been replaced with Salmon, it would be better to create a subworkflow so you can choose upon `-entry` to work with Star or Salmon.  
+Adapt the `exercises/03_first_pipeline/solutions/ex.1_RNAseq.nf` script so it uses Salmon as an aligner and quantifier. In our temporary solution the alignment with Star has been replaced with Salmon, it would be better to create a subworkflow so you can choose upon `-entry` to work with Star or Salmon.  
 ````
 ````{tab} Solution 2
-The solution is given in `RNAseq_salmon.nf`. 
+The solution is given in `exercises/03_first_pipeline/solutions/ex.2_RNAseq.nf`. 
 ````
 
 

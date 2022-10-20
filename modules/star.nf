@@ -13,17 +13,17 @@ process star_idx {
     """
     mkdir index_dir
     
-    STAR --runThreadN $params.threads \\
+    STAR --runThreadN ${params.threads} \\
       --runMode genomeGenerate \\
       --genomeDir index_dir/ \\
-      --genomeFastaFiles $genome \\
-      --genomeSAindexNbases $params.genomeSAindexNbases \\
-      --sjdbGTFfile $gtf
+      --genomeFastaFiles ${genome} \\
+      --genomeSAindexNbases ${params.genomeSAindexNbases} \\
+      --sjdbGTFfile ${gtf}
     """
 }
 
 process star_alignment {
-    publishDir "$params.outdir/mapped-reads/", mode: 'copy', overwrite: true  //, pattern: "*.bam"  
+    publishDir "${params.outdir}/mapped-reads/", mode: 'copy', overwrite: true  //, pattern: "*.bam"  
     label 'high'
     container "quay.io/biocontainers/star:2.6.1d--0"
 
@@ -40,10 +40,10 @@ process star_alignment {
     """
     STAR  \\
         --readFilesIn ${reads} \\
-        --runThreadN $task.cpus \\
+        --runThreadN ${task.cpus} \\
         --outSAMtype BAM SortedByCoordinate \\
         --sjdbGTFfile ${gtf} \\
-        --outFileNamePrefix $sample. \\
+        --outFileNamePrefix ${sample}. \\
         --genomeDir ${indexDir}
     """
 }
