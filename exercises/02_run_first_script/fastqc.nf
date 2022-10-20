@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/../../data/*.fq.gz" // $projectDir is another interesting implicit variable
+params.reads = "$launchDir/data/*.fq.gz" // $projectDir is another interesting implicit variable
 
 
 /**
@@ -15,7 +15,7 @@ process fastqc {
     container 'quay.io/biocontainers/fastqc:0.11.9--0'
 
     input:
-    file read  
+    path read  
     
     script:
     """
@@ -23,6 +23,6 @@ process fastqc {
     """
 }
 
-workflow{
+workflow {
     fastqc(reads_ch)
 }

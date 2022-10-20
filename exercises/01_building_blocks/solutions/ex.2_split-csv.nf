@@ -17,7 +17,7 @@ process split_csv {
     """
 }
 
-workflow{
+workflow {
     samples_ch.view()
     split_csv(samples_ch)
 }

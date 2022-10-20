@@ -12,11 +12,11 @@ In this chapter we will build a basic RNA-seq pipeline consisting of quality con
 
 ## Quality control with `FastQC` 
 
-The following script can be found and run in `fastqc_1.nf`.
+The following script can be found and run in `exercises/03_first_pipeline/fastqc.nf`.
 ```bash
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/../../data/*.fq.gz"
+params.reads = "$launchDir/data/*.fq.gz"
 
 /**
  * Quality control fastq
@@ -28,7 +28,7 @@ reads_ch = Channel
 process fastqc {
 
     input:
-    file read  
+    path read  
     
     script:
     """
@@ -36,7 +36,7 @@ process fastqc {
     """
 }
 
-workflow{
+workflow {
     fastqc(reads_ch)
 }
 ```
@@ -50,22 +50,22 @@ The first line of our script is always a shebang line, declaring the environment
 
 Let's first run this script with the following command. If you have `htop` installed, keep an eye on the distribution of the workload and notice how Nextflow parallelises the jobs. 
 ```
-nextflow run fastqc_1.nf
+nextflow run exercises/03_first_pipeline/fastqc.nf
 ```
 
 ```{note}
-Make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
+The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, and the `nextflow.config` file in the same folder activates the use of docker. If this directive was not there or docker was not enabled, you would need to make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
 ```
 
 
 In the following steps we will add new features to this script:
 
 ````{tab} Exercise 2.1
-- Overwrite the parameter `reads` on runtime (when running Nextflow on the command-line) so it only takes `ggal_gut_1.fq.gz` as an input read. 
-- Additionally, FastQC generates an html- and zip-file for each read. Where are the output files located? 
+- Overwrite the parameter `reads` on runtime (when running Nextflow on the command-line) so that it only takes `ggal_gut_1.fq.gz` as an input read. 
+- Additionally, FastQC generates a html- and zip-file for each read. Where are these output files located? 
 ````
 ````{tab} Solution 2.1
-- `nextflow run fastqc_1.nf --reads path/to/ggal_gut_1.fq.gz`
+- `nextflow run exercises/03_first_pipeline/fastqc.nf --reads data/ggal_gut_1.fq.gz`
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process. 
 ````
 
@@ -79,12 +79,12 @@ Change the the script in order to accept & work with paired-end reads. For this 
 - Change the `input` declaration in the process (from `path` to a `tuple`).  
 ````
 ````{tab} Solution 2.2
-The solution is given in `fastqc_2.nf`. Note that if you run this script, only two processes will be launched, one for each paired-end reads dataset.
+The solution is given in `exercises/03_first_pipeline/solutions/2.2_fastqc.nf`. Note that if you run this script, only two processes will be launched, one for each paired-end reads dataset.
 ````
 
 ---
 ````{tab} Exercise 2.3
-Run the script with: `nextflow run fastqc_1.nf -bg > log`. What does the `-bg > log` mean? What would the advantage be?
+Run the script with: `nextflow run exercises/03_first_pipeline/fastqc.nf -bg > log`. What does the `-bg > log` mean? What would the advantage be?
 ````
 ````{tab} Solution 2.3
 Run in the background and push output of nextflow to the log file. No need of explicitly using nohup, screen or tmux.
@@ -93,11 +93,11 @@ Run in the background and push output of nextflow to the log file. No need of ex
 --- 
 
 ````{tab} Exercise 2.4
-Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run fastqc_1.nf --reads wrongfilename`.
+Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run exercises/03_first_pipeline/fastqc.nf --reads wrongfilename`.
 ````
 
 ````{tab} Solution 2.4
-Result: `fastqc_3.nf` 
+The solution is given in `exercises/03_first_pipeline/solutions/2.4_fastqc.nf`
 ````
 
 --- 
@@ -108,7 +108,7 @@ Control where and how the output is stored. Have a look at the directive [`publi
 
 ````
 ````{tab} Solution 2.5
-Result: `fastqc_4.nf`. 
+The solution is given in `exercises/03_first_pipeline/solutions/2.5_fastqc.nf` 
 
 - Without any additional arguments, a hyperlink will be created to the files stored in the `work/` directory, with mode set to copy (`mode: 'copy'`) the files will be made available in the defined directory. 
 - If the output is to be used by another process, and the files are being moved, they won't be accessible for the next process and hence you're pipeline will fail complaining about files not being present.
@@ -121,7 +121,7 @@ Files are copied into the specified directory in an asynchronous manner, thus th
 --- 
 
 
-The final FastQC script is given in `fastqc_final.nf`. 
+The final FastQC script, with some additional comments is provided in `exercises/03_first_pipeline/solutions/fastqc_final.nf`. 
 
 
 ## Quality filtering with `trimmomatic` 
@@ -133,11 +133,11 @@ The `fastqc.nf` script was extended with the trimmomatic process and is availabl
 - The process `trimmomatic` with its inputs and outputs and the script has been created
 - The `workflow` now also contains the process trimmomatic, called as a function
 
-In the `output` declaration block, we are introducing a new option: `emit`. Defining a process output with `emit` allows us to use it as a channel in the external scope.  
+In the `output` declaration block, we are introducing a new option: `emit`. Defining a process output with `emit` allows us to use it as a named channel in the external scope.  
 
 ---
 
-At this point we're interested in the result of the `trimmomatic` process. Hence, we want to verify the quality of the reads with another `fastqc` process. Re-run `fastqc` on the filtered read sequences by adding it in the workflow of `trimmomatic.nf` (remove the last commented line in the workflow). Use the parameter `-resume` to restart the pipeline from where it stopped the last time. 
+At this point we're interested in the result of the `trimmomatic` process. Hence, we want to verify the quality of the reads with another `fastqc` process. Re-run `fastqc` on the filtered read sequences by adding it in the workflow of `trimmomatic.nf`. Use the parameter `-resume` to restart the pipeline from where it stopped the last time. 
   
 Hmm, error? `Process fastqc has been already used -- If you need to reuse the same component include it with a different name or include in a different workflow context`. It means that processes can only be used once in a workflow. This means that we need to come up with a smarter solution (see below). 
 
@@ -197,7 +197,7 @@ gtf = file(params.gtf)
 
 include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
 
-workflow{
+workflow {
   ...
   star_idx(genome, gtf)
   star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)

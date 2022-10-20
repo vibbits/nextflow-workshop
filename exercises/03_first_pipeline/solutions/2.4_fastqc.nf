@@ -1,20 +1,20 @@
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/../../data/*.fq.gz"
+params.reads = "${launchDir}/data/*{1,2}.fq.gz"
 
 /**
  * Quality control fastq
  */
 
 reads_ch = Channel
-    .fromPath( params.reads )
+    .fromFilePairs( params.reads, checkIfExists:true )
     .view()
     
 process fastqc {
     container 'quay.io/biocontainers/fastqc:0.11.9--0'
 
     input:
-    file read  
+    tuple val(sample), path(read)  
     
     script:
     """
@@ -22,6 +22,6 @@ process fastqc {
     """
 }
 
-workflow{
+workflow {
     fastqc(reads_ch)
 }

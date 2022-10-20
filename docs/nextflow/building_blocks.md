@@ -98,7 +98,7 @@ process valuesToFile {
 }
 
 // Running a workflow with the defined processes  
-workflow{
+workflow {
     valuesToFile(numbers_ch, strings_ch)
 }
 ```
@@ -517,7 +517,7 @@ process split_csv {
     """
 }
 
-workflow{
+workflow {
     samples_ch.view()
     split_csv(samples_ch)
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/../../data/*{1,2}.fq.gz"
-params.outdir = "$launchDir/results"
+params.reads = "${launchDir}/data/*{1,2}.fq.gz"
+params.outdir = "${launchDir}/results"
 
 /**
  * Quality control fastq
@@ -12,7 +12,9 @@ reads_ch = Channel
     .view()
     
 process fastqc {
-    publishDir "$params.outdir/quality-control-$sample/", mode: 'copy', overwrite: true
+    publishDir "${params.outdir}/quality-control-${sample}/", mode: 'copy', overwrite: true
+    container 'quay.io/biocontainers/fastqc:0.11.9--0'
+
 
     input:
     tuple val(sample), path(read)  
@@ -25,8 +27,7 @@ process fastqc {
     fastqc ${read}
     """
 }
-//mkdir -p $params.outdir/quality-control-$sample/
 
-workflow{
+workflow {
     fastqc(reads_ch)
 }

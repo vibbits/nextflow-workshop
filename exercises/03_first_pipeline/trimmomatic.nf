@@ -2,8 +2,8 @@
 
 
 // Similar to DSL1, the input data is defined in the beginning.
-params.reads = "$launchDir/../../data/*{1,2}.fq.gz"
-params.outdir = "$launchDir/results"
+params.reads = "${launchDir}/data/*{1,2}.fq.gz"
+params.outdir = "${launchDir}/results"
 params.threads = 2
 params.slidingwindow = "SLIDINGWINDOW:4:15"
 params.avgqual = "AVGQUAL:30"
@@ -13,13 +13,13 @@ log.info """\
       LIST OF PARAMETERS
 ================================
             GENERAL
-Reads            : $params.reads
-Output-folder    : $params.outdir/
+Reads            : ${params.reads}
+Output-folder    : ${params.outdir}
 
           TRIMMOMATIC
-Threads          : $params.threads
-Sliding window   : $params.slidingwindow
-Avg quality      : $params.avgqual
+Threads          : ${params.threads}
+Sliding window   : ${params.slidingwindow}
+Avg quality      : ${params.avgqual}
 """
 
 // Also channels are being created. 
@@ -29,7 +29,7 @@ read_pairs_ch = Channel
 // Definition of a process, notice the absence of the 'from channel'.
 // A process being defined, does not mean it's invoked (see workflow)
 process fastqc {
-  publishDir "$params.outdir/quality-control/", mode: 'copy', overwrite: true
+  publishDir "${params.outdir}/quality-control-${sample}/", mode: 'copy', overwrite: true
   container 'quay.io/biocontainers/fastqc:0.11.9--0'
   
   input:
@@ -43,7 +43,7 @@ process fastqc {
 
 // Process trimmomatic
 process trimmomatic {
-  publishDir "$params.outdir/trimmed-reads", mode: 'copy'
+  publishDir "${params.outdir}/trimmed-reads-${sample}", mode: 'copy'
   container 'quay.io/biocontainers/trimmomatic:0.35--6'
 
   // Same input as fastqc on raw reads, comes from the same channel. 
@@ -56,7 +56,7 @@ process trimmomatic {
 
   script:
   """
-  trimmomatic PE -threads $params.threads ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq $params.slidingwindow $params.avgqual 
+  trimmomatic PE -threads ${params.threads} ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq ${params.slidingwindow} ${params.avgqual} 
   """
 }
 
