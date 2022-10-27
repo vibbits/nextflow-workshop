@@ -12,6 +12,10 @@ In this project, we’d like to combine publicly available tools and some basic 
 2. Trim primers from them and filter low-quality reads
 3. Find the unique 16S sequence variants & get a grasp of the diversity of the samples.
 
+```{warning}
+Before you start the project, make sure to `cd` to the `project` directory and work there to maintain a clean working environment.
+```
+
 ## Data
 
 For this project, we will use data from *[Vandeputte et al. (2017)](https://www.nature.com/articles/nature24460)*: a well-known study from the VIB centre for microbiology that was published in Nature. This study took faecal samples from 135 participants to examine their gut microbiota.
@@ -63,14 +67,14 @@ We can use a publicly available tool called Cutadapt:
 - to trim and filter low-quality reads
 - to remove very short reads and reads containing unknown bases (*i.e.,* ‘N’)
 
-Cutadapt however requires us to specify the forward and reverse primers, as well as their reverse [complements](http://www.reverse-complement.com/ambiguity.html). The forward and reverse primers we can find in the paper: `GTGCCAGCMGCCGCGGTAA` and `GGACTACHVHHHTWTCTAAT`, but the reverse complements we’ll have to figure out ourselves.
+Cutadapt however requires us to specify the forward and reverse primers, as well as their reverse [complements](http://www.reverse-complement.com/ambiguity.html). The forward and reverse primers we can find in the paper: `GTGCCAGCMGCCGCGGTAA` and `GGACTACHVHHHTWTCTAAT`, the reverse complements of these are `TTACCGCGGCKGCTGGCAC` and `ATTAGAWADDDBDGTAGTCC` respectively.
+
 
 ````{tab} Objective 4 
-Put your nextflow operator knowledge to the test and write some nextflow code that calculates the reverse complements of these primers.
-```` 
----
-
-Once we have all of the primer sequences, we can run cutadapt on all the reads. In bash, the code for this would look something like this:
+Write a process that executes Cutadapt to filter and trim the reads.
+````
+````{tab} Hint
+In bash, the code for this would look something like this:
 
 ```bash
 cutadapt -a ^FW_PRIMER...REVERSECOMP_RV_PRIMER \\
@@ -81,9 +85,6 @@ cutadapt -a ^FW_PRIMER...REVERSECOMP_RV_PRIMER \\
 				 --output SAMPLE_R1_TRIMMED.FASTQ --paired-output SAMPLE_R2_TRIMMED.FASTQ \\
 				 SAMPLE_R1.FASTQ SAMPLE_R2.FASTQ
 ```
-
-````{tab} Objective 5 
-Write a process that executes Cutadapt to filter and trim the reads.
 ````
 ---
 
@@ -91,7 +92,7 @@ Write a process that executes Cutadapt to filter and trim the reads.
 
 As hopefully Cutadapt has done job, we’d now like to take another look at the quality report of the preprocessed reads to see if this has improved the stats.
 
-````{tab} Objective 6
+````{tab} Objective 5
 Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
 ````
 ````{tab} Hint
@@ -107,7 +108,7 @@ To closely examine amplicon sequencing data and to extract from these the unique
 ```
 The script takes the preprocessed forward & reverse reads (in no specific order) as input arguments on the command line.
 
-````{tab} Objective 7 
+````{tab} Objective 6 
 Write and incorporate a process that executes this Rscript and outputs the `counts_matrix.csv` and `dendrogram.png` files.
 ````
 ````{tab} Hint
@@ -120,7 +121,7 @@ You now have successfully written your own microbiomics pipeline!
 
 To see if all this effort in automatisation was really worth it, you should run your pipeline on another dataset to see if it works as well.
 
-````{tab} Objective 8
+````{tab} Objective 7
 Run your pipeline on the sequencing data in the `data2` directory.
 ```` 
 ---
