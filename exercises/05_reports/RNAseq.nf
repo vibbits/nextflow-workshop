@@ -3,7 +3,7 @@
 
 
 // General parameters
-params.datadir = "$launchDir/../../data"
+params.datadir = "$launchDir/data"
 params.outdir = "$launchDir/results"
 
 // Input parameters
@@ -52,10 +52,10 @@ read_pairs_ch = Channel
 genome = file(params.genome)
 gtf = file(params.gtf)
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "${launchDir}/../../modules/trimmomatic"
-include { star_idx; star_alignment } from "${launchDir}/../../modules/star"
-include { multiqc } from "${launchDir}/../../modules/multiqc" 
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "${launchDir}/modules/trimmomatic"
+include { star_idx; star_alignment } from "${launchDir}/modules/star"
+include { multiqc } from "${launchDir}/modules/multiqc" 
 
 // Running a workflow with the defined processes here.  
 workflow {

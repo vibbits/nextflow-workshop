@@ -1,22 +1,30 @@
 # Creating reports 
-Nextflow has an embedded function for reporting a number of informations about the resources needed by each job and the timing. Just by adding a parameter on run-time, different kind of reports can be created. 
+Nextflow has an embedded function for reporting a various information about the resources needed by each job and the timing. Just by adding a parameter on run-time, different kinds of reports can be created. 
 
 
 1. **Workflow report**
 
     After running the nextflow pipeline script with the option `-with-report`, find the html report in the folder from where you launched the pipeline. 
 
-    `nextflow run 05-reports/dsl2-RNAseq.nf -with-report`
+    ```bash
+    nextflow run exercises/05_reports/RNAseq.nf -with-report -profile docker
+    ```
     
-    This report describes the usage of resources and job durations and gives an indication of bottlenecks and plausible optimizations in the pipeline. 
+    This report describes the usage of resources and job durations and gives an indication of bottlenecks and possible optimizations in the pipeline. 
 
 2. **DAG** 
     
     Use the option `-with-dag` to create a visualization of the workflow. By default and without any arguments, it will create a `.dot`-file that contains a description of the workflow, however to get a visualization we need to use an extra argument (e.g. `rnaseq.PNG`). This visualization is a nice overview of the workflow processes and how they are chained together and can be especially useful as a starting point to unravel more complex pipelines.
 
-    `nextflow run 05-reports/dsl2-RNAseq.nf -with-dag rnaseq.PNG`
+    ```bash
+    nextflow run exercises/05_reports/RNAseq.nf -with-dag rnaseq.PNG -profile docker
+    ```
 
     (Library graphviz needs to be installed for this purpose.)
+
+    ```{note}
+    As of Nextflow 22.04, the DAG can also be output in mermaid format, more information can be found [here](https://www.nextflow.io/docs/latest/tracing.html#dag-visualisation).
+    ```
 
 3. **Tower**
 
@@ -46,20 +54,8 @@ Run the `RNAseq.nf` pipeline again, this time also make the reports (both html-r
 ```` 
 ````{tab} Solution 1
 The command that we need for this is the following.
+```bash
+nextflow run exercises/05_reports/RNAseq.nf -profile docker -with-report -with-dag rnaseq.PNG 
 ```
-nextflow run RNAseq.nf -profile docker -with-report -with-dag rnaseq.PNG 
-```
-The visualization will not render since the `graphviz` package is not installed, for this use: `apt install graphviz` and resume the pipeline.
-```` 
-
----
-
-````{tab} Exercise 2
-Make an account on [`tower.nf`](https://tower.nf), add the Tower access tokens and run the workflow again so the reports is available on the tower platform. 
-```` 
-````{tab} Solution 2
-Follow the steps described here above to make a connection to the Tower platform. (Alternatively, read the official documentation [here](https://tower.nf/welcome))
-```
-nextflow run RNAseq.nf -profile docker -with-report -with-dag rnaseq.PNG -resume -with-tower
-```
+The visualization will not render since the `graphviz` package is not installed, for this use: `sudo apt install graphviz` and resume the pipeline (Use the password that you set up to connect to the VM).
 ```` 

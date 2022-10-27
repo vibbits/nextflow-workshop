@@ -1,24 +1,18 @@
 #!/usr/bin/env nextflow
 
 
-
-// General parameters
+// These are now default parameters used when no config file is provided
 params.datadir = "$launchDir/data"
 params.outdir = "$launchDir/results"
-
-// Input parameters
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
 params.genome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
 params.gtf = "${params.datadir}/ggal_1_48850000_49020000.bed.gff"
-
-// Trimmomatic
 params.slidingwindow = "SLIDINGWINDOW:4:15"
 params.avgqual = "AVGQUAL:30"
-
-// Star
 params.threads = 2
 params.genomeSAindexNbases = 10
 params.lengthreads = 98
+
 
 log.info """\
       LIST OF PARAMETERS
