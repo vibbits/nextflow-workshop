@@ -1,6 +1,6 @@
 # Nextflow workshop
 
-This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. If you would like to get started with the materials, please visit the website: [nextflow-workshop.rtfd.io](https://nextflow-workshop.rtfd.io).
+This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. If you would like to get started with the materials, please visit the website: [vibbits-nextflow-workshop.rtfd.io](https://vibbits-nextflow-workshop.rtfd.io).
  
 
 
