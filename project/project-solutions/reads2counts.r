@@ -12,8 +12,8 @@ library("dada2")
 reads = commandArgs(trailingOnly=TRUE)
 
 # find and extract the forward and reverse reads
-forward_reads <- reads[grep("_R1_", reads)]
-reverse_reads <- reads[grep("_R2_", reads)]
+forward_reads <- reads[grep("_R1", reads)]
+reverse_reads <- reads[grep("_R2", reads)]
 
 # learn the error rate of the base calling
 err_forward_reads <- learnErrors(forward_reads, multithread=TRUE)

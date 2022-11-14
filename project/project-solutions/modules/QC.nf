@@ -3,14 +3,15 @@
 process FASTQC { 
     // DIRECTIVES: set the docker container, the directory to output to, and a tag to follow along which sample is currently being processed
     container 'biocontainers/fastqc:v0.11.9_cv8'
-    publishDir 'outputs/fastqc_logs'
-    tag "$sample"
+    publishDir "${params.outdir}/fastqc/${step}", mode: 'copy', overwrite: true
+    tag "${sample}"
 
     input:
-    tuple val( sample ), path( reads )
+    val(step)
+    tuple val(sample), path(reads)
 
     output:
-    path( '*_fastqc.{zip,html}' )
+    path('*_fastqc.{zip,html}')
 
     script:
     """
@@ -22,19 +23,19 @@ process FASTQC {
 process MULTIQC {
     // DIRECTIVES: set the docker container, the directory to output to, and a tag
     container 'ewels/multiqc'
-    publishDir 'outputs'
-    tag "$state"
+    publishDir "${params.outdir}/multiqc/${step}/", mode: 'copy', overwrite: true
+    tag "${step}"
 
     input:
-    val( state )
-    path( 'fastqc_logs/*' )
+    val(step)
+    path(inputfiles)
 
     output:
-    file( '*_multiqc_report.html' )
+    file('*_multiqc_report.html')
 
     script:
     """
-    multiqc --filename ${state}_multiqc_report fastqc_logs
+    multiqc --filename ${step}_multiqc_report .
     """
 }
 
@@ -42,10 +43,12 @@ process MULTIQC {
 // combine the two processes into a subworkflow
 workflow check_QC {
     take:
-    state
-    reads_ch
+        step
+        reads_ch
 
     main:
-    FASTQC( reads_ch )
-    MULTIQC( state, FASTQC.out.collect() )
+        FASTQC(step, reads_ch)
+        
+        input_multiqc = FASTQC.out.collect()
+        MULTIQC(step, input_multiqc)
 }

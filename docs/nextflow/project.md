@@ -51,7 +51,7 @@ Write a process which executes FastQC over the raw samples.
 As we’re not really looking forward to inspecting each FastQC report individually, we should pool these in a single report using MultiQC.
 
 ````{tab} Objective 3
-Write a second process that executes MultiQC on the directory of FastQC outputs.
+Write a second process that executes MultiQC on the FastQC output files.
 ```` 
 ---
 
@@ -93,7 +93,7 @@ cutadapt -a ^FW_PRIMER...REVERSECOMP_RV_PRIMER \\
 As hopefully Cutadapt has done job, we’d now like to take another look at the quality report of the preprocessed reads to see if this has improved the stats.
 
 ````{tab} Objective 5
-Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
+Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads. 
 ````
 ````{tab} Hint
 Combine the FastQC and MultiQC processes into a named workflow.
