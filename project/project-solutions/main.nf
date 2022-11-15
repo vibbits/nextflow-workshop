@@ -58,13 +58,7 @@ workflow {
     check_QC_raw("raw", pe_reads_ch)
 
     //pass the raw reads and the primer sequences to the cutadapt process
-    CUTADAPT(
-        pe_reads_ch,
-        params.fw_primer,
-        params.rv_primer,
-        params.fw_primer_rev_comp,
-        params.rv_primer_rev_comp
-    )
+    CUTADAPT(pe_reads_ch)
 
     //pass the 'step' and the trimmed reads to the QC subworkflow
     check_QC_trimmed("trimmed", CUTADAPT.out)

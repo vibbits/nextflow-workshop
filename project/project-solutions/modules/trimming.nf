@@ -8,18 +8,14 @@ process CUTADAPT {
 
     input:
     tuple val(sample), path(pe_reads)
-    val(fw_primer)
-    val(rv_primer)
-    val(fw_primer_rev_comp)
-    val(rv_primer_rev_comp)
 
     output:
     tuple val(sample), file('*_trimmed.fastq')
 
     script:
     """
-    cutadapt -a ^${fw_primer}...${rv_primer_rev_comp} \
-        -A ^${rv_primer}...${fw_primer_rev_comp} \
+    cutadapt -a ^${params.fw_primer}...${params.rv_primer_rev_comp} \
+        -A ^${params.rv_primer}...${params.fw_primer_rev_comp} \
         --quality-cutoff 28 \
         --minimum-length 30 \
         --max-n 0 \
