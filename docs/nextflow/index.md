@@ -8,7 +8,6 @@ This tutorial aims to get you familiarized with Nextflow. After this course you 
 - Executing pipelines  
 - Creating our first Nextflow script(s)
 - Managing configurations: parameters, portability, executors
-- Creating reports & monitoring on tower.nf
 
 ```{toctree}
 :hidden:

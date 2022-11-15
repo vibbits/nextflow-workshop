@@ -90,7 +90,7 @@ cutadapt -a ^FW_PRIMER...REVERSECOMP_RV_PRIMER \\
 
 ### Step 3: Re-evaluate
 
-As hopefully Cutadapt has done job, we’d now like to take another look at the quality report of the preprocessed reads to see if this has improved the stats.
+As hopefully Cutadapt has done its job, we’d now like to take another look at the quality report of the preprocessed reads to see if this has improved the stats.
 
 ````{tab} Objective 5
 Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads. 
@@ -101,7 +101,7 @@ Combine the FastQC and MultiQC processes into a named workflow.
 --- 
 ### Step 4: Find unique sequences and plot
 
-To closely examine amplicon sequencing data and to extract from these the unique 16S sequence variants, there is an incredibly useful package in R called DADA2. You have been provided with a small R script which uses this package to count the abundance of each unique sequence in each sample. Based on these abundances, the script can compare samples to each other and can construct a distance tree (also known as a dendrogram):
+To closely examine amplicon sequencing data and to extract the unique 16S sequence variants from these, there is an incredibly useful package in R called DADA2. You have been provided with a small R script (`reads2counts.r`) which uses this package to count the abundance of each unique sequence in each sample. Based on these abundances, the script can compare samples to each other and can construct a distance tree (also known as a dendrogram):
 
 ```{image} ../img/nextflow/dendrogram.png
 :align: center
@@ -135,4 +135,3 @@ There are a few things left that you can implement in your pipeline so others ca
 - Add an onComplete printout to your pipeline that tells the user where they can find the output files.
 - Speed up the slow processes in your pipeline by allocating more cpus and memory to them.
 - Have nextflow create a report when you run the pipeline to see some cool stats.
-- Implement this pipeline in [tower.nf](http://tower.nf) and run it from the web-application

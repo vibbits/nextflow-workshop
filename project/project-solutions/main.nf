@@ -74,9 +74,6 @@ workflow {
 
     DADA2(dada2_input)
 
-    // Alternative way of executing a script, not using the bin folder but providing the script as an input channel
-    dada2_script = Channel.fromPath(params.script1, checkIfExists:true)
-    DADA2_ALTERNATIVE(dada2_input, dada2_script)
 }
 
 workflow.onComplete {
