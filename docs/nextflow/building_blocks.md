@@ -74,7 +74,7 @@ Nextflow consists of four main components: channels, operators, processes and wo
 :align: center
 ```
 
-The script [`firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/37c1e07f159ad2690335f50a200e616265955bcd/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
+The script [`exercises/01_building_blocks/firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/37c1e07f159ad2690335f50a200e616265955bcd/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
 
 ```bash
 #!/usr/bin/env nextflow
@@ -111,7 +111,7 @@ Besides these main building blocks, we also already highlight the existence of t
 params.input_read = '/path/to/read_1.fq'
 
 // use the input_read parameter as an input for the channel
-input_read_ch = Channel.fromPath(input_read)
+input_read_ch = Channel.fromPath(params.input_read)
 ```
 
 Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime. 
@@ -146,14 +146,14 @@ These channels can then be used by operators or serve as an input for the proces
 
 
 ````{tab} Exercise 1.1
-Inspect and edit the `template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
+Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
 
 Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
 
 ````
 
 ````{tab} Solution 1.1
-The solution is available in the file `1.1_template-paired-end.nf`.
+The solution is available in the file `exercises/01_building_blocks/solutions/1.1_template-paired-end.nf`.
 
 Note that the content of the channel is constructed in a following manner:
 ```
@@ -208,7 +208,7 @@ Test your Nextflow script with: `nextflow run <name>.nf`.
 ````
 
 ````{tab} Solution 1.2
-The solution is available in the file `1.2_template-csv.nf`
+The solution is available in the file `exercises/01_building_blocks/solutions/1.2_template-csv.nf`
 
 The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
 
@@ -406,7 +406,7 @@ executor >  local (10)
 ```
 
 ````{tab} Exercise 1.3
-A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `firstscript.nf` and inspect the output. 
+A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `exercises/01_building_blocks/firstscript.nf` and inspect the output. 
 ````
 ````{tab} Solution 1.3
 The process should be adapted, containing the following tag line in the directives. 
@@ -429,7 +429,7 @@ process valuesToFile {
 ```
 When you execute the pipeline, the processes overwrite into one line and it is not very clear in which hashed work directory the outputs are. Therefore, you can use the following to follow the execution of your pipeline:
 ```
-nextflow run firstscript.nf -bg > nf.log
+nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
 ```
 ````
