@@ -9,8 +9,8 @@ Welcome to our Nextflow workshop! We are very happy to have you here.
 
 ## General context
 This is the third edition of this workshop, jointly organised by the VIB Bioinformatics Core and ELIXIR Belgium. 
-- The first session (24 October 2022) is dedicated to Containers (Docker & Singularity) which are great tools for code portability and reproducibility of your analysis. You will learn how to use containers and how to build a container from scratch, share it with others and how to re-use and modify existing containers. 
-- The second session (17 & 18 November 2022) is focused on Nextflow for building scalable and reproducible bioinformatics pipelines and running them on a personal computer, cluster and cloud. Starting from the basic concepts we will build our own simple pipeline and add new features with every step, all in the new DSL2 language. On the second day, we will utilise all the gathered knowledge to build a small-scale microbiomics pipeline. 
+- The first session (13 & 14 March 2023) is dedicated to Containers (Docker & Singularity) which are great tools for code portability and reproducibility of your analysis. You will learn how to use containers and how to build a container from scratch, share it with others and how to re-use and modify existing containers. 
+- The second session (30 & 31 March 2023) is focused on Nextflow for building scalable and reproducible bioinformatics pipelines and running them on a personal computer, cluster and cloud. Starting from the basic concepts we will build our own simple pipeline and add new features with every step, all in the new DSL2 language. On the second day, we will utilise all the gathered knowledge to build a small-scale microbiomics pipeline. 
 
 This website contains the course materials and outline for the second session. 
 
@@ -25,9 +25,15 @@ Schedule day 1:
 - 15:15 - 15:30 - break
 - 15:30 - 17:00 - session
 
+*We aim to complete up to and including exercise 2.5 during this day*
+
 Schedule day 2:
 
-- 9:30 - 13:00 - project
+- 9:30 - 11:00 - session
+- 11:00 - 11:15 - break
+- 11:15 - 12:45 - session
+- 12:45 - 13:45 - lunch
+- 13:45 - 17:00 - project
 
 ## Objectives
 The objectives of the Nextflow workshop are the following:
