@@ -192,8 +192,8 @@ In the folder `modules/` find the script `star.nf` which contains two processes:
 ````{tab} Solution 2.6
 Solution in `exercises/03_first_pipeline/solutions/2.6_RNAseq.nf`. The following lines were added. 
 ```
-genome = file(params.genome)
-gtf = file(params.gtf)
+genome = Channel.fromPath(params.genome)
+gtf = Channel.fromPath(params.gtf)
 
 include { star_idx; star_alignment } from "${projectDir}/../../modules/star"
 

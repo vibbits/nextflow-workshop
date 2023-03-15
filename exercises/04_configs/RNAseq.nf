@@ -48,8 +48,8 @@ SAindexNbases    : $params.genomeSAindexNbases
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-genome = file(params.genome)
-gtf = file(params.gtf)
+genome = Channel.fromPath(params.genome)
+gtf = Channel.fromPath(params.gtf)
 
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${launchDir}/modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
 include { trimmomatic } from "${launchDir}/modules/trimmomatic"
