@@ -27,7 +27,7 @@ Results-folder   : ${params.outdir}
 ================================
       INPUT & REFERENCES 
 Input-files      : ${params.reads}
-Reference genome : ${params.genome}
+Reference genome : ${params.transcriptome}
 ================================
           TRIMMOMATIC
 Sliding window   : ${params.slidingwindow}
@@ -43,7 +43,7 @@ Threads          : ${params.threads}
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-transcriptome = file(params.transcriptome)
+transcriptome = Channel.fromPath(params.transcriptome)
 
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
 include { trimmomatic } from "${projectDir}/../../../modules/trimmomatic"

@@ -25,6 +25,9 @@ process fastqc {
   input:
   tuple val(sample), path(reads)  // from is omitted
 
+  output:
+  path("*_fastqc.{zip,html}") 
+
   script:
   """
   fastqc ${reads}
