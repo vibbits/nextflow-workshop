@@ -14,13 +14,11 @@ Nextflow has an embedded function for reporting a various information about the 
 
 2. **DAG** 
     
-    Use the option `-with-dag` to create a visualization of the workflow. By default and without any arguments, it will create a `.dot`-file that contains a description of the workflow, however to get a visualization we need to use an extra argument (e.g. `rnaseq.PNG`). This visualization is a nice overview of the workflow processes and how they are chained together and can be especially useful as a starting point to unravel more complex pipelines.
+    Use the option `-with-dag` to create a visualization of the workflow. By default and without any arguments, it will create a `.dot`-file that contains a description of the workflow, however to get a visualization we need to use an extra argument (e.g. `rnaseq.html`). This visualization is a nice overview of the workflow processes and how they are chained together and can be especially useful as a starting point to unravel more complex pipelines.
 
     ```bash
-    nextflow run exercises/05_reports/RNAseq.nf -with-dag rnaseq.PNG -profile docker
+    nextflow run exercises/05_reports/RNAseq.nf -with-dag rnaseq.html -profile docker
     ```
-
-    (Library graphviz needs to be installed for this purpose.)
 
     ```{note}
     As of Nextflow 22.04, the DAG can also be output in mermaid format, more information can be found [here](https://www.nextflow.io/docs/latest/tracing.html#dag-visualisation).
@@ -36,7 +34,7 @@ The Tower service, supported and developed by Seqera Labs, allows to monitor the
 To start using Tower, first create an account on [tower.nf](https://tower.nf). Then, we need to set the access token in our environment (on our VMs): 
 ```
 export TOWER_ACCESS_TOKEN=<YOUR ACCESS TOKEN>
-export NXF_VER=21.04.0 
+export NXF_VER=22.10.7 
 ```
 Verify the Nextflow version (NXF_VER) with `nextflow -v`. The access token can be obtained from clicking on the top-right profile icon, select *Your tokens* and create *New token*. 
 
@@ -55,7 +53,7 @@ Run the `RNAseq.nf` pipeline again, this time also make the reports (both html-r
 ````{tab} Solution 1
 The command that we need for this is the following.
 ```bash
-nextflow run exercises/05_reports/RNAseq.nf -profile docker -with-report -with-dag rnaseq.PNG 
+nextflow run exercises/05_reports/RNAseq.nf -profile docker -with-report -with-dag rnaseq.html 
 ```
-The visualization will not render since the `graphviz` package is not installed, for this use: `sudo apt install graphviz` and resume the pipeline (Use the password that you set up to connect to the VM).
+To view the report and the dag, you will need to download the files to your local machine.
 ```` 
