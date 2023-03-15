@@ -194,9 +194,29 @@ b
 z
 ```
 
+- `map`: e.g. when you would like to run your own function on each item in a channel. 
+    - The map operator is expressed as a [closure](https://www.nextflow.io/docs/latest/script.html#script-closure) (`{ ... }`)
+    - By default, the items in the channel are referenced by the variable `it`. This can be changed by using the `map { item -> ... }` syntax.
+    - All functions available on the item, are available on the `it` variable within the closure.
+    - When an element is a list or tuple, you can use the `it[0]`, `it[1]`, etc. syntax to access the individual elements of your item.
+
+```
+Channel
+    .of( 1, 2, 3, 4, 5 )
+    .map { it * it }
+    .subscribe onNext: { println it }, onComplete: { println 'Done' }
+
+# outputs
+1
+4
+9
+16
+25
+Done
+```
 
 ````{tab} Exercise 1.2
-Create a channel from a csv-file (`input.csv`). Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content: 
+Create a channel from a csv-file (`input.csv`) and use an operator to view the contents. Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content: 
 
 | sampleId | Read 1                        | Read 2                        |
 |----------|-------------------------------|-------------------------------|
@@ -218,10 +238,17 @@ samples_ch = Channel
                 .splitCsv(header:true)
 ```
 
-Additionally, you can use the following expression to view the contents in a clean way:
-```
-samples_ch.view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
-```
+````
+---
+
+````{tab} Exercise 1.3
+Building on exercise 1.2 and using the `map` operator, create 2 channels, one containing the sampleId and the forward read as a tuple and the second containg the sampleId and reverse read as a tuple. Use the `view` operator to inspect the contents of thsee channels.
+
+````
+
+````{tab} Solution 1.3
+The solution is available in the file `exercises/01_building_blocks/solutions/1.3_template-csv-map.nf`
+
 ````
 
 ---
@@ -405,10 +432,10 @@ executor >  local (10)
 [4b/aff57f] process > whosfirst (10) [100%] 10 of 10
 ```
 
-````{tab} Exercise 1.3
+````{tab} Exercise 1.4
 A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `exercises/01_building_blocks/firstscript.nf` and inspect the output. 
 ````
-````{tab} Solution 1.3
+````{tab} Solution 1.4
 The process should be adapted, containing the following tag line in the directives. 
 ```
 // Defining the process that is executed

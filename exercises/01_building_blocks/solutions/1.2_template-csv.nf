@@ -7,4 +7,3 @@ samples_ch = Channel
 
 // Inspect a channels contents with the operator .view()
 samples_ch.view()
-samples_ch.view{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
