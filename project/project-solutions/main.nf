@@ -44,7 +44,7 @@ params.script1 = "${projectDir}/reads2counts.r"
 // include processes and subworkflows to make them available for use in this script 
 include { check_QC as check_QC_raw; check_QC as check_QC_trimmed } from "./modules/QC" 
 include { CUTADAPT } from "./modules/trimming"
-include { DADA2; DADA2_ALTERNATIVE } from "./modules/reads2counts"
+include { DADA2 } from "./modules/reads2counts"
 
 
 
