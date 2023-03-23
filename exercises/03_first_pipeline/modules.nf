@@ -26,8 +26,8 @@ Avg quality      : ${params.avgqual}
 read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../..//modules/fastqc" 
-include { trimmomatic } from "${projectDir}/../..//modules/trimmomatic"
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" 
+include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.  
 workflow {

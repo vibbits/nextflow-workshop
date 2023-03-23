@@ -64,5 +64,5 @@ process trimmomatic {
 workflow {
 	fastqc(read_pairs_ch) 
   trimmomatic(read_pairs_ch)
-  fastqc(trimmomatic.out.paired_fq) // This will raise an error. Do you remember why?
+  // fastqc(trimmomatic.out.paired_fq) // This will raise an error. Do you remember why?
 }
