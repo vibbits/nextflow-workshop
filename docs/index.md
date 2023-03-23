@@ -48,6 +48,9 @@ Being comfortable working with the CLI (command-line interface) in a Linux-based
 ## Requirements
 The (technical) installation requirements are described in the [installations](https://nextflow-workshop.readthedocs.io/en/latest/installations.html) section. 
 
+## Exercises
+The exercises and solutions are available in [this GitHub repository](https://github.com/vibbits/nextflow-workshop).
+
 ```{toctree}
 :hidden:
 
