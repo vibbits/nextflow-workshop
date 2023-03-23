@@ -71,5 +71,9 @@ workflow {
   star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)
   
   // Multi QC on all results
-  multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
+  multiqc_input = fastqc_raw.out.fastqc_out
+    .mix(fastqc_trim.out.fastqc_out)
+    .collect()
+
+  multiqc(multiqc_input)
 }

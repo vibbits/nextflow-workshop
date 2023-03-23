@@ -64,7 +64,11 @@ workflow {
   salmon_quant(salmon_idx.out, read_pairs_ch)
   
   // Multi QC on all results
-  multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
+  multiqc_input = fastqc_raw.out.fastqc_out
+    .mix(fastqc_trim.out.fastqc_out)
+    .collect()
+
+  multiqc(multiqc_input)
 }
 
 workflow.onComplete {
