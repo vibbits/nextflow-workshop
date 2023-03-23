@@ -128,7 +128,7 @@ The final FastQC script, with some additional comments is provided in `exercises
 
 Now we will add the next step in our pipeline, which is **trimming and filtering the low quality reads**. For this process, we will use the tool `trimmomatic`. 
 
-The `fastqc.nf` script was extended with the trimmomatic process and is available in `trimmomatic.nf`. 
+The `fastqc.nf` script was extended with the trimmomatic process and is available in `exercises/03_first_pipeline/trimmomatic.nf`. 
 - A number of parameters have been added related to the trimmomatic process
 - The process `trimmomatic` with its inputs and outputs and the script has been created
 - The `workflow` now also contains the process trimmomatic, called as a function
@@ -167,7 +167,7 @@ include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/modu
 ```
 Now we're ready to use a process, defined in a module, multiple times in a workflow. 
 
-Investigate & run the script `modules.nf` which contains the following code snippet
+Investigate & run the script `exercises/03_first_pipeline/modules.nf` which contains the following code snippet
 ```
 ...
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" 

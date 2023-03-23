@@ -148,7 +148,7 @@ These channels can then be used by operators or serve as an input for the proces
 ````{tab} Exercise 1.1
 Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
 
-Once the Nextflow script is saved, run it with: `nextflow run template.nf`.
+Once the Nextflow script is saved, run it with: `nextflow run exercises/01_building_blocks/template.nf`.
 
 ````
 
@@ -165,6 +165,8 @@ This is a `tuple` qualifier which we will use a lot during this workshop and dis
 ### 2. Operators
 Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type). 
+
+  Example: [`exercises/01_building_blocks/operator_collect.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_collect.nf)
 ```
 Channel
     .from( 1, 2, 3, 4 )
@@ -176,6 +178,8 @@ Channel
 ```
 
 - `mix`: e.g. when assembling items from multiple channels into one channel for a next process (e.g. multiqc)
+
+  Example: [`exercises/01_building_blocks/operator_mix.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_mix.nf)
 
 ```
 c1 = Channel.of( 1,2,3 )
@@ -199,6 +203,8 @@ z
     - By default, the items in the channel are referenced by the variable `it`. This can be changed by using the `map { item -> ... }` syntax.
     - All functions available on the item, are available on the `it` variable within the closure.
     - When an element is a list or tuple, you can use the `it[0]`, `it[1]`, etc. syntax to access the individual elements of your item.
+
+  Example: [`exercises/01_building_blocks/operator_map.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_map.nf)
 
 ```
 Channel
@@ -273,14 +279,6 @@ process < name > {
    [script|shell|exec]:
    < user script to be executed >
 }
-```
-
-Each process is executed independently and isolated from any other process. They communicate via asynchronous FIFO queues, i.e. one process will wait for the output of another and then runs reactively when the channel has contents. 
-
-
-
-```{image} ../img/nextflow/asynchronous-FIFO.png
-:align: center
 ```
 
 Here are a couple of examples of processes:
@@ -383,7 +381,37 @@ The **output** declaration block defines the channels created by the process to 
 
 ---
 
-A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. An example can be found in `exercises/01_building_blocks/hellofrompython.nf`.
+
+Each process is executed independently and isolated from any other process. They communicate via asynchronous FIFO queues, i.e. one process will wait for the output of another and then runs reactively when the channel has contents. 
+
+
+
+```{image} ../img/nextflow/asynchronous-FIFO.png
+:align: center
+```
+
+Let's exemplify this by running the script [`exercises/01_building_blocks/fifo.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/fifo.nf) and inspect the order that the channels are being processed. 
+
+```
+N E X T F L O W  ~  version 20.10.0
+Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
+[-        ] process > whosfirst -
+This is job number 6
+This is job number 3
+This is job number 7
+This is job number 8
+This is job number 5
+This is job number 4
+This is job number 1
+This is job number 2
+This is job number 9
+executor >  local (10)
+[4b/aff57f] process > whosfirst (10) [100%] 10 of 10
+```
+
+---
+
+A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. An example can be found in [`exercises/01_building_blocks/hellofrompython.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/hellofrompython.nf).
 
 ```
 #!/usr/bin/env nextflow
@@ -413,24 +441,6 @@ In this case, the output would be in the directory starting `work/f6/4916cd...`
 
 ---
 
-Earlier, we described that Nextflow uses an asynchronous FIFO principle. Let's exemplify this by running the script `fifo.nf` and inspect the order that the channels are being processed. 
-
-```
-N E X T F L O W  ~  version 20.10.0
-Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
-[-        ] process > whosfirst -
-This is job number 6
-This is job number 3
-This is job number 7
-This is job number 8
-This is job number 5
-This is job number 4
-This is job number 1
-This is job number 2
-This is job number 9
-executor >  local (10)
-[4b/aff57f] process > whosfirst (10) [100%] 10 of 10
-```
 
 ````{tab} Exercise 1.4
 A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `exercises/01_building_blocks/firstscript.nf` and inspect the output. 
@@ -477,7 +487,7 @@ workflow {
 
 ## Extra exercises
 ````{tab} Extra exercise 1
-Use the `view` operator on the output of the `valuesToFile` process in the script `firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/edge/dsl2.html#process-named-output).
+Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/edge/dsl2.html#process-named-output).
 
 ````
 ````{tab} Solution 1
