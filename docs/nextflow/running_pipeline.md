@@ -1,4 +1,4 @@
-# Execute pipelines
+# Executing pipelines
 
 
 ## Executing our first pipeline
