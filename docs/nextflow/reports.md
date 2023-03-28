@@ -24,7 +24,17 @@ Nextflow has an embedded function for reporting a various information about the 
     As of Nextflow 22.04, the DAG can also be output in mermaid format, more information can be found [here](https://www.nextflow.io/docs/latest/tracing.html#dag-visualisation).
     ```
 
-3. **Tower**
+3. **Timeline Report**
+
+    After running the nextflow pipeline script with the option `-with-timeline`, find the html report in the folder from where you launched the pipeline. 
+
+    ```bash
+    nextflow run exercises/05_reports/RNAseq.nf -with-timeline -profile docker
+    ```
+    
+    This report summarizes the execution time of each process in your pipeline. It can be used to identify bottlenecks and to optimize the pipeline. More information about the formt of the timeline report can be found [here](https://www.nextflow.io/docs/latest/tracing.html#timeline-report).
+
+4. **Tower**
 
     Adding the parameter `-with-tower` enables the Seqera Tower service and will output the reports to a browser-based platform. More about Tower below.
 

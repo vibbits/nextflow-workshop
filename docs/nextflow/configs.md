@@ -186,7 +186,7 @@ params {
 ## Extra exercises
 
 ````{tab} Extra exercise 1
-Complete the `nextflow.config` and `params.config` files in the 'exercises/04_configs/' folder. These config files should accompany the script `exercises/04_configs/RNAseq.nf`. The commmand to run this pipeline should be: `nextflow run exercises/04_configs/RNAseq.nf -profile docker`. 
+Complete the `nextflow.config` and `params.config` files in the `exercises/04_configs/` folder. These config files should accompany the script `exercises/04_configs/RNAseq.nf`. The commmand to run this pipeline should be: `nextflow run exercises/04_configs/RNAseq.nf -profile docker`. 
 ```` 
 ````{tab} Solution 1
 The solution is available in the `exercises/04_configs/solutions/` folder. 

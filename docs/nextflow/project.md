@@ -1,6 +1,6 @@
 # Project
 
-For day two, each of you will build a small-scale metagenomics pipeline from scratch to test out what you’ve learned so far.
+For the second half of day two, each of you will build a small-scale metagenomics pipeline from scratch to test out what you’ve learned so far.
 
 ## Concept
 
@@ -20,7 +20,7 @@ Before you start the project, make sure to `cd` to the `project` directory and w
 
 For this project, we will use data from *[Vandeputte et al. (2017)](https://www.nature.com/articles/nature24460)*: a well-known study from the VIB centre for microbiology that was published in Nature. This study took faecal samples from 135 participants to examine their gut microbiota.
 
-To keep computation times to a minimum, we will work with a few subsets from this data. You can pull in this data by running the `get_project_data.sh` script that has been provided for you.
+To keep computation times to a minimum, we will work with a two subsets of this data. You can download this data by running the `get_project_data.sh` script that has been provided for you.
 
 ```bash
 bash get_project_data.sh
@@ -38,6 +38,14 @@ Set up a `main.nf` script in which you will build your pipeline that uses nextfl
 ---
 
 All the docker containers we will need are already publicly available, so don’t worry about having to write Dockerfiles yourself 🙂
+
+```{note}
+The following docker containers will work well with Nextflow for the pipeline you're going to create:
+  - fastqc: `biocontainers/fastqc:v0.11.9_cv8` 
+  - DADA2: `blekhmanlab/dada2:1.26.0` 
+  - Python: `python:slim-bullseye` 
+  - Cutadapt: `kfdrc/cutadapt:latest` 
+```
 
 ### Step 1: Quality Control
 

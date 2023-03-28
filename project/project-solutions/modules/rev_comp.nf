@@ -3,7 +3,7 @@
 params.fw_primer = "GTGCCAGCMGCCGCGGTAA"
 
 process REVERSE_COMP {
-    container 'rackspacedot/python37'
+    container 'python:slim-bullseye'
     //container 'julia'
     //container 'r-base'
     //container 'debian'
