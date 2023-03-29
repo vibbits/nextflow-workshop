@@ -20,7 +20,7 @@ Before you start the project, make sure to `cd` to the `project` directory and w
 
 For this project, we will use data from *[Vandeputte et al. (2017)](https://www.nature.com/articles/nature24460)*: a well-known study from the VIB centre for microbiology that was published in Nature. This study took faecal samples from 135 participants to examine their gut microbiota.
 
-To keep computation times to a minimum, we will work with a two subsets of this data. You can download this data by running the `get_project_data.sh` script that has been provided for you.
+To keep computation times to a minimum, we will work with two subsets of this data. You can download this data by running the `get_project_data.sh` script that has been provided for you.
 
 ```bash
 bash get_project_data.sh
