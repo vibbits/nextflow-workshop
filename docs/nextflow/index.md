@@ -25,7 +25,7 @@ The course materials are focused on the newer version of Nextflow DSL2. This is 
 ## References and further reading
 Here are some great tips for learning and to get inspired for writing your own pipelines: 
 - Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
-- Reach out to the community on Gitter ([link](https://gitter.im/nextflow-io/nextflow))
+- Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
 - Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
 - Tutorial exercises (DSL1) developed by Seqera ([link](https://github.com/seqeralabs/nextflow-tutorial))
