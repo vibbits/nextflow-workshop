@@ -25,11 +25,12 @@ The course materials are focused on the newer version of Nextflow DSL2. This is 
 ## References and further reading
 Here are some great tips for learning and to get inspired for writing your own pipelines: 
 - Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
-- Reach out to the community on Gitter ([link](https://gitter.im/nextflow-io/nextflow))
+- Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
 - Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
 - Tutorial exercises (DSL1) developed by Seqera ([link](https://github.com/seqeralabs/nextflow-tutorial))
 - Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
 - Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
 - Tutorial by Andrew Severin ([link](https://bioinformaticsworkbook.org/dataAnalysis/nextflow/02_creatingAworkflow.html#gsc.tab=0))
+- Nextflow community basic training ([link](https://training.nextflow.io/basic_training/))
 
