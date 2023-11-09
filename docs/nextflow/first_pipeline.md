@@ -16,7 +16,7 @@ The following script can be found and run in `exercises/03_first_pipeline/fastqc
 ```bash
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/data/*.fq.gz"
+params.reads = "${launchDir}/data/*.fq.gz"
 
 /**
  * Quality control fastq
@@ -65,7 +65,9 @@ In the following steps we will add new features to this script:
 - Additionally, FastQC generates a html- and zip-file for each read. Where are these output files located? 
 ````
 ````{tab} Solution 2.1
-- `nextflow run exercises/03_first_pipeline/fastqc.nf --reads data/ggal_gut_1.fq.gz`
+```
+nextflow run exercises/03_first_pipeline/fastqc.nf --reads data/ggal_gut_1.fq.gz
+```
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process. 
 ````
 
@@ -84,7 +86,11 @@ The solution is given in `exercises/03_first_pipeline/solutions/2.2_fastqc.nf`. 
 
 ---
 ````{tab} Exercise 2.3
-Run the script with: `nextflow run exercises/03_first_pipeline/fastqc.nf -bg > log`. What does the `-bg > log` mean? What would the advantage be?
+Run the script with: 
+```
+nextflow run exercises/03_first_pipeline/fastqc.nf -bg > log
+```
+What does the `-bg > log` mean? What would the advantage be?
 ````
 ````{tab} Solution 2.3
 Run in the background and push output of nextflow to the log file. No need of explicitly using nohup, screen or tmux.
@@ -93,7 +99,9 @@ Run in the background and push output of nextflow to the log file. No need of ex
 --- 
 
 ````{tab} Exercise 2.4
-Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. `nextflow run exercises/03_first_pipeline/fastqc.nf --reads wrongfilename`.
+Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. 
+```
+nextflow run exercises/03_first_pipeline/fastqc.nf --reads wrongfilename
 ````
 
 ````{tab} Solution 2.4
@@ -284,7 +292,7 @@ The `take:` declaration block defines the input channels of the sub-workflow, `m
 ## Extra exercises
 
 ````{tab} Extra exercise 1
-Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/edge/metadata.html). 
+Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/latest/metadata.html). 
 ````
 ````{tab} Solution 1
 The solution is given in `exercises/03_first_pipeline/solutions/ex.1_RNAseq.nf`

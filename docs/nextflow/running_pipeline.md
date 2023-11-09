@@ -173,9 +173,7 @@ When you use `nextflow run` without pulling the pipeline first (`nextflow pull`)
 
 ## Extra exercises
 
-```{warning}
-The `nextflow-io/rnaseq-nf` pipeline was recently upgraded to require Nextflow-22.08.2-edge which changes how the `conda` directive works. As we are on an earlier version of Nextflow, you will need to use the version in this git commit `1ca363c8`.
-```
+
 
 ````{tab} Extra exercise 1
 Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the name of the folder where results are stored by using a different parameter on the command-line.
@@ -184,11 +182,11 @@ Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the n
 ````{tab} Solution 1
 The directory with the final results: 
 ```bash
-nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -r 1ca363c8 -with-docker
+nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -with-docker
 ```
 or, the directory with temporary files (used for caching): 
 ```bash
-nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -r 1ca363c8 -with-docker
+nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-docker
 ```
 ````
 
@@ -220,18 +218,18 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 - How do you download the `BABS-aDNASeq` pipeline locally?
 ````
 ````{tab} Solution 3
-3.1. As of 20/10/2022: 71 pipelines are available, of which 40 are released, 25 are under development, and 6 are archived. 
+3.1. As of 09/11/2023: 93 pipelines are available, of which 55 are released, 26 are under development, and 12 are archived. 
 
 3.2 [link](https://nf-co.re/atacseq)   
- - 1.2.2 (20/10/2022)  
- - 5 versions: current (1.2.2), 1.2.1, 1.2.0, 1.1.0, and 1.0.0.  
+ - 2.1.2 (09/11/2023)  
+ - 8 versions: current (2.1.1), 2.1.0, 2.0, 1.2.2, 1.2.1, 1.2.0, 1.1.0, and 1.0.0.  
  - Only one required parameter: `--input` (Path to comma-separated file containing information about the samples in the experiment)  
  - `./results` (parameter `--outdir`)  
  - If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the PATH. More information is available [here](https://nf-co.re/atacseq/1.2.2/usage#main-arguments).   
 
 3.3 [link](https://github.com/crickbabs/BABS-aDNASeq).  
  - `samtools mpileup`  
- - version 0.30.2 (Note that the current version is 22.10.0 (20/10/2022))  
+ - version 0.30.2 (Note that the current version is 23.10.0 (09/11/2023))  
  - `git clone https://github.com/crickbabs/BABS-aDNASeq`  (or `nextflow clone`)  
 
 ````
