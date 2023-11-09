@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-params.reads = "$launchDir/data/*.fq.gz"
+params.reads = "${launchDir}/data/*.fq.gz"
 
 /**
  * Quality control fastq
