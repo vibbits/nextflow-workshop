@@ -235,6 +235,86 @@ workflow {
 ```
 ```` 
 
+---
+
+You might have noticed that the star_alignment process was only executed once in exercise 2.6 and 2.7, while we expect the process to be executed twice (we have 2 samples). This is due to the way we have defined the input for the star_alignment process.
+
+```bash
+process star_alignment {
+    publishDir "${params.outdir}/mapped-reads/", mode: 'copy', overwrite: true  //, pattern: "*.bam"  
+    label 'high'
+    container "quay.io/biocontainers/star:2.6.1d--0"
+
+    input:
+    tuple val(sample), path(reads) 
+    path indexDir
+    path gtf
+
+    output:
+    path("*.bam"), emit: align_bam
+
+    script:
+    """
+    STAR  \\
+        --readFilesIn ${reads} \\
+        --runThreadN ${task.cpus} \\
+        --outSAMtype BAM SortedByCoordinate \\
+        --sjdbGTFfile ${gtf} \\
+        --outFileNamePrefix ${sample}. \\
+        --genomeDir ${indexDir}
+    """
+}
+```
+As you can see, we have defined 3 separate input channels for our process.
+
+
+When two or more channels are declared as process inputs, the process waits until there is a complete input configuration, i.e. until it receives a value from each input channel. When this condition is satisfied, the process consumes a value from each channel and launches a new task, repeating this logic until one or more channels are empty.
+More information can be found in the [documentation](https://www.nextflow.io/docs/latest/process.html#multiple-input-channels)
+
+Because we have more than 1 sample in the first input channel, but only 1 entry for both the second (indexDir) and third (gtf) channel, the process will only be executed once.
+
+---
+
+````{tab} Exercise 2.8
+Find a way to restructure the input channel for the `star_alignment` process so it will correctly be exectuted for each sample instead of just once. 
+
+- Use channel operators to combine the multiple input channels 
+- Don't forget to change the input declaration in the process as well
+
+````
+
+````{tab} Solution 2.8
+Solution in `exercises/03_first_pipeline/solutions/2.8_RNAseq.nf`. The following lines were added. 
+
+```
+workflow {
+  ...
+  // Combine channels
+  alignment_input = trimmomatic.out.trim_fq
+    .combine(star_idx.out.index)
+    .combine(gtf)
+
+  alignment_input.view()
+
+  // Mapping 
+  star_alignment(alignment_input)
+}
+```
+The following adjustments were made to the input declaration block of the `star.nf` module.
+```
+process star_alignment {
+    ...
+    input:
+    // (trim_fq, IDX.out, gtf)
+    tuple val(sample), path(reads), path(indexDir), path(gtf) 
+
+    ...
+}
+
+
+```
+```` 
+
 
 ---
 
