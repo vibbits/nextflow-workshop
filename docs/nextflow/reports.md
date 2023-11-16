@@ -41,7 +41,7 @@ Nextflow has an embedded function for reporting a various information about the 
 ## Tower
 The Tower service, supported and developed by Seqera Labs, allows to monitor the workloads from a browser. Pipelines can be deployed on any local, cluster or cloud environment using the intuitive *launchpad* interface. Futhermore, it is also possible to manage teams and organizations, control project costs, and more. With ongoing improvements to the Tower platform, it is a very powerful platform worth checking out. 
 
-To start using Tower, first create an account on [tower.nf](https://tower.nf). Then, we need to set the access token in our environment (on our VMs): 
+To start using Tower, first create an account on [tower.nf](https://tower.nf). Then, we need to set the access token in our environment: 
 ```
 export TOWER_ACCESS_TOKEN=<YOUR ACCESS TOKEN>
 export NXF_VER=22.10.7 

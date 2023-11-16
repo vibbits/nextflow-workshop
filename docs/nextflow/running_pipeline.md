@@ -165,7 +165,9 @@ After importing our pipeline of interest, we can run it on the command-line usin
 ```{note}  
 When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), Nextflow will check GitHub for a corresponding repository, if one exists it will pull it and run it locally. 
 
-`nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our VMs. To fix this, simply add the parameter `-with-docker`. We will discover what is happening when we enable this setting later`. 
+`nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
+
+`APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer` . 
 ``` 
 
 ---
