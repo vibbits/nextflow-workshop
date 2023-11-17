@@ -146,9 +146,13 @@ These channels can then be used by operators or serve as an input for the proces
 
 
 ````{tab} Exercise 1.1
+**Reminder: Run all exercises from the root nextflow-workshop folder**
+
 Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
 
 Once the Nextflow script is saved, run it with: `nextflow run exercises/01_building_blocks/template.nf`.
+
+Paired fastq files are provided in the `data` folder.
 
 ````
 
@@ -169,7 +173,7 @@ Operators are necessary to transform the content of channels in a format that is
   Example: [`exercises/01_building_blocks/operator_collect.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_collect.nf)
 ```
 Channel
-    .from( 1, 2, 3, 4 )
+    .of( 1, 2, 3, 4 )
     .collect()
     .view()
 
@@ -370,7 +374,7 @@ process trimmomatic {
 The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name ([more information](https://www.nextflow.io/docs/latest/process.html#inputs)). The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
 
 ```{warning}
-The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials (and in the official Nextflow documentation). 
+The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials.
 ```
 
 The **output** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
@@ -487,7 +491,7 @@ workflow {
 
 ## Extra exercises
 ````{tab} Extra exercise 1
-Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/edge/dsl2.html#process-named-output).
+Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/latest/workflow.html#process-named-outputs).
 
 ````
 ````{tab} Solution 1
@@ -564,14 +568,3 @@ workflow {
 
 
 --- 
-
-## Futher reading on DSL2
-Nextflow recently went through a big make-over. The premise of the next version, using DSL2, is to make the pipelines more modular and simplify the writing of complex data analysis pipelines. 
-
-Here is a list of the major changes: 
-- Since version 22.03.0-edge, Nextflow defaults to using DSL2 and you do not need to manually enable it.
-- When using DSL1 each channel could only be consumed once, this is ommited in DSL2. Once created, a channel can be consumed indefinitely. 
-- A process on the other hand can still only be used once in DSL2 
-- A new term is introduced: `workflow`. In the workflow, the processes are called as functions with input arguments being the channels. 
-- Regarding the processes, the new DSL separates the definition of a process from its invocation. This means that in DSL1 the process was defined and also run when the script was invoked, however in DSL2, the definition of a process does not necessarily mean that it will be run. 
-- Moreover, within processes there are no more references to channels (i.e. `from` and `into`). The channels are passed as inputs to the processes which are defined and invoked in the `workflow`. 

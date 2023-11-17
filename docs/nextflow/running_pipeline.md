@@ -131,7 +131,7 @@ Before thinking of writing our own (plausibly) complex pipeline, we can also thi
     - Some curated nextflow pipelines are available on [awesome-nextflow](https://github.com/nextflow-io/awesome-nextflow).  
     - Pipelines from the [nf-core community](https://nf-co.re/pipelines).  
     - Pipelines from [WorkflowHub](https://workflowhub.eu/) (this is a currently ongoing effort).  
-    - VSN-Pipelines for single cell analysis [VSN-Pipelines](https://github.com/vib-singlecell-nf/vsn-pipelines) (Currently not updated)
+    - VSN-Pipelines for single cell analysis [VSN-Pipelines](https://github.com/vib-singlecell-nf/vsn-pipelines) (No longer updated)
        
 
 ## Import a pipeline 
@@ -144,9 +144,14 @@ One of them is to pull the pipeline using `nextflow pull`, like so:
 nextflow pull nextflow-io/rnaseq-nf
 ```
 The latest version of the pipeline is written in DSL2. Imagine that you would like to run the last DSL1 version of the pipeline (v1.2), we can pull this specific version using:
+
 ```
 nextflow pull nextflow-io/rnaseq-nf -r v1.2
 ```
+```{warning}
+DSL1 support was removed in Nextflow version 22.12.0 so you would need to use an older version of Nextflow for this to work.
+```
+
 Nextflow enables to pull any specific tag, release or commit. To pull the pipeline from (1) a given branch and at a (2) specific git commit, we use the following:
 ```
 nextflow pull nextflow-io/rnaseq-nf -r master

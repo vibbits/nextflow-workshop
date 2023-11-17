@@ -15,7 +15,7 @@ This is the third edition of this workshop, jointly organised by the VIB Bioinfo
 
 This website contains the course materials and outline for the second session.
 
-The presentation which goes alonside this material can be found [here](https://docs.google.com/presentation/d/1dl7yuVZTKeOKJwXuwTLb1NGWSZKKT0-THyllVtXMFsg/edit?usp=sharing).
+The presentation which goes alongside this material can be found [here](https://docs.google.com/presentation/d/1dl7yuVZTKeOKJwXuwTLb1NGWSZKKT0-THyllVtXMFsg/edit?usp=sharing).
 
 ## Practical information
 

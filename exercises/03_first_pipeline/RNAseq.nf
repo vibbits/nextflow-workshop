@@ -49,13 +49,13 @@ read_pairs_ch = Channel
         .fromFilePairs(params.reads, checkIfExists:true)
 
 // Define the channels for the genome and reference file
-...
+// ...
 
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
 include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
 
 // Import the star indexing and alignment processes from the modules
-...
+// ...
 
 // Running a workflow with the defined processes here.  
 workflow {
@@ -67,8 +67,8 @@ workflow {
   fastqc_trim(trimmomatic.out.trim_fq)
 	
   // Mapping
-  ... 
-  ... 
+  // ... 
+  // ... 
   
   // Multi QC
   
