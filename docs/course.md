@@ -6,7 +6,7 @@ hide-toc: true
 
 Welcome to our Nextflow workshop! We are very happy to have you here.
 
-## General context
+### General context
 
 This is the third edition of this workshop, jointly organised by the VIB Bioinformatics Core and ELIXIR Belgium.
 
@@ -17,7 +17,7 @@ This website contains the course materials and outline for the second session.
 
 The presentation which goes alongside this material can be found [here](https://docs.google.com/presentation/d/1dl7yuVZTKeOKJwXuwTLb1NGWSZKKT0-THyllVtXMFsg/edit?usp=sharing).
 
-## Practical information
+### Practical information
 
 Schedule day 1:
 
@@ -39,7 +39,7 @@ Schedule day 2:
 - 12:45 - 13:45 - lunch
 - 13:45 - 17:00 - project
 
-## Objectives
+### Objectives
 
 The objectives of the Nextflow workshop are the following:
 
@@ -48,15 +48,15 @@ The objectives of the Nextflow workshop are the following:
 - Write and run Nextflow pipelines
 - Write and modify config files for storing parameters related to computing hardware as well as pipeline dependent parameters
 
-## Prerequisites
+### Prerequisites
 
 Being comfortable working with the CLI (command-line interface) in a Linux-based environment.
 
-## Requirements
+### Requirements
 
 The (technical) installation requirements are described in the [installations](https://vibbits-nextflow-workshop.readthedocs.io/en/latest/installations.html) section.
 
-## Exercises
+### Exercises
 
 The exercises and solutions are available in [this GitHub repository](https://github.com/vibbits/nextflow-workshop).
 
