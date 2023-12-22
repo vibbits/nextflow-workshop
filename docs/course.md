@@ -6,7 +6,7 @@ hide-toc: true
 
 Welcome to our Nextflow workshop! We are very happy to have you here.
 
-### General context
+## General context
 
 This is the third edition of this workshop, jointly organised by the VIB Bioinformatics Core and ELIXIR Belgium.
 
