@@ -37,7 +37,7 @@ This is the third edition of this workshop, jointly organised by the VIB Technol
 > To see this document as an interactive LiaScript rendered version, click on the
 > following link/badge:
 >
-> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/material-liascript/master/nextflow.md)
+> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/2024-liascript/nextflow.md)
 
 
 ### Lesson overview
