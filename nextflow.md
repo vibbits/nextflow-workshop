@@ -73,7 +73,7 @@ This is the third edition of this workshop, jointly organised by the VIB Technol
 >  **Supporting Materials**:
 >
 >  1. [Exercises and solutions](https://github.com/vibbits/nextflow-workshop)
->  2. [Slides]()  
+>  2. [Slides](https://docs.google.com/presentation/d/1dl7yuVZTKeOKJwXuwTLb1NGWSZKKT0-THyllVtXMFsg/edit?usp=sharing)  
 >
 >  **Requirements:** The (technical) installation requirements are described in the [installations](https://vibbits-nextflow-workshop.readthedocs.io/en/latest/installations.html) section.
 >
