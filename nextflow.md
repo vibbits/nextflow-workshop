@@ -1,6 +1,6 @@
 <!--
 
-author:   Kris Davie, Kobe Lavaert
+author:   Kris Davie, Kobe Lavaert, Tuur Muyldermans, Steff Taelman
 email:    training@vib.de
 version:  1.0.0
 language: en
@@ -37,22 +37,22 @@ This is the third edition of this workshop, jointly organised by the VIB Technol
 > To see this document as an interactive LiaScript rendered version, click on the
 > following link/badge:
 >
-> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/2024-liascript/nextflow.md)
+> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/material-liascript/master/nextflow.md)
 
 
 ### Lesson overview
 
-> <i class="fa fa-cat"></i>:fontawesome-regular-bookmark: **Description**  
+> <i class="fa fa-bookmark"></i> **Description**  
 > This is our interactive hands-on course about efficient use of the ELIXIR TeSS platform.
 > 
-> :fontawesome-solid-arrow-left: **Prerequisites**  
+> <i class="fa fa-arrow-left"></i> **Prerequisites**  
 > To be able to follow this course, learners should have knowledge in:
 >
 > 1. Basic knowlegde of HTML  
 > 2. Basic knowledge of structured data as JSON-LD objects
 > 3. Being comfortable working with the CLI (command-line interface) in a Linux-based environment.  
 > 
-> :fontawesome-solid-arrow-right: **Learning Outcomes:**  
+> <i class="fa fa-arrow-right"></i> **Learning Outcomes:**  
 > By the end of the course, learners will be able to:
 >
 > 1. Understand Nextflow's basic concepts & syntax: channels, processes, modules, workflows, etc.
@@ -60,42 +60,38 @@ This is the third edition of this workshop, jointly organised by the VIB Technol
 > 3. Write and run Nextflow pipelines
 > 4.Write and modify config files for storing parameters related to computing hardware as well as pipeline dependent parameters
 > 
-> :fontawesome-solid-users: **Target Audience:** Researchers, trainers, training providers
+> <i class="fa fa-user"></i> **Target Audience:** Researchers, trainers, training providers
 > 
-> :fontawesome-solid-stairs: **Level:** Beginner  
+> <svg xmlns="http://www.w3.org/2000/svg" height="14" width="16" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M384 64c0-17.7 14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H448v96c0 17.7-14.3 32-32 32H320v96c0 17.7-14.3 32-32 32H192v96c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h96V320c0-17.7 14.3-32 32-32h96V192c0-17.7 14.3-32 32-32h96V64z"/></svg> **Level:** Beginner  
 >
-> :fontawesome-solid-lock: **License:** [Creative Commons Attribution 4.0 International  License](https://creativecommons.org/licenses/by/4.0/)
+> <i class="fa fa-lock"></i> **License:** [Creative Commons Attribution 4.0 International  License](https://creativecommons.org/licenses/by/4.0/)
 > 
-> :fontawesome-solid-money-bill-1: **Funding:** This project has received funding from the ELIXIR Programme 2022-2023.
+> <i class="fa fa-money-bill"></i> **Funding:** This project has received funding from the ELIXIR Programme 2022-2023.
 > 
->  Time estimation: 40 minutes
+> <i class="fa fa-hourglass"></i> **Time estimation**: 40 minutes
 > 
->  **Supporting Materials**:
+> <i class="fa fa-envelope-open-text"></i> **Supporting Materials**:
 >
 >  1. [Exercises and solutions](https://github.com/vibbits/nextflow-workshop)
->  2. [Slides](https://docs.google.com/presentation/d/1dl7yuVZTKeOKJwXuwTLb1NGWSZKKT0-THyllVtXMFsg/edit?usp=sharing)  
+>  2. [Slides]()  
 >
->  **Requirements:** The (technical) installation requirements are described in the [installations](https://vibbits-nextflow-workshop.readthedocs.io/en/latest/installations.html) section.
+> <i class="fa fa-asterisk"></i> **Requirements:** The (technical) installation requirements are described in the [installations](https://vibbits-nextflow-workshop.readthedocs.io/en/latest/installations.html) section.
 >
-> PURL: 
-> 
-> **Acknowledgement**: 
+> <i class="fa fa-life-ring"></i> **Acknowledgement**: 
 >
 > * [ELIXIR Belgium](https://www.elixir-belgium.org/)
 > * [VIB Technologies](https://www.vib.be/)
 > * [BioLizard](https://www.lizard.bio)
-
+>
+> <i class="fa fa-anchor"></i> **PURL**:  
 
 ### Authors
 
-[cards class_name="authors" cols="3"(./docs/assets/cards/author_cards.yaml)]
-
-Greek Mythology icons made by [max.icons](https://www.flaticon.com/authors/maxicons) from [www.flaticon.com](https://www.flaticon.com)
+@[orcid(Kris Davie)](https://orcid.org/0000-0003-2182-1249), @[orcid(Kobe Lavaerts)](https://orcid.org/0000-0003-0490-5969), @[orcid(Tuur Muyldermans)](https://orcid.org/0000-0002-3926-7293), @[orcid(Steff Taelman)](https://orcid.org/0000-0002-2685-4130)
 
 ### Contributors
 
-[cards class_name="contributors" cols="6"(./docs/assets/cards/contributor_cards.yaml)]
-Greek Mythology icons made by [max.icons](https://www.flaticon.com/authors/maxicons) from [www.flaticon.com](www.flaticon.com)
+@[orcid(Alexander Botzki)](https://orcid.org/0000-0001-6691-4233)
 
 </section>
 
