@@ -6,7 +6,7 @@ version:  1.0.0
 language: en
 narrator: UK English Female
 
-logo:     https://raw.githubusercontent.com/vibbits/material-liascript/master/img/liascript_img/Logo.png
+logo:     docs/img/logo_VIB_notagline.svg
 
 comment:  This document shall provide an entire compendium and course on the
           development of Open-courSes with [LiaScript](https://LiaScript.github.io).
