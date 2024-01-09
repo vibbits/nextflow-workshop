@@ -6,7 +6,7 @@ version:  1.0.0
 language: en
 narrator: UK English Female
 
-logo:     docs/img/logo_VIB_notagline.svg
+icon:     https://vib.be/sites/vib.sites.vib.be/files/logo_VIB_noTagline.svg
 
 comment:  This document shall provide an entire compendium and course on the
           development of Open-courSes with [LiaScript](https://LiaScript.github.io).
