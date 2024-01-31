@@ -6,6 +6,14 @@ This repository contains the data, scripts, documentation and relevant informati
 
 The website was generated with Sphinx read-the-docs with Furo template.
 
+## Learning outcomes
+-	Define the basic concepts and syntax of Nextflow, such as channels, processes, modules, and workflows;
+-	Demonstrate how to execute pipelines using Nextflow commands and options;
+-	Create and run your own Nextflow pipelines;
+-	Combine the use of containers when creating your own NextFLow pipeline;
+-	Write and modify config files to store parameters and dependencies related to the pipeline;
+
+
 ## Development
 
 ### Dependencies
