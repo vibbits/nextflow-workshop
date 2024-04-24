@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath('.'))
 # -- Project information -----------------------------------------------------
 
 project = 'containers-workflows-workshop'
-copyright = '2023, KrisDavie, kobelavaerts, tmuylder'
+copyright = '2024, KrisDavie, kobelavaerts, tmuylder'
 author = 'KrisDavie, kobelavaerts, tmuylder'
 
 # The full version, including alpha/beta/rc tags

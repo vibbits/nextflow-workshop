@@ -33,7 +33,7 @@ bash get_project_data.sh
 We’d like to construct a pipeline that executes quality control, trimming, filtering and the finding of unique sequence in an automated fashion, parallelising processes wherever possible. We’d also like to run the whole thing in docker containers so we don’t have to worry about dependencies.
 
 ````{tab} Objective 1
-Set up a `main.nf` script in which you will build your pipeline that uses nextflow’s DSL2 and which reads in the forward and reverse reads for each of the five samples in the data1-directory into a channel.
+Set up a `main.nf` script in which you will build your pipeline which reads in the forward and reverse reads for each of the five samples in the data1-directory into a channel.
 ```` 
 ---
 

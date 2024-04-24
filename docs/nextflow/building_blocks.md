@@ -165,10 +165,38 @@ Note that the content of the channel is constructed in a following manner:
 ```
 This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again. 
 ````
+---
+
+There are 2 distinct types of channel, Queue channels and Value channels. 
+* Value channels contain a single value (i.e. a string or a number) and can be used within a process any number of times, the value is never consumed. 
+* Queue channels contain one or more elements which will be consumed (used) within a process, once an element is consumed, it cannot be used again within that process. 
+    - A single queue channel may be used as input to multiple processes in a workflow. 
+    - Queue channels are designed for connecting the output of one process to the input of other processes.
+
+```
+# Value Channels
+value_channel1 = Channel.value(1)
+value_channel2 = Channel.value("Hello World")
+value_channel3 = Channel.value(["a", "b", "c"])
+
+# Queue Channels
+queue_channel1 = Channel.of('This', 'is', 'a', 'channel')
+queue_channel2 = Channel.fromPath('/path/to/files/*.txt')
+
+```
+More info about value and queue channels can be found in the [documentation](https://www.nextflow.io/docs/latest/channel.html#channel-types).
+
+
+---
 
 ### 2. Operators
-Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
+Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There are a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type). 
+
+````{note}
+The nextflow documentation details whether the out for each operator is a queue channel or a value channel.
+
+````
 
   Example: [`exercises/01_building_blocks/operator_collect.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_collect.nf)
 ```
@@ -379,6 +407,11 @@ The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we 
 
 The **output** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
 
+````{note}
+By default, the output of a process is a queue channel, however, when all of the input channels into a process are value channels, the output will automaticaly also be a value channel.
+
+```` 
+
 **Directives** are defined at the top of the process (see `trimmomatic` example) and can be any of the [following long list of possibilities](https://www.nextflow.io/docs/latest/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way. 
 
 **Conditionals** are not considered in this course.
@@ -472,6 +505,40 @@ When you execute the pipeline, the processes overwrite into one line and it is n
 ```
 nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
+```
+````
+
+---  
+
+````{tab} Exercise 1.5
+The script in `exercises/01_building_blocks/channel_types.nf` uses two queue channels as the input to a process, but only a single value from the `y` channel is utilized, this is because the single value in the `x` channel is consumed leaving an empty channel. Change channel `x` to be a value channel, so that channel `y` is completely consumed.
+
+````
+````{tab} Solution 1.5
+The script should be changed to use `Channel.value` for channel `x`.
+```
+process bar {
+  input:
+  val x
+  val y
+
+  script:
+  """
+  echo $x and $y
+  """
+}
+
+workflow {
+  x = Channel.value(1)
+  y = Channel.of('a', 'b', 'c')
+  foo(x, y)
+}
+```
+You should get the following output:
+```
+1 and a
+1 and b
+1 and c
 ```
 ````
 

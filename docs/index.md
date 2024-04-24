@@ -10,8 +10,8 @@ Welcome to our Nextflow workshop! We are very happy to have you here.
 
 This is the third edition of this workshop, jointly organised by the VIB Bioinformatics Core and ELIXIR Belgium.
 
-- The first session (12 & 13 October 2023) is dedicated to Containers (Docker & Singularity) which are great tools for code portability and reproducibility of your analysis. You will learn how to use containers and how to build a container from scratch, share it with others and how to re-use and modify existing containers.
-- The second session (16 & 17 November 2023) is focused on Nextflow for building scalable and reproducible bioinformatics pipelines and running them on a personal computer, cluster and cloud. Starting from the basic concepts we will build our own simple pipeline and add new features with every step, all in the new DSL2 language. On the second day, we will utilise all the gathered knowledge to build a small-scale microbiomics pipeline.
+- The first session (15 & 16 April 2024) is dedicated to Containers (Docker & Singularity) which are great tools for code portability and reproducibility of your analysis. You will learn how to use containers and how to build a container from scratch, share it with others and how to re-use and modify existing containers.
+- The second session (23 & 24 May 2024) is focused on Nextflow for building scalable and reproducible bioinformatics pipelines and running them on a personal computer, cluster and cloud. Starting from the basic concepts we will build our own simple pipeline and add new features with every step. On the second day, we will utilise all the gathered knowledge to build a small-scale microbiomics pipeline.
 
 This website contains the course materials and outline for the second session.
 
@@ -37,7 +37,8 @@ Schedule day 2:
 - 11:00 - 11:15 - break
 - 11:15 - 12:45 - session
 - 12:45 - 13:45 - lunch
-- 13:45 - 17:00 - project
+- 13:45 - 14:45 - nf-core presentation
+- 14:45 - 17:00 - project
 
 ## Objectives
 

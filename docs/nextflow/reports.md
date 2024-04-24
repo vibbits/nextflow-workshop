@@ -34,25 +34,9 @@ Nextflow has an embedded function for reporting a various information about the 
     
     This report summarizes the execution time of each process in your pipeline. It can be used to identify bottlenecks and to optimize the pipeline. More information about the formt of the timeline report can be found [here](https://www.nextflow.io/docs/latest/tracing.html#timeline-report).
 
-4. **Tower**
+4. **Seqera Platform**
 
-    Adding the parameter `-with-tower` enables the Seqera Tower service and will output the reports to a browser-based platform. More about Tower below.
-
-## Tower
-The Tower service, supported and developed by Seqera Labs, allows to monitor the workloads from a browser. Pipelines can be deployed on any local, cluster or cloud environment using the intuitive *launchpad* interface. Futhermore, it is also possible to manage teams and organizations, control project costs, and more. With ongoing improvements to the Tower platform, it is a very powerful platform worth checking out. 
-
-To start using Tower, first create an account on [tower.nf](https://tower.nf). Then, we need to set the access token in our environment: 
-```
-export TOWER_ACCESS_TOKEN=<YOUR ACCESS TOKEN>
-export NXF_VER=22.10.7 
-```
-Verify the Nextflow version (NXF_VER) with `nextflow -v`. The access token can be obtained from clicking on the top-right profile icon, select *Your tokens* and create *New token*. 
-
-Tower is undergoing a lot of changes, hence we refer to this useful video. More information is also available at [seqera.io](https://seqera.io/).
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
-    <iframe width="1280" height="720" src="https://www.youtube.com/embed/P7LUtBFzSww" title="Nextflow Tower" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-</div>
+    Adding the parameter `-with-tower` enables the Seqera Platform service and will output the reports to a browser-based platform. More about Seqera Platform [here](https://training.nextflow.io/basic_training/seqera_platform/)
 
 ---
 

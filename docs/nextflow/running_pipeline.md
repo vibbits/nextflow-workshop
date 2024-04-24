@@ -225,10 +225,10 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 - How do you download the `BABS-aDNASeq` pipeline locally?
 ````
 ````{tab} Solution 3
-3.1. As of 09/11/2023: 93 pipelines are available, of which 55 are released, 26 are under development, and 12 are archived. 
+3.1. As of 24/04/2024: 105 pipelines are available, of which 60 are released, 34 are under development, and 11 are archived. 
 
 3.2 [link](https://nf-co.re/atacseq)   
- - 2.1.2 (09/11/2023)  
+ - 2.1.2 (24/04/2024)  
  - 8 versions: current (2.1.1), 2.1.0, 2.0, 1.2.2, 1.2.1, 1.2.0, 1.1.0, and 1.0.0.  
  - Only one required parameter: `--input` (Path to comma-separated file containing information about the samples in the experiment)  
  - `./results` (parameter `--outdir`)  
@@ -236,7 +236,7 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 
 3.3 [link](https://github.com/crickbabs/BABS-aDNASeq).  
  - `samtools mpileup`  
- - version 0.30.2 (Note that the current version is 23.10.0 (09/11/2023))  
+ - version 0.30.2 (Note that the current version is 23.10.1 (24/04/2024))  
  - `git clone https://github.com/crickbabs/BABS-aDNASeq`  (or `nextflow clone`)  
 
 ````

@@ -6,7 +6,7 @@
 
 Please read this page carefully **before** the start of the workshop.
 
-There are two options for following this workshop: (1) do the installations yourself & be in control of everything, (2) use the setup that we have provided with the installations already done. In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/edge/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
+There are two options for following this workshop: (1) do the installations yourself & be in control of everything, (2) use the setup that we have provided with the installations already done. In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/stable/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
 
 ## Provided infrastructure
 
@@ -79,4 +79,8 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Open a new terminal within VSCode: Terminal -> New Terminal
 - Create a new folder for the workshop
 - Clone this repository into the folder: `git clone git@github.com:VIBbits/nextflow-workshop.git`
-- Load the nextflow module: `module load Nextflow/23.10.0`
+- For the Gent cluster usage, in any terminal where you want to run your excercises 
+  1. Load the nextflow module: `module load Nextflow/23.10.0`
+  2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
+   - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
+   - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
