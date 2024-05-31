@@ -2,12 +2,12 @@
 
 process CUTADAPT {
     // DIRECTIVES: set the docker container, the directory to output to, and a tag to follow along which sample is currently being processed
-    container 'kfdrc/cutadapt:latest'
+    container 'quay.io/biocontainers/cutadapt:4.7--py310h4b81fae_1'
     publishDir "${params.outdir}/cutadapt", mode: 'copy', overwrite: true
     tag "${sample}"
 
     input:
-    tuple val(sample), path(pe_reads)
+    tuple val(sample), path(cookies)
 
     output:
     tuple val(sample), file('*_trimmed.fastq')
@@ -21,6 +21,6 @@ process CUTADAPT {
         --max-n 0 \
         --output ${sample}_R1_trimmed.fastq \
         --paired-output ${sample}_R2_trimmed.fastq \
-        ${pe_reads[0]} ${pe_reads[1]}
+        ${cookies[0]} ${cookies[1]}
     """
 }

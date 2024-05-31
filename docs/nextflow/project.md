@@ -44,7 +44,7 @@ The following docker containers will work well with Nextflow for the pipeline yo
   - fastqc: `biocontainers/fastqc:v0.11.9_cv8` 
   - DADA2: `blekhmanlab/dada2:1.26.0` 
   - Python: `python:slim-bullseye` 
-  - Cutadapt: `kfdrc/cutadapt:latest` 
+  - Cutadapt: `biocontainers/cutadapt:4.7--py310h4b81fae_1` 
 ```
 
 ### Step 1: Quality Control

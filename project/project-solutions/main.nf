@@ -56,6 +56,10 @@ workflow {
 
     //pass the 'step' and the raw reads to the QC subworkflow
     check_QC_raw("raw", pe_reads_ch)
+    
+    // the "raw" notation creates a value channel. This is equivalent to the following lines
+    // step1 = channel.value("raw")
+    // check_QC_raw(step1, pe_reads_ch)
 
     //pass the raw reads and the primer sequences to the cutadapt process
     CUTADAPT(pe_reads_ch)
@@ -67,6 +71,7 @@ workflow {
     dada2_input = CUTADAPT.out
         .map{sample, reads -> reads}
         .collect()
+    
 
     // you could also add the closure to the collect operator to do this in one step
     // dada2_input = CUTADAPT.out

@@ -86,3 +86,24 @@ workflow {
 
   multiqc(multiqc_input)
 }
+
+
+// alternative solution using value channels instead:
+
+include { star_alignment as star_alignment_alt_sol } from "${projectDir}/../../../modules/star"
+workflow alternative_solution {
+  // read_pairs_ch_alt = Channel
+  //   .fromFilePairs(params.reads, checkIfExists:true)
+  genome_alt = Channel.value(file(params.genome))
+  gtf_alt = Channel.value(file(params.gtf))
+
+  // QC on raw reads
+  fastqc_raw(read_pairs_ch) 
+	
+  // Trimming & QC
+  trimmomatic(read_pairs_ch)
+  fastqc_trim(trimmomatic.out.trim_fq)
+
+  star_idx(genome_alt, gtf_alt)
+  star_alignment_alt_sol(trimmomatic.out.trim_fq, star_idx.out.index, gtf_alt)
+}
