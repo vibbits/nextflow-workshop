@@ -57,6 +57,8 @@ This is the @edition edition of this workshop, jointly organised by VIB and ELIX
 
 <img src="./docs/img/nextflow/nextflow-logo.png" width="650" align="center"/>
 
+Let's start!
+
 > We are using the interactive Open Educational Resource online/offline course infrastructure called LiaScript.
 > It is a distributed way of creating and sharing educational content hosted on github.
 > To see this document as an interactive LiaScript rendered version, click on the
