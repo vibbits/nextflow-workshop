@@ -55,7 +55,7 @@ Hello and welcome to our @tutor workshop! We are very happy to have you here. Th
 
 This is the @edition edition of this workshop, jointly organised by VIB and ELIXIR.
 
-<img src="./images/cover-genAI.png" width="650" align="center"/>
+<img src="./img/nextflow/nextflow-logo.png" width="650" align="center"/>
 
 Example image to ilustrate the front page of the material. This image was designed by Bruna Piereck.
 
