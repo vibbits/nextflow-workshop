@@ -216,7 +216,7 @@ Please cite as:
 
 | Chapter | Title                                                   |
 | :---- | :------------------------------------------------         |
-| 0     | [Getting Ready](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/get_ready_for_the_course.md#1).  |
+| 0     | [Getting Ready](#get-ready-for-the-course)  |
 | 1     | [Building blocks](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter01.md)  |
 | 2     | [Executing pipelines](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter02.md)  |
 | 3     | [Creating first pipeline](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter03.md)  |
@@ -263,7 +263,7 @@ Authors: @[orcid(Alexander Botzki)](https://orcid.org/0000-0001-6691-4233), @[or
 
 Technical Editors: Alexander Botzki
 
-## Installations
+## Get ready for the course
 
 Please read this page carefully **before** the start of the workshop.
 
