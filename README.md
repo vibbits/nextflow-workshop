@@ -49,53 +49,6 @@ orcid:    [@0](@1)<!--class="orcid-logo-for-author-list"-->
 
 # Nextflow workshop
 
-```json   @JSONLD
-{
-  "@context": "https://schema.org/",
-  "@type": "LearningResource",
-  "@id": "https://elixir-europe-training.github.io/ELIXIR-TrP-TeSS/",
-  "http://purl.org/dc/terms/conformsTo": {
-    "@type": "CreativeWork",
-    "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"
-  },
-  "description": "Introduction to Docker and Apptainer",
-  "keywords": "Docker, Containers, Recipes, Singularity",
-  "name": "Introduction to Docker and Apptainer",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
-  "educationalLevel": "beginner",
-  "competencyRequired": "none",
-  "teaches": [
-    "Define what containers are and articulate the differences between Docker and Singularity.",
-   "Identify the components of a Docker recipe and correlate with the layers within a Docker image.",
-   "List the benefits of containerization, considering reproducibility, usage and installation.",
-   "Recognize the use cases where Docker is the preferred method for deploying applications.",
-    "Discuss case studies to justify the selection of Docker or Singularity for specific deployment scenarios."
-  ],
-  "audience": "researchers",
-  "inLanguage": "en-US",
-  "learningResourceType": [
-    "tutorial"
-  ],
-  "author": [
-    {
-      "@type": "Person",
-      "name": "Bruna Piereck"
-    },
-    {
-      "@type": "Person",
-      "name": "Alexander Botzki"
-    }
-  ],
-  "contributor": [
-    {
-      "@type": "Person",
-      "name": "Christof De Bo"
-    }
-  ]
-}
-```
-
-
 <section>
 
 Hello and welcome to our @tutor workshop! We are very happy to have you here. This repository contains the data, scripts, documentation and relevant information for the website containing the training materials. 
@@ -146,6 +99,52 @@ Schedule day 2:
 - 15:30 - 17:00 - Project Challenge
 
 </section>
+
+```json   @JSONLD
+{
+  "@context": "https://schema.org/",
+  "@type": "LearningResource",
+  "@id": "https://elixir-europe-training.github.io/ELIXIR-TrP-TeSS/",
+  "http://purl.org/dc/terms/conformsTo": {
+    "@type": "CreativeWork",
+    "@id": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE"
+  },
+  "description": "Introduction to Docker and Apptainer",
+  "keywords": "Docker, Containers, Recipes, Singularity",
+  "name": "Introduction to Docker and Apptainer",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "educationalLevel": "beginner",
+  "competencyRequired": "none",
+  "teaches": [
+    "Define what containers are and articulate the differences between Docker and Singularity.",
+   "Identify the components of a Docker recipe and correlate with the layers within a Docker image.",
+   "List the benefits of containerization, considering reproducibility, usage and installation.",
+   "Recognize the use cases where Docker is the preferred method for deploying applications.",
+    "Discuss case studies to justify the selection of Docker or Singularity for specific deployment scenarios."
+  ],
+  "audience": "researchers",
+  "inLanguage": "en-US",
+  "learningResourceType": [
+    "tutorial"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Bruna Piereck"
+    },
+    {
+      "@type": "Person",
+      "name": "Alexander Botzki"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Christof De Bo"
+    }
+  ]
+}
+```
 
 # Lesson overview
 
