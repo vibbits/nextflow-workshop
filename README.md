@@ -126,33 +126,24 @@ The **presentations** which goes alongside this material can be found [in the Le
 
 Schedule day 1:
 
-- 9:30 - 11:00 - session Introduction to Nextflow
-   - Focus on Large Language Models (LLMs)
+- 9:30 - 11:00 - Introduction to Nextflow: Building Blocks
 - 11:00 - 11:15 - break
-- 11:15 - 12:45 - session Docker 
-   - ...
-   - ...
+- 11:15 - 12:45 - Processes and Workflows
 - 12:45 - 13:45 - lunch
-- 13:45 - 15:15 - session Docker 
-   - ...
-   - ...
+- 13:45 - 15:15 - Creating our first pipeline
 - 15:15 - 15:30 - break
-- 15:30 - 17:00 - session Docker recipes
-   - ...
+- 15:30 - 17:00 - Modules and Subworkflow
 
 Schedule day 2:
 
-- 9:30 - 11:00 - recap day 1 
-   - Bring the pieces together - exercise 5
-- 11:00 - 11:15 - break
-- 11:15 - 12:45 - session Introduction to Generative AI
-   - ...
-- 12:45 - 13:45 - lunch
-- 13:45 - 15:15 - session Singularity on the HPC
-   - ...
+- 9:30 - 10:45 - recap day 1 
+   - Config files, Containers and Reports
+- 10:45 - 11:00 - break
+- 11:00 - 12:15 - Exercise
+- 12:15 - 13:15 - lunch
+- 13:15 - 15:00 - Project Challenge
 - 15:15 - 15:30 - break
-- 15:30 - 17:00 - session Singilarity recipes
-   - ...
+- 15:30 - 17:00 - Project Challenge
 
 </section>
 
@@ -226,9 +217,14 @@ Please cite as:
 
 | Chapter | Title                                                   |
 | :---- | :------------------------------------------------         |
-| 0     | [Getting Ready](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/Get_ready_for_the_course.md#1).  |
-| 1     | [Strategic use of generative AI for all](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/Chapters/Chapter01.md)  |
-| 2     | [Strategic use of generative AI for research](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/Chapters/Chapter02.md)  |
+| 0     | [Getting Ready](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/get_ready_for_the_course.md#1).  |
+| 1     | [Building blocks](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter01.md)  |
+| 2     | [Executing pipelines](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter02.md)  |
+| 3     | [Creating first pipeline](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter03.md)  |
+| 4     | [Configuration files](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter04.md)  |
+| 5     | [Creating reports](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter05.md)  |
+| 6     | [Project](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter06.md)  |
+
 # References
 
 Here are some great tips for learning and to get inspired for your own use:
