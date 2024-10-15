@@ -10,7 +10,7 @@ process CUTADAPT {
     tuple val(sample), path(cookies)
 
     output:
-    tuple val(sample), file('*_trimmed.fastq')
+    tuple val(sample), path('*_trimmed.fastq')
 
     script:
     """

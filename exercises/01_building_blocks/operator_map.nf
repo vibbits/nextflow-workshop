@@ -2,24 +2,11 @@
 
 Channel
     .of( 1, 2, 3, 4, 5 )
-    .map { it * it }
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }
+    .map { number -> number * number }
+    .view()
 
-// using .view() to vieuw the channel:
+// older notation you might encounter:
 // Channel
 //     .of( 1, 2, 3, 4, 5 )
 //     .map { it * it }
-//     .view()
-
-
-// same result with different notation:
-// Channel
-//     .of( 1, 2, 3, 4, 5 )
-//     .map { it -> it * it }
-//     .view()
-
-// same result with different notation:
-// Channel
-//     .of( 1, 2, 3, 4, 5 )
-//     .map { bar -> bar * bar }
 //     .view()

@@ -2,14 +2,9 @@
 
 params.input_csv = 'exercises/01_building_blocks/input.csv'
 
-samples_ch = Channel
-                .fromPath(params.input_csv)
-                .splitCsv(header:true)
-                .map{ row-> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
-
 process split_csv {
     input:
-    tuple val(sampleId), file(read1), file(read2)  
+    tuple val(sampleId), path(read1), path(read2)  
 
     script:
     """
@@ -18,6 +13,11 @@ process split_csv {
 }
 
 workflow {
+    def samples_ch = Channel
+                    .fromPath(params.input_csv)
+                    .splitCsv(header:true)
+                    .map{ row-> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
+
     samples_ch.view()
     split_csv(samples_ch)
 }
