@@ -1442,7 +1442,8 @@ The final FastQC script, with some additional comments is provided in `exercises
 
 Now we will add the next step in our pipeline, which is **trimming and filtering the low quality reads**. For this process, we will use the tool `trimmomatic`. 
 
-The `fastqc.nf` script was extended with the trimmomatic process and is available in `exercises/03_first_pipeline/trimmomatic.nf`. 
+The `fastqc.nf` script was extended with the trimmomatic process and is available in `exercises/03_first_pipeline/trimmomatic.nf`.
+
 - A number of parameters have been added related to the trimmomatic process
 - The process `trimmomatic` with its inputs and outputs and the script has been created
 - The `workflow` now also contains the process trimmomatic, called as a function
@@ -1461,34 +1462,38 @@ Until now, we have written the processes and the workflow in the same file. Howe
 The figure below gives an overview of how the structure could look like. On the left we have the main Nextflow script (`main.nf`) that defines the parameters, channels and the workflow. It imports the processes from the modules, in this case available in a folder `modules/`. The configuration file `nextflow.config` will be further discussed in the next chapter.  
 
 
-```{image} ../img/nextflow/overview-folder-structure.png
-:align: center
-```
+![](docs/img/nextflow/overview-folder-structure.png)
 
 A module is generally imported with 
+
 ```
-include {<process-name>} from './path/to/modules/script.nf'
+include {<process-name>} from '../path/to/modules/script.nf'
 ```
-with `<process-name>` the name of the process defined in the `script.nf`. The origin of the module defined by a relative path must start with `./`, alternatively use `projectDir` to use the absolute path. Navigate to the modules folder and find a script called `fastqc.nf`. This script consists of a process and a workflow. This module can be imported into our pipeline script (main workflow) like this:
+
+with `<process-name>` the name of the process defined in the `script.nf`. The `from` section is used to specify the location of the module relative to the folder the current file is in. The path must start with either `./` or `../`. Navigate to the modules folder and find a script called `fastqc.nf`. This script consists of a process and a workflow. This module can be imported into our pipeline script (main workflow) like this:
 
 ```
 include {fastqc} from './modules/fastqc.nf'
 ```
 
 This doesn't overcome the problem that we can only use a process once. However, when including a module component it’s possible to specify a name alias. This allows the inclusion and the invocation of the same component multiple times in your script using different names. For example:
+
 ``` 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/modules/fastqc"
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "./modules/fastqc"
 ```
+
 Now we're ready to use a process, defined in a module, multiple times in a workflow. 
 
 Investigate & run the script `exercises/03_first_pipeline/modules.nf` which contains the following code snippet
-```
+
+```groovy
 ...
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "${projectDir}/../../modules/fastqc" 
-include { trimmomatic } from "${projectDir}/../../modules/trimmomatic"
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../modules/fastqc" 
+include { trimmomatic } from "../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.  
 workflow {
+  
   read_pairs_ch.view()
   fastqc_raw(read_pairs_ch) 
   trimmomatic(read_pairs_ch)
@@ -1499,55 +1504,66 @@ workflow {
 Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to create an index for our genome and afterwards we can map our reads onto it. These modules are called from the main script `RNAseq.nf`. 
 
 
-````{tab} Exercise 2.6
+**Exercise 2.6**
+================
 In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. Complete the script `RNAseq.nf` so it includes these processes and hence the pipeline is extended with an indexing and alignment step. The parameters used in the modules are already defined for you. 
-````
 
-````{tab} Solution 2.6
+<details>
+
+<summary>Solution 2.6</summary>
+
 Solution in `exercises/03_first_pipeline/solutions/2.6_RNAseq.nf`. The following lines were added. 
-```
-genome = Channel.fromPath(params.genome)
-gtf = Channel.fromPath(params.gtf)
 
-include { star_idx; star_alignment } from "${projectDir}/../../modules/star"
+```groovy
+def genome = Channel.fromPath(params.genome)
+def gtf = Channel.fromPath(params.gtf)
+
+include { star_idx; star_alignment } from "../../modules/star"
 
 workflow {
   ...
   star_idx(genome, gtf)
   star_alignment(trimmomatic.out.trim_fq, star_idx.out.index, gtf)
 }
+```
 
-```` 
+</details>
 
 ---
 
-````{tab} Exercise 2.7
-In the folder `modules/` find the script `multiqc.nf`. Import the process in the main script so we can call it as a function in the workflow. This process expects all of the zipped and html files from the fastqc processes (raw & trimmed) as one input. Thus it is necessary to use the operators `.mix()` and `.collect()` on the outputs of `fastqc_raw` and `fastqc_trim` to generate one channel with all the files.  
-````
+**Exercise 2.7**
+================
 
-````{tab} Solution 2.7
+In the folder `modules/` find the script `multiqc.nf`. Import the process in the main script so we can use it in the workflow. This process expects all of the zipped and html files from the fastqc processes (raw & trimmed) as one input. Thus it is necessary to use the operators `.mix()` and `.collect()` on the outputs of `fastqc_raw` and `fastqc_trim` to generate one channel with all the files.  
+
+<details>
+
+<summary>Solution 2.7</summary>
+
 Solution in `exercises/03_first_pipeline/solutions/2.7_RNAseq.nf`. The following lines were added. 
-```
-include { multiqc } from "${projectDir}/../../modules/multiqc" 
+
+```groovy
+include { multiqc } from "../../modules/multiqc" 
 
 workflow {
   ...
-  multiqc_input = fastqc_raw.out.fastqc_out
+  def multiqc_input = fastqc_raw.out.fastqc_out
     .mix(fastqc_trim.out.fastqc_out)
     .collect()
 
   multiqc(multiqc_input)
 } 
 ```
-```` 
+
+</details>
 
 ---
 
 You might have noticed that the star_alignment process was only executed once in exercise 2.6 and 2.7, while we expect the process to be executed twice (we have 2 samples). This is due to the way we have defined the input for the star_alignment process.
 
-```bash
+```groovy
 process star_alignment {
-    publishDir "${params.outdir}/mapped-reads/", mode: 'copy', overwrite: true  //, pattern: "*.bam"  
+    publishDir "${params.outdir}/mapped-reads/", mode: 'copy', overwrite: true 
     label 'high'
     container "quay.io/biocontainers/star:2.6.1d--0"
 
@@ -1571,6 +1587,7 @@ process star_alignment {
     """
 }
 ```
+
 As you can see, we have defined 3 separate input channels for our process.
 
 
@@ -1581,15 +1598,18 @@ Because we have more than 1 sample in the first input channel, but only 1 entry 
 
 ---
 
-````{tab} Exercise 2.8
+**Exercise 2.8**
+================
 Find a way to restructure the input channel for the `star_alignment` process so it will correctly be exectuted for each sample instead of just once. 
 
 - Use channel operators to combine the multiple input channels 
 - Don't forget to change the input declaration in the process as well
 
-````
 
-````{tab} Solution 2.8
+<details>
+
+<summary>Solution 2.8</summary>
+
 Solution in `exercises/03_first_pipeline/solutions/2.8_RNAseq.nf`. The following lines were added. 
 
 ```
@@ -1606,7 +1626,9 @@ workflow {
   star_alignment(alignment_input)
 }
 ```
+
 The following adjustments were made to the input declaration block of the `star.nf` module.
+
 ```
 process star_alignment {
     ...
@@ -1617,9 +1639,13 @@ process star_alignment {
     ...
 }
 
-
 ```
-```` 
+
+> **Note**
+>
+> This exercise could also be solved by converting the index and gtf channels to value channels
+
+</details>
 
 
 ---
