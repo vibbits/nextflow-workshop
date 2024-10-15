@@ -76,13 +76,14 @@ workflow {
 
     DADA2(dada2_input)
 
-    workflow.onComplete {
-        println "Pipeline completed at: ${workflow.complete}"
-        println "Time to complete workflow execution: ${workflow.duration}"
-        println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
-    }
+}
 
-    workflow.onError {
-        println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
-    }
+workflow.onComplete {
+    println "Pipeline completed at: ${workflow.complete}"
+    println "Time to complete workflow execution: ${workflow.duration}"
+    println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
+}
+
+workflow.onError {
+    println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
 }
