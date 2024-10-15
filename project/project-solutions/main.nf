@@ -8,9 +8,18 @@ params.fw_primer_rev_comp = "TTACCGCGGCKGCTGGCAC"
 params.rv_primer = "GGACTACHVHHHTWTCTAAT"
 params.rv_primer_rev_comp = "ATTAGAWADDDBDGTAGTCC"
 
+//set the path to the script to run in the DADA2 process (you can also make a folder 'bin' and put this script in there so it will automatically be added to nextflow's path)
+params.script1 = "${projectDir}/reads2counts.r"
 
-// Set a header made using https://patorjk.com/software/taag (but be sure to escape characters such as dollar signs and backslashes, e.g., '$'=> '\$' and '\' =>'\\')
-log.info """
+// include processes and subworkflows to make them available for use in this script 
+include { check_QC as check_QC_raw; check_QC as check_QC_trimmed } from "./modules/QC" 
+include { CUTADAPT } from "./modules/trimming"
+include { DADA2 } from "./modules/reads2counts"
+
+
+workflow {
+    // Set a header made using https://patorjk.com/software/taag (but be sure to escape characters such as dollar signs and backslashes, e.g., '$'=> '\$' and '\' =>'\\')
+    log.info """
     ==============================================================================================
 
                                             \$\$\\                     \$\$\\ \$\$\\                     
@@ -38,20 +47,8 @@ log.info """
     ==============================================================================================
     """.stripIndent()
 
-//set the path to the script to run in the DADA2 process (you can also make a folder 'bin' and put this script in there so it will automatically be added to nextflow's path)
-params.script1 = "${projectDir}/reads2counts.r"
-
-// include processes and subworkflows to make them available for use in this script 
-include { check_QC as check_QC_raw; check_QC as check_QC_trimmed } from "./modules/QC" 
-include { CUTADAPT } from "./modules/trimming"
-include { DADA2 } from "./modules/reads2counts"
-
-
-
-
-workflow {
     // set input data
-    pe_reads_ch = Channel
+    def pe_reads_ch = Channel
         .fromFilePairs(params.reads , checkIfExists:true)
 
     //pass the 'step' and the raw reads to the QC subworkflow
@@ -68,8 +65,8 @@ workflow {
     check_QC_trimmed("trimmed", CUTADAPT.out)
     
     //pass the paths to the reads to the DADA2 process
-    dada2_input = CUTADAPT.out
-        .map{sample, reads -> reads}
+    def dada2_input = CUTADAPT.out
+        .map{_sample, reads -> reads}
         .collect()
     
 
@@ -79,14 +76,13 @@ workflow {
 
     DADA2(dada2_input)
 
-}
+    workflow.onComplete {
+        println "Pipeline completed at: ${workflow.complete}"
+        println "Time to complete workflow execution: ${workflow.duration}"
+        println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
+    }
 
-workflow.onComplete {
-    println "Pipeline completed at: ${workflow.complete}"
-    println "Time to complete workflow execution: ${workflow.duration}"
-    println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
-}
-
-workflow.onError {
-    println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
+    workflow.onError {
+        println "Oops... Pipeline execution stopped with the following message: ${workflow.errorMessage}"
+    }
 }

@@ -31,7 +31,7 @@ process MULTIQC {
     path(inputfiles)
 
     output:
-    file('*_multiqc_report.html')
+    path('*_multiqc_report.html')
 
     script:
     """
@@ -49,6 +49,6 @@ workflow check_QC {
     main:
         FASTQC(step, reads_ch)
         
-        input_multiqc = FASTQC.out.collect()
+        def input_multiqc = FASTQC.out.collect()
         MULTIQC(step, input_multiqc)
 }
