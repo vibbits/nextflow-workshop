@@ -1612,11 +1612,11 @@ Find a way to restructure the input channel for the `star_alignment` process so 
 
 Solution in `exercises/03_first_pipeline/solutions/2.8_RNAseq.nf`. The following lines were added. 
 
-```
+```groovy
 workflow {
   ...
   // Combine channels
-  alignment_input = trimmomatic.out.trim_fq
+  def alignment_input = trimmomatic.out.trim_fq
     .combine(star_idx.out.index)
     .combine(gtf)
 
@@ -1629,7 +1629,7 @@ workflow {
 
 The following adjustments were made to the input declaration block of the `star.nf` module.
 
-```
+```groovy
 process star_alignment {
     ...
     input:
