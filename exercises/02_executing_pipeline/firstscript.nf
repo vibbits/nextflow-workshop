@@ -8,10 +8,6 @@
  * comment
  */
 
-// Creating a channel
-numbers_ch = Channel.of(1,2,3)
-strings_ch = Channel.of('a','b')
-
 // Defining the process that is executed
 process valuesToFile {
 
@@ -22,6 +18,7 @@ process valuesToFile {
     output:
     path 'result.txt', emit: result_ch
     
+    script:
     """
     echo $nums and $strs > result.txt
     """
@@ -29,6 +26,10 @@ process valuesToFile {
 
 // Running a workflow with the defined processes  
 workflow {
+    // Creating a channel
+    def numbers_ch = Channel.of(1,2,3)
+    def strings_ch = Channel.of('a','b')
+
     valuesToFile(numbers_ch, strings_ch)
     valuesToFile.out.result_ch.view()
 }

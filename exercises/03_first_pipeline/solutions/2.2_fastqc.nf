@@ -5,10 +5,6 @@ params.reads = "${launchDir}/data/*{1,2}.fq.gz"
 /**
  * Quality control fastq
  */
-
-reads_ch = Channel
-    .fromFilePairs( params.reads )
-    .view()
     
 process fastqc {
     container 'quay.io/biocontainers/fastqc:0.11.9--0'
@@ -23,5 +19,9 @@ process fastqc {
 }
 
 workflow {
+    def reads_ch = Channel
+        .fromFilePairs( params.reads )
+        .view()
+
     fastqc(reads_ch)
 }

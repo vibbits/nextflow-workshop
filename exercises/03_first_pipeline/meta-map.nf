@@ -5,13 +5,6 @@ params.name = "Kobe"
 params.age = 26
 
 
-meta = [:]
-meta.name = params.name
-meta.age = params.age
-meta.number = 44
-println meta
-
-
 process testprocess {
     input:
     val(meta)
@@ -19,6 +12,7 @@ process testprocess {
     output:
     stdout
 
+    script:
     """
     echo ${meta.name}
     """
@@ -27,6 +21,12 @@ process testprocess {
 
 
 workflow {
+    def meta = [:]
+    meta.name = params.name
+    meta.age = params.age
+    meta.number = 44
+    println meta
+
     testprocess(meta)
     testprocess.out.view()
 }
