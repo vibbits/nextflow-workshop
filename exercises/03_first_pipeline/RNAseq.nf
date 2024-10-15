@@ -1,8 +1,5 @@
 #!/usr/bin/env nextflow
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "../../modules/trimmomatic"
-
 // Import the star indexing and alignment processes from the modules
 // ...
 
@@ -23,6 +20,9 @@ params.avgqual = "AVGQUAL:30"
 params.threads = 2
 params.genomeSAindexNbases = 10
 params.lengthreads = 98
+
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.  
 workflow {

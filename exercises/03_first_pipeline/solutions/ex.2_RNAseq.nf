@@ -1,10 +1,5 @@
 #!/usr/bin/env nextflow
 
-include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
-include { trimmomatic } from "../../../modules/trimmomatic"
-include { salmon_idx ; salmon_quant } from "../../../modules/salmon"
-include { multiqc } from "../../../modules/multiqc" 
-
 // General parameters
 params.datadir = "${launchDir}/data"
 params.outdir = "${launchDir}/results"
@@ -19,6 +14,11 @@ params.avgqual = "AVGQUAL:30"
 
 // Salmon
 params.threads = 2
+
+include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
+include { trimmomatic } from "../../../modules/trimmomatic"
+include { salmon_idx ; salmon_quant } from "../../../modules/salmon"
+include { multiqc } from "../../../modules/multiqc" 
 
 // Running a workflow with the defined processes here.  
 workflow {
