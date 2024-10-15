@@ -66,12 +66,7 @@ Let's start!
 
 ## General context
 
-This repository contains the materials (exercises) for the workshop on containers of May 20, 2021. We will focus on Docker and Singularity.
-Subsequent editions have taken place in January and October 2022 and March 2023, October 2023 and February 2024.
-
-Some exercises are inspired upon the examples from [Microsoft Azure ML github repo](https://github.com/Azure/azureml-examples). The content of this repo is licensed with MIT license.
-
-Other exercises are co-created with the [Code Reproducibility team of the ELIXIR network](https://github.com/elixir-europe-training/CodeReproducibility)
+This repository contains the materials (exercises) for the workshop on Nextflow on 10-11th November 2024.
 
 The **presentations** which goes alongside this material can be found [in the Lesson overview: Slides](#2) .
 
@@ -159,7 +154,7 @@ Schedule day 2:
 > 
 > 1. Knowledge of Command line Interface is a plus  
 >
-> <i class="fa fa-bookmark"></i> **Description** The course will give an introduction to containers (Docker & Apptainer) which are great components to achieve portability and reproducibility of your analysis. You will learn how to use containers and how to build a container from scratch, share it with others and how to re-use and modify existing containers. After an extensive explanation on Docker containers, the Apptainer application, previously Singularity, and its use in the HPC will be highlighted as well. 
+> <i class="fa fa-bookmark"></i> **Description** This course aims to get you familiarized with Nextflow. After this course you should be able to understand workflow pipelines that are written in Nextflow and write simple pipelines yourself. 
 > 
 > <i class="fa fa-arrow-right"></i> **Learning Outcomes:**  
 > By the end of the course, learners will be able to:
@@ -171,19 +166,20 @@ Schedule day 2:
 >
 >> Check more about [Bloom's taxonomy](https://cft.vanderbilt.edu/guides-sub-pages/blooms-taxonomy/) to categorize the levels in educational goals
 >
-> <i class="fa fa-hourglass"></i> **Time estimation**: 360 minutes
+> <i class="fa fa-hourglass"></i> **Time estimation**: 16 hours
 >
 > <i class="fa fa-asterisk"></i> **Requirements:** The (technical) installation requirements are described in the Chapters overview section Getting ready.
 >
 > <i class="fa fa-envelope-open-text"></i> **Supporting Materials**:
 > 
-> 1. [Exercises and solutions](https://github.com/vibbits/containers-workshop)
-> 2. [Slides day 1+2](https://github.com/vibbits/containers-workshop/blob/main/presentations/docker_apptainer_workshop2024.pdf)  
+> 1. [Exercises and solutions](https://github.com/vibbits/nextflow-workshop)
+> 2. [Slides day 1+2](https://docs.google.com/presentation/d/1sv79FpO-kN8BO271SG5oDHrVJBEdJGnh0_TG8qzDyGI/edit?usp=sharing)  
 > 
 > <i class="fa fa-life-ring"></i> **Acknowledgement**:
 >
 > * [ELIXIR Belgium](https://www.elixir-belgium.org/)
 > * [VIB Technologies](https://www.vib.be/)
+> * [UZ Ghent](https://www.uzgent.be/)
 >
 > <i class="fa fa-money-bill"></i> **Funding:** This project has received funding from VIB and ELIXIR Belgium.
 >
@@ -201,6 +197,7 @@ Authors
 - @[orcid(Kobe Lavaerts)](https://orcid.org/0000-0003-0490-5969)
 - @[orcid(Tuur Muyldermans)](https://orcid.org/0000-0002-3926-7293)
 - @[orcid(Steff Taelman)](https://orcid.org/0000-0002-2685-4130)
+- Nicolas Vannieuwkerke <!-- TODO Add Orcid once Nicolas has one -->
 
 Contributors
 
@@ -217,12 +214,12 @@ Please cite as:
 | Chapter | Title                                                   |
 | :---- | :------------------------------------------------         |
 | 0     | [Getting Ready](#get-ready-for-the-course)  |
-| 1     | [Building blocks](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter01.md)  |
-| 2     | [Executing pipelines](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter02.md)  |
-| 3     | [Creating first pipeline](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter03.md)  |
-| 4     | [Configuration files](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter04.md)  |
-| 5     | [Creating reports](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter05.md)  |
-| 6     | [Project](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/containers-workshop/refs/heads/main/chapters/chapter06.md)  |
+| 1     | [Building blocks](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter01.md)  |
+| 2     | [Executing pipelines](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter02.md)  |
+| 3     | [Creating first pipeline](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter03.md)  |
+| 4     | [Configuration files](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter04.md)  |
+| 5     | [Creating reports](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter05.md)  |
+| 6     | [Project](https://liascript.github.io/course/?https://raw.githubusercontent.com/vibbits/nextflow-workshop/refs/heads/main/chapters/chapter06.md)  |
 
 # References
 
@@ -270,7 +267,9 @@ Please read this page carefully **before** the start of the workshop.
 There are two options for following this workshop: 
 
   1. do the installations yourself & be in control of everything, 
-  2. use the setup that we have provided with the installations already done. In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/edge/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
+  2. use the setup that we have provided with the installations already done. 
+
+In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/edge/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
 
 ### Provided infrastructure
 
@@ -288,14 +287,14 @@ _If you normally use VSCode locally, this setup is completely seperate and won't
 - Select "Interactive Apps" from the top bar -> "Code Server"
 - Fill in the following settings:
   - Cluster: `donphan (interactive/debug)`
-  - Time: 8 (hours)
+  - Time: 12 (hours)
   - Nodes: 1
   - Cores: 8
-  - Select Path -> $VSC_DATA (on the left)
+  - Select Path -> /data/... (on the left)
   - Click "Launch"!
 - Wait for your job to start -> "Connect to VS Code"
 
-This runs fully in your browser and will continue to run even when your laptop is off etc. Your job will automatically end after 8 hours. **Make sure to save your work.**
+This runs fully in your browser and will continue to run even when your laptop is off etc. Your job will automatically end after 12 hours. **Make sure to save your work.**
 
 #### Option 2: Local Installation
 
@@ -303,18 +302,20 @@ We will be using an SSH connection in VSCode which we can create by following th
 
 - Download Visual Studio Code ([link](https://code.visualstudio.com/download))
 - Add the following extensions for a seamless integration of Nextflow and the VM in VScode:
+  
   - In VSCode, navigate to the 'Extensions' tab, search for the SSH remote package and install it:
   - 'Remote - SSH' (ms-vscode-remote.remote-ssh).
 - Modify your local `.ssh/config` file to add the configuration for the cluster - If you already connect to the Gent VSC with this machine, you don't need to do this
+
   - `Ctrl-Shift-P` will bring up the "command palette"
   - Type `ssh config` and select the option to modify the configuration file (select the first file)
   - Add the following code to your config file:
-    ```
-    Host login-gent
-        User vscXXXXX # Replace Xs with your VSC ID
-        HostName login.hpc.ugent.be
-        IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
-    ```
+```
+Host login-gent
+    User vscXXXXX # Replace Xs with your VSC ID
+    HostName login.hpc.ugent.be
+    IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
+```
 - Start a terminal in VSCode (select Terminal and then New Terminal)
 - Connect to the cluster with the following command: `ssh login-gent`
 - Optional: Start `screen` or `tmux` and do the following in the new terminal - This will keep your session alive even when you disconnect from the cluster
@@ -322,15 +323,16 @@ We will be using an SSH connection in VSCode which we can create by following th
 - Start a job using qsub: `qsub -I -l walltime=08:00:00,nodes=1:ppn=8`
 - Note the node you are connected to (e.g. `node4006.donphan.os`)
 - Add the following code to your config file:
-  ```
-  Host node4006
-      User vscXXXXX # Replace Xs with your VSC ID
-      HostName node4006.donphan.os
-      ProxyCommand ssh login-gent -W %h:%p
-      # On windows you should use
-      # ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe login-gent -W %h:%p
-  ```
+```
+Host node4006
+    User vscXXXXX # Replace Xs with your VSC ID
+    HostName node4006.donphan.os
+    ProxyCommand ssh login-gent -W %h:%p
+    # On windows you should use
+    # ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe login-gent -W %h:%p
+```
 - Finally you can open a this host in VSCode by typing `Ctrl-Shift-P` and selecting `Remote-SSH: Connect to Host...` and selecting the host you just added.
+
   - If you didn't run qsub in a screen or tmux session, you will need to use an entire new VSCode window to connect to the host, otherwise when VSCode refreshes, the original connection will be lost and the job will end.
 
 #### Option 3: Custom Installation
@@ -342,8 +344,8 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Install the Nextflow VSCcode Package - This will give you syntax highlighting and linting for Nextflow
 - Open a new terminal within VSCode: Terminal -> New Terminal
 - Create a new folder for the workshop
-- Clone this repository into the folder: `git clone git@github.com:VIBbits/nextflow-workshop.git`
-- Load the nextflow module: `module load Nextflow/23.10.0`
+- Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
+- Load the nextflow module: `module load Nextflow/24.10.0`
 
 ## Citing this lesson
 
@@ -360,7 +362,6 @@ Here are some great tips for learning and to get inspired for writing your own p
 - Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
 - Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
-- Tutorial exercises (DSL1) developed by Seqera ([link](https://github.com/seqeralabs/nextflow-tutorial))
 - Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
 - Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
 - Tutorial by Andrew Severin ([link](https://bioinformaticsworkbook.org/dataAnalysis/nextflow/02_creatingAworkflow.html#gsc.tab=0))
@@ -418,7 +419,7 @@ In the `data/` folder we have already installed some data for you to use in the 
 ## Introduction
 Writing pipelines to automate processes is not something new, Bash scripts are probably one of the oldest forms of pipelines where we concatenate processes. Let's have a look at an example:
 
-```
+```bash
 #!/bin/bash
 
 blastp -query sample.fasta -outfmt 6 \
@@ -429,20 +430,19 @@ blastp -query sample.fasta -outfmt 6 \
 
 Starting with a shebang line, the `blastp` command is piped through multiple times to eventually result in an output file `sequences.txt`. 
 
+<details>
 
-```{tab} Question
-What is the downside of similar relatively simple pipelines?   
-```
+<summary>What is the downside of similar relatively simple pipelines?</summary>
 
-```{tab} Solution
 There are a couple of suboptimal things happening here:
+
 - Will it use the available resources optimally? 
 - Which versions of the tools are being used? 
 - Will it work on my machine (cfr. installation of tools)? 
 - Can we scale it to HPC clusters or Cloud environments?
 - What if the pipeline fails somewhere in the middle, we need to restart the pipeline from the beginning?
 
-```
+</details>
 
 ---
 
@@ -451,9 +451,7 @@ In response to that, workflow managers such as Nextflow were built, aimed to dea
 
 By definition, Nextflow is a reactive workflow framework and a programming Domain Specific Language that eases the writing of data-intensive computational pipelines[[1](https://www.nextflow.io/)]. Nextflow scripting is an extension of the Groovy programming language, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in a way that simplifies the writing of code and is more approachable. 
 
-```{image} ../img/nextflow/java-groovy-nextflow.png
-:align: center
-```
+![](docs/img/nextflow/java-groovy-nextflow.png)
 
 ## Why (not)?
 Nextflow is not the only player in the field[[2](https://github.com/pditommaso/awesome-pipeline/)], however there are good reasons to opt for it. 
@@ -470,32 +468,28 @@ Nextflow is not the only player in the field[[2](https://github.com/pditommaso/a
 Some thoughts or disadvantages from my personal point of view. It takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis. 
 
 
-<!-- Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic)
--->
+<!-- Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic) -->
 
 ## Main abstractions
-Nextflow consists of four main components: channels, operators, processes and workflows. 
-- *Channels*: contain the input of the workflows used by the processes. Channels connect processes/operators with each other. 
+Nextflow consists of four main components: channels, operators, processes and workflows.
+
+- *Channels*: contain the input of the workflows used by the processes. Channels connect processes with each other. 
 - *Operators*: transform the content of channels by applying functions or transformations. Usually operators are applied on channels to get the input of a process in the right format.  
 - *Processes*: define the piece of script that is actually being run (e.g. an alignment process with STAR). 
-- *Workflows*: call the processes as functions with channels as input arguments, only processes defined in the workflow are run. Workflows were introduced in DSL2.
+- *Workflows*: call the processes as functions with channels as input arguments, only processes defined in the workflow are run.
 
 
-```{image} ../img/nextflow/nextflow-conceptually.png
-:align: center
-```
+![](docs/img/nextflow/nextflow-conceptually.png)
 
-The script [`exercises/01_building_blocks/firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/37c1e07f159ad2690335f50a200e616265955bcd/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
 
-```bash
+The script [`exercises/01_building_blocks/firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build. 
+
+```groovy
 #!/usr/bin/env nextflow
-
-// Creating channels
-numbers_ch = Channel.of(1,2,3)
-strings_ch = Channel.of('a','b')
 
 // Defining the process that is executed
 process valuesToFile {
+
     input: 
     val nums
     val strs
@@ -503,6 +497,7 @@ process valuesToFile {
     output:
     path 'result.txt'
     
+    script:
     """
     echo $nums and $strs > result.txt
     """
@@ -510,53 +505,55 @@ process valuesToFile {
 
 // Running a workflow with the defined processes  
 workflow {
+    // Creating a channel
+    def numbers_ch = Channel.of(1,2,3)
+    def strings_ch = Channel.of('a','b')
+
     valuesToFile(numbers_ch, strings_ch)
 }
 ```
 
-````{note}
-Besides these main building blocks, we also already highlight the existence of the `params` parameters. In the previous code block we explicitly defined some input values in the channels. However, we can define the input values into a parameter instead, that is passed on to the channel. 
-
-```
-// create a parameter 'input_read'
-params.input_read = '/path/to/read_1.fq'
-
-// use the input_read parameter as an input for the channel
-input_read_ch = Channel.fromPath(params.input_read)
-```
-
-Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime. 
-````
+> **Note**
+>
+> Besides these main building blocks, we also already highlight the existence of the `params` parameters. In the previous code block we explicitly defined some input values in the channels. However, we can define the input values into a parameter instead, that is passed on to the channel. 
+> 
+> ```groovy
+> // create a parameter 'input_read'
+> params.input_read = '/path/to/read_1.fq'
+> 
+> // use the input_read parameter as an input for the channel
+> def input_read_ch = Channel.fromPath(params.input_read)
+> ```
+> 
+> Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime. 
 
 <!--
 (The workflows can be repesented as graphs where the nodes are the processes and the edges are the channels. The processes are block of code that can be executed such as scripts or programs, while the channels are asynchronous queue able to connect processess among them via input / output.)
 
-
-
 (Each process is independent from the other and can be run in parallel depending on the availability of processors or if you are in a cluster environment with a scheduler supported by Nextflow. Note also the implicit parallelisation *.fastq in a channel one channel will split it out over multiple processes simultaneously. No need of making a fors–loop.)
 
 (In the previous example the processes A, B and C can be run in parallel and only at their end the process D is triggered.)
-
 -->
 
 
 
 ### 1. Channels  
-The input of the analysis is stored in a channel, these are generally files like sequencing, reference fasta, annotation files, etc. however the input can be of any kind like numbers, strings, lists, etc. To have a complete overview, we refer to the official documentation[[4](https://www.nextflow.io/docs/latest/channel.html#)]. Here are some examples of how a channel is being created:
-```
-# Channel consisting of strings
-strings_ch = Channel.of('This', 'is', 'a', 'channel')
+The input of the analysis is stored in a channel, these are generally files like sequencing, reference fasta, annotation files, etc. however the input can be of any kind like numbers, strings, lists, etc. To have a complete overview, we refer to the official documentation\[[4](https://www.nextflow.io/docs/latest/channel.html#)\]. Here are some examples of how a channel is being created:
 
-# Channel consisting of a single file
-file_ch = Channel.fromPath('data/sequencefile.fastq')
+```groovy
+// Channel consisting of strings
+def strings_ch = Channel.of('This', 'is', 'a', 'channel')
 
-# Channel consisting of multiple files by using a wildcard *
-multfiles_ch = Channel.fromPath('data/*.fastq')
+// Channel consisting of a single file
+def file_ch = Channel.fromPath('data/sequencefile.fastq')
+
+// Channel consisting of multiple files by using a wildcard *
+def multfiles_ch = Channel.fromPath('data/*.fastq')
 ```
 These channels can then be used by operators or serve as an input for the processes.
 
-
-````{tab} Exercise 1.1
+**Exercise 1.1**
+=================
 **Reminder: Run all exercises from the root nextflow-workshop folder**
 
 Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
@@ -565,30 +562,36 @@ Once the Nextflow script is saved, run it with: `nextflow run exercises/01_build
 
 Paired fastq files are provided in the `data` folder.
 
-````
 
-````{tab} Solution 1.1
+<details>
+
+<summary>solution 1.1</summary>
+
 The solution is available in the file `exercises/01_building_blocks/solutions/1.1_template-paired-end.nf`.
 
 Note that the content of the channel is constructed in a following manner:
-```
+
+```bash
 [common-name, [/path/to/read1.fq, /path/to/read2.fq]]
 ```
 This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again. 
-````
+
+</details>
 
 ### 2. Operators
 Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
+
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type). 
 
   Example: [`exercises/01_building_blocks/operator_collect.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_collect.nf)
-```
+
+```groovy
 Channel
     .of( 1, 2, 3, 4 )
     .collect()
     .view()
 
-# outputs
+// outputs
 [1,2,3,4]
 ```
 
@@ -596,15 +599,15 @@ Channel
 
   Example: [`exercises/01_building_blocks/operator_mix.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_mix.nf)
 
-```
-c1 = Channel.of( 1,2,3 )
-c2 = Channel.of( 'a','b' )
-c3 = Channel.of( 'z' )
+```groovy
+def c1 = Channel.of( 1,2,3 )
+def c2 = Channel.of( 'a','b' )
+def c3 = Channel.of( 'z' )
 
 c1 .mix(c2,c3)
    .view()
 
-# possible output
+// possible output
 a
 1
 2
@@ -613,30 +616,31 @@ b
 z
 ```
 
-- `map`: e.g. when you would like to run your own function on each item in a channel. 
-    - The map operator is expressed as a [closure](https://www.nextflow.io/docs/latest/script.html#script-closure) (`{ ... }`)
-    - By default, the items in the channel are referenced by the variable `it`. This can be changed by using the `map { item -> ... }` syntax.
-    - All functions available on the item, are available on the `it` variable within the closure.
-    - When an element is a list or tuple, you can use the `it[0]`, `it[1]`, etc. syntax to access the individual elements of your item.
+- `map`: e.g. when you would like to run your own function on each item in a channel.
+
+  - The map operator is expressed as a [closure](https://www.nextflow.io/docs/latest/script.html#script-closure) (`{ ... }`)
+  - By default, the items in the channel are referenced by the variable `it`. This can be changed by using the `map { item -> ... }` syntax, which is considered a best practice in the field.
+  - All functions available on the item, are available on the `it` variable within the closure.
+  - When an element is a list or tuple, you can use the `it[0]`, `it[1]`, etc. syntax to access the individual elements of your item.
 
   Example: [`exercises/01_building_blocks/operator_map.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_map.nf)
 
-```
+```groovy
 Channel
     .of( 1, 2, 3, 4, 5 )
-    .map { it * it }
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }
+    .map { number -> number * number }
+    .view()
 
-# outputs
+// outputs
 1
 4
 9
 16
 25
-Done
 ```
 
-````{tab} Exercise 1.2
+**Exercise 1.2**
+===============
 Create a channel from a csv-file (`input.csv`) and use an operator to view the contents. Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content: 
 
 | sampleId | Read 1                        | Read 2                        |
@@ -646,38 +650,43 @@ Create a channel from a csv-file (`input.csv`) and use an operator to view the c
 
 Test your Nextflow script with: `nextflow run <name>.nf`.
 
-````
+<details>
 
-````{tab} Solution 1.2
+<summary>solution 1.2</summary>
+
 The solution is available in the file `exercises/01_building_blocks/solutions/1.2_template-csv.nf`
 
 The file is imported with `.fromPath()`, followed by the `splitCsv()` operator where we set the header to `True`. The last step will output how the channels are constructed. Each row is transformed into a tuple with the first element as a variable `sampleId`, the second as `forward_read` and the third as `reverse_read`.
 
-```
-samples_ch = Channel
+```groovy
+def samples_ch = Channel
                 .fromPath('exercises/01_building_blocks/input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
 ```
+</details>
 
-````
 ---
 
-````{tab} Exercise 1.3
+**Exercise 1.3**
+================
 Building on exercise 1.2 and using the `map` operator, create 2 channels, one containing the sampleId and the forward read as a tuple and the second containing the sampleId and reverse read as a tuple. Use the `view` operator to inspect the contents of thsee channels.
 
-````
 
-````{tab} Solution 1.3
+<details>
+
+<summary>solution 1.3</summary>
+
 The solution is available in the file `exercises/01_building_blocks/solutions/1.3_template-csv-map.nf`
 
-````
+</details>
+
 
 ---
 
 ### 3. Processes
 Processes are the backbone of the pipeline. They represent each individual subpart of the analysis. In the code-snippet below, you can see that it consists of a couple of blocks: directives, input, output, when-clause and the script itself.  
 
-```
+```groovy
 process < name > {
 
    [ directives ]
@@ -699,94 +708,93 @@ process < name > {
 Here are a couple of examples of processes:
 
 
-````{tab} Writing a file
-Creating an output file `results.txt` with inputs from channels `nums` and `strs`
-```
-process valuesToFile {
-    input: 
-    val nums
-    val strs
-    
-    output:
-    path 'result.txt'
-    
-    script:
-    """
-    echo $nums and $strs > result.txt
-    """
-}
-```
-````
+> **Writing a file**
+>
+> Creating an output file `results.txt` with inputs from channels `nums` and `strs`
+> 
+> ```groovy
+> process valuesToFile {
+>     input: 
+>     val nums
+>     val strs
+>     
+>     output:
+>     path 'result.txt'
+>     
+>     script:
+>     """
+>     echo $nums and $strs > result.txt
+>     """
+> }
+> ```
 
+> **FastQC**
+>
+> Quality control process with `fastqc`
+>
+> ```groovy
+> process fastqc {
+>     input:
+>     tuple val(sample), path(reads)
+>   
+>     output:
+>     path("*_fastqc.{zip,html}") 
+>   
+>     script:
+>     """
+>     fastqc ${reads}
+>     """
+> }
+> ```
 
-````{tab} FastQC
-Quality control process with `fastqc`
-```
-process fastqc {
-  input:
-  tuple val(sample), path(reads)
+> **Salmon**
+>
+> Quantifying in mapping-based mode with `salmon`
+> 
+> ```groovy
+> process salmon_quant {
+>     input:
+>     path index 
+>     tuple val(pair_id), path(reads) 
+> 
+>     output:
+>     path pair_id 
+> 
+>     script:
+>     """
+>     salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
+>     """
+> }
+> ```
 
-  output:
-  path("*_fastqc.{zip,html}") 
-
-  script:
-  """
-  fastqc ${reads}
-  """
-}
-```
-````
-
-````{tab} Salmon
-Quantifying in mapping-based mode with `salmon`
-```
-process salmon_quant {
-    input:
-    path index 
-    tuple val(pair_id), path(reads) 
-
-    output:
-    path pair_id 
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
-    """
-}
-```
-````
-
-````{tab} Trimming & quality filtering reads
-Trimming adapters & quality filtering with `trimmomatic`
-```
-process trimmomatic {
-    // directives
-    publishDir "$params.outdir/trimmed-reads", mode: 'copy', overwrite: true
-    label 'low'
-    container 'quay.io/biocontainers/trimmomatic:0.35--6'
-
-    input:
-    tuple val(sample), path(reads) 
-
-    output:
-    tuple val("${sample}"), path("${sample}*_P.fq"), emit: trim_fq
-    tuple val("${sample}"), path("${sample}*_U.fq"), emit: untrim_fq
-    
-    script:
-    """
-    trimmomatic PE -threads $params.threads ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq $params.slidingwindow $params.avgqual 
-    """
-}
-```
-````
+> **Trimming & quality filtering reads**
+> 
+> Trimming adapters & quality filtering with `trimmomatic`
+> 
+> ```groovy
+> process trimmomatic {
+>     // directives
+>     publishDir "$params.outdir/trimmed-reads", mode: 'copy', overwrite: true
+>     label 'low'
+>     container 'quay.io/biocontainers/trimmomatic:0.35--6'
+> 
+>     input:
+>     tuple val(sample), path(reads) 
+> 
+>     output:
+>     tuple val("${sample}"), path("${sample}*_P.fq"), emit: trim_fq
+>     tuple val("${sample}"), path("${sample}*_U.fq"), emit: untrim_fq
+>     
+>     script:
+>     """
+>     trimmomatic PE -threads $params.threads ${reads[0]} ${reads[1]} ${sample}1_P.fq ${sample}1_U.fq ${sample}2_P.fq ${sample}2_U.fq $params.slidingwindow $params.avgqual 
+>     """
+> }
+> ```
 
 ---
 
 The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name ([more information](https://www.nextflow.io/docs/latest/process.html#inputs)). The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files). 
-
-```{warning}
-The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials.
-```
 
 The **output** declaration block defines the channels created by the process to send out the results produced. They are build similar as the input declarations, using a qualifier (e.g. `val`, `path` and `tuple`) followed by the generated output. The output of a process usually serves as the input of another process, hence with the `emit` option we can make a name identifier that can be used to reference the output (as a channel) in the external scope. In the `trimmomatic` example we can access the generated filtered and trimmed paired reads in the external scope as such: `trimmomatic.out.trim_fq`. 
 
@@ -800,15 +808,13 @@ The **output** declaration block defines the channels created by the process to 
 Each process is executed independently and isolated from any other process. They communicate via asynchronous FIFO queues, i.e. one process will wait for the output of another and then runs reactively when the channel has contents. 
 
 
+![](docs/img/nextflow/asynchronous-FIFO.png)
 
-```{image} ../img/nextflow/asynchronous-FIFO.png
-:align: center
-```
 
 Let's exemplify this by running the script [`exercises/01_building_blocks/fifo.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/fifo.nf) and inspect the order that the channels are being processed. 
 
 ```
-N E X T F L O W  ~  version 20.10.0
+N E X T F L O W  ~  version 24.04.2
 Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
 [-        ] process > whosfirst -
 This is job number 6
@@ -828,7 +834,7 @@ executor >  local (10)
 
 A script, as part of the process, can be written in any language (bash, Python, Perl, Ruby, etc.). This allows to add self-written scripts in the pipeline. The script can be written in the process itself, or can be present as a script in another folder and is run from the process here. An example can be found in [`exercises/01_building_blocks/hellofrompython.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/hellofrompython.nf).
 
-```
+```groovy
 #!/usr/bin/env nextflow
  
 process python {
@@ -846,23 +852,29 @@ process python {
 
 Check the output of the script in the `.command.out` file of the work-directory. 
 
-```{note}
-The work-directory of the last process can be seen in the output of nextflow.
-
-`[f6/4916cd] process > python [100%] 1 of 1 ✔`
-
-In this case, the output would be in the directory starting `work/f6/4916cd...`
-```
+> **note**
+>
+> The work-directory of the last process can be seen in the output of nextflow.
+>
+> `[f6/4916cd] process > python [100%] 1 of 1 ✔`
+>
+> In this case, the output would be in the directory starting `work/f6/4916cd...`
 
 ---
 
 
-````{tab} Exercise 1.4
+**Exercise 1.4**
+================
 A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `exercises/01_building_blocks/firstscript.nf` and inspect the output. 
-````
-````{tab} Solution 1.4
+
+
+<details>
+
+<summary>solution 1.4</summary>
+
 The process should be adapted, containing the following tag line in the directives. 
-```
+
+```groovy
 // Defining the process that is executed
 process valuesToFile {
     tag  "$nums,$strs" 	
@@ -880,19 +892,21 @@ process valuesToFile {
 }
 ```
 When you execute the pipeline, the processes overwrite into one line and it is not very clear in which hashed work directory the outputs are. Therefore, you can use the following to follow the execution of your pipeline:
+
 ```
 nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
 ```
-````
+</details>
 
 ---
 
 ### 4. Workflows
-Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow`, the processes are called as functions with input arguments being the channels. 
+Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow` scope, the processes are called as functions with input arguments being the channels. 
 
 The output that is generated in a process, needs to be emited (`emit`) in order to serve as an input for a next process. The `trimmomatic` process defined above emits the paired trimmed and unpaired trimmed (not passing the filtering thresholds) reads as two separate outputs, `trim_fq` and `untrim_fq` respectively. The following workflow calls the `trimmomatic` process with `reads` as its input channel. Now we can access the output of this process using `trimmomatic.out.trim_fq`.
-```
+
+```groovy
 workflow {
     trimmomatic(reads)
 }
@@ -901,12 +915,16 @@ workflow {
 
 
 ## Extra exercises
-````{tab} Extra exercise 1
+
+**Extra exercise 1**
+====================
 Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/latest/workflow.html#process-named-outputs).
 
-````
-````{tab} Solution 1
-```
+<details>
+
+<summary>solution ext 1</summary>
+
+```groovy
 ...
 process ... 
     output:
@@ -920,18 +938,20 @@ workflow {
     valuesToFile.out.result_ch.view()
 }
 ```
-````
+</details>
 
 ---
 
-````{tab} Extra exercise 2
-
+**Extra exercise 2**
+====================
 You need to execute a hypothetical task for each record in a CSV file. Write a Nextflow script containing the following: 
 
 1. Create a channel for the input (`input.csv`):
+
     - Read the CSV file line-by-line using the `splitCsv` operator, then use the `map` operator to return a tuple with the required field for each line. Finally use the resulting channel as input for the process.
 
 2. Create a process that:
+
     - Accepts a tuple as input channel with the information from the csv-file. 
     - Has the following script: `echo your_command --sample $sampleId --reads $read1 $read2`
 
@@ -945,23 +965,21 @@ Given the file `input.csv` (in the exercises folder) with the following content:
 | 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
 
 
-```` 
 
-````{tab} Solution 2
+<details>
+
+<summary>solution ext 2</summary>
+
 Find the solution also in `split-csv.nf`. Inspect the command that has ran in the intermediate `work/` directory following the hashed folders and look in the file `.command.sh`.
-```
+
+```groovy
 #!/usr/bin/env nextflow
 
 params.input_csv = 'input.csv'
 
-samples_ch = Channel
-                .fromPath(params.input_csv)
-                .splitCsv(header:true)
-                .map{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
-
 process split_csv {
     input:
-    tuple val(sampleId), file(read1), file(read2)  
+    tuple val(sampleId), path(read1), path(read2)  
 
     script:
     """
@@ -970,11 +988,15 @@ process split_csv {
 }
 
 workflow {
-    samples_ch.view()
+    def samples_ch = Channel
+                .fromPath(params.input_csv)
+                .splitCsv(header:true)
+                .map{ row -> tuple(row.sampleId, file(row.forward_read), file(row.reverse_read)) }
+                .view()
     split_csv(samples_ch)
 }
 ``` 
-````
+</details>
 
 
 
@@ -985,18 +1007,15 @@ workflow {
 
 ## Executing our first pipeline
 If we want to run a Nextflow script in its most basic form, we will use the following command:
-```
+
+```bash
 nextflow run <pipeline-name.nf>
 ```
 
 with `<pipeline-name.nf>` the name of our pipeline, e.g. `exercises/02_run_first_script/firstscript.nf`. Inspect the script `firstscript.nf` again and notice how the channels and process are being created, how the workflow calls the process as a function with the channels as input arguments, how they are passed on as the processes' inputs, to the script section and then given to the output. 
 
-```
+```groovy
 #!/usr/bin/env nextflow
-
-// Creating a channel
-numbers_ch = Channel.of(1,2,3)
-strings_ch = Channel.of('a','b')
 
 // Defining the process that is executed
 process valuesToFile {
@@ -1014,6 +1033,10 @@ process valuesToFile {
 
 // Running a workflow with the defined processes  
 workflow {
+    // Creating a channel
+    def numbers_ch = Channel.of(1,2,3)
+    def strings_ch = Channel.of('a','b')
+
     valuesToFile(numbers_ch, strings_ch)
     valuesToFile.out.result_ch.view()
 }
@@ -1021,8 +1044,9 @@ workflow {
 
 
 Nextflow will generate an output that has a standard lay-out:
-```
-N E X T F L O W  ~  version 22.04.5
+
+```bash
+N E X T F L O W  ~  version 24.04.2
 Launching `exercises/02_run_first_script/firstscript.nf` [distracted_almeida] DSL2 - revision: 1a87b5fe26
 executor >  local (2)
 [eb/9af3b0] process > valuesToFile (2) [100%] 2 of 2 ✔
@@ -1031,15 +1055,16 @@ executor >  local (2)
 ```
 
 The output consists of:
+
 - Version of nextflow 
 - Information regarding the script that has ran with an identifier name
 - Hash with process ID, progress and caching information
 - Optional output printed to the screen as defined in the script (if present)
 
-```{admonition} Question
-:class: hint
-When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
-```
+> **Question**
+> 
+> When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
+
 
 The results are stored in the results file as described in the two last lines. By default the results of a process are stored in the `work/` directory in subfolders with names defined by the hashes. Besides the output that we generated, also a bunch of hidden `.command.*` files are present in the hashed `work` folders:
 
@@ -1063,27 +1088,34 @@ The results are stored in the results file as described in the two last lines. B
 ... 
 ```
 
-```{tab} .command.log
-`.command.log`, contains the log of the command execution. Often is identical to .command.out
-```
-```{tab} .command.out
-`.command.out`, contains the standard output of the command execution
-```
-```{tab} .command.err
-`.command.err`, contains the standard error of the command execution
-```
-```{tab} .command.begin
-`.command.begin`, contains what has to be executed before .command.sh
-```
-```{tab} .command.sh
-`.command.sh`, contains the block of code indicated in the process script block
-```
-```{tab} .command.run
-`.command.run`, contains the code made by nextflow for the execution of .command.sh and contains environmental variables, eventual invocations of linux containers etc
-```
-```{tab} .exitcode
-`.exitcode`, contains the exitcode of the proccess, this is typically 0 if everything is ok, another value if there was a problem.
-```
+> **.command.log**
+> 
+> `.command.log`, contains the log of the command execution. This is the combination of `.command.out` and `.command.err`.
+
+> **.command.out**
+> 
+> `.command.out`, contains the standard output of the command execution
+
+> **.command.err**
+> 
+> `.command.err`, contains the standard error of the command execution
+
+> **.command.begin**
+> 
+> `.command.begin`, contains what has to be executed before `.command.sh`
+
+> **.command.sh**
+> 
+> `.command.sh`, contains the block of code indicated in the process script block
+
+> **.command.run**
+> 
+> `.command.run`, contains the code made by nextflow for the execution of `.command.sh` and contains environmental variables, eventual invocations of linux containers etc
+
+> **.exitcode**
+> 
+> `.exitcode`, contains the exitcode of the proccess, this is typically 0 if everything is ok, another value if there was a problem.
+
 
 ---
 
@@ -1096,11 +1128,12 @@ There are two types of parameters!
 
 Pipeline parameters are the parameters used in the pipeline script (e.g. `params.reads`). They are related to the pipeline and can be modified/overwritten on the command-line with a **double dash**: e.g parameter `params.reads` in the `fastqc.nf` script can be set as `--reads` in the command-line. 
 
-There are more ways to set your pipeline parameters, for example in a `nextflow.config` file. This can be useful when there are many parameters to a pipline, or if you want to save the parameters for reuse later. More information about this can be found [here](https://www.nextflow.io/docs/latest/config.html).
+There are more ways to set your pipeline parameters, for example in a `params.json` file. This can be useful when there are many parameters to a pipeline, or if you want to save the parameters for reuse later. More information about this can be found [here](https://www.nextflow.io/docs/latest/config.html).
 
 Nextflow  options are set in the command-line with a **single dash** and are predefined in Nextflow's language. Here are some examples:
+
 - `-bg` runs the workflow in the background.
-- `-resume` resumes the parameter from where it failed last time and uses cached information from the `work/` directory.
+- `-resume` resumes the pipeline from where it failed last time and uses cached information from the `work/` directory.
 - `-with-report` creates a report of how the pipeline ran (performance, memory usages etc.).
 - `-work-dir` overwrite the name of the directory where intermediate result files are written.
 - ...   
@@ -1110,10 +1143,12 @@ We will discover these options while going through the course materials.
 
 ## Knowing where to find a pipeline and which one to use.
 Before thinking of writing our own (plausibly) complex pipeline, we can also think about importing one. Several repositories exist that store Nextflow pipelines (non-exhaustive list):  
-    - Some curated nextflow pipelines are available on [awesome-nextflow](https://github.com/nextflow-io/awesome-nextflow).  
-    - Pipelines from the [nf-core community](https://nf-co.re/pipelines).  
-    - Pipelines from [WorkflowHub](https://workflowhub.eu/) (this is a currently ongoing effort).  
-    - VSN-Pipelines for single cell analysis [VSN-Pipelines](https://github.com/vib-singlecell-nf/vsn-pipelines) (No longer updated)
+
+- Some curated nextflow pipelines are available on [awesome-nextflow](https://github.com/nextflow-io/awesome-nextflow).
+- [Seqera pipelines](https://seqera.io/pipelines/) contains a list of officially endorsed pipelines by Seqera.
+- Pipelines from the [nf-core community](https://nf-co.re/pipelines).  
+- Pipelines from [WorkflowHub](https://workflowhub.eu/) (this is a currently ongoing effort).  
+- VSN-Pipelines for single cell analysis [VSN-Pipelines](https://github.com/vib-singlecell-nf/vsn-pipelines) (No longer updated)
        
 
 ## Import a pipeline 
@@ -1122,22 +1157,17 @@ Imagine that we set our eyes on the [`nextflow-io/rnaseq-nf`](https://github.com
 
 There are different possibilities to pull a publicly available pipeline at a git-based hosting code system (GitHub, GitLab or BitBucket). 
 One of them is to pull the pipeline using `nextflow pull`, like so:
+
 ```
 nextflow pull nextflow-io/rnaseq-nf
 ```
-The latest version of the pipeline is written in DSL2. Imagine that you would like to run the last DSL1 version of the pipeline (v1.2), we can pull this specific version using:
 
-```
-nextflow pull nextflow-io/rnaseq-nf -r v1.2
-```
-```{warning}
-DSL1 support was removed in Nextflow version 22.12.0 so you would need to use an older version of Nextflow for this to work.
-```
+Nextflow enables to pull any specific tag, release or commit. To pull the pipeline from (1) a given branch, at a (2) specific git commit and at a (3) specific version, we use the following:
 
-Nextflow enables to pull any specific tag, release or commit. To pull the pipeline from (1) a given branch and at a (2) specific git commit, we use the following:
 ```
 nextflow pull nextflow-io/rnaseq-nf -r master
 nextflow pull nextflow-io/rnaseq-nf -r 98ffd10a76
+nextflow pull nextflow-io/rnaseq-nf -r v1.2
 ```
 
 The workflows will not be cloned in the folder from where we launched these commands. Instead, it is available in the folder `~/.nextflow/assets/`, e.g. for the nextflow-io/rnaseq-nf pipeline in `~/.nextflow/assets/nextflow-io/rnaseq-nf/`. If we would want to have the workflows available (for further editing), we can use `nextflow clone`, similar to how `git` works. 
@@ -1149,13 +1179,15 @@ The `-r` option can also be used directly with `nextflow run` rather than runnin
 
 After importing our pipeline of interest, we can run it on the command-line using the nextflow run `<pipeline-name>` command, with `<pipeline-name>` being the name of the pipeline we just imported. 
 
-```{note}  
-When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), Nextflow will check GitHub for a corresponding repository, if one exists it will pull it and run it locally. 
-
-`nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
-
-`APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer` . 
-``` 
+> **Note**
+> 
+> When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), Nextflow will check GitHub for a corresponding repository, if one exists it will pull it and run it locally. 
+> 
+> `nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
+> 
+> ```bash
+> APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer`
+> ```
 
 ---
 
@@ -1164,64 +1196,79 @@ When you use `nextflow run` without pulling the pipeline first (`nextflow pull`)
 
 
 
-````{tab} Extra exercise 1
+**Extra exercise 1**
+=============
 Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the name of the folder where results are stored by using a different parameter on the command-line.
-````
 
-````{tab} Solution 1
+<details>
+
+<summary>Solution 1</summary>
+
 The directory with the final results: 
+
 ```bash
-nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -with-docker
+APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -with-apptainer
 ```
+
 or, the directory with temporary files (used for caching): 
+
 ```bash
-nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-docker
+APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-apptainer
 ```
-````
+
+</details>
 
 --- 
 
-````{tab} Extra exercise 2
+**Extra exercise 2**
+==========
 Which pipeline parameters are defined, can you modify these in the rnaseq-nf pipeline?
-````
 
-````{tab} Solution 2
+<details>
+
+<summary>Solution 2</summary>
+
 The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
-````
+
+</details>
 
 --- 
 
-````{tab} Extra exercises 3
-3.1 How many pipelines are currently available in [nf-core](https://nf-co.re/)? How many are under development, released, and archived?
+**Extra exercises 3**
+========
+1. How many pipelines are currently available in [nf-core](https://nf-co.re/)? How many are under development, released, and archived?
 
-3.2 Find the pipeline for performing ATAC-seq data analysis in [nf-core](https://nf-co.re/). 
+2. Find the pipeline for performing ATAC-seq data analysis in [nf-core](https://nf-co.re/). 
 - What is the current/latest version of the pipeline? 
 - How many versions are available to download? 
 - How many and which paramater(s) is(are) **required** to run the pipeline? 
-- What is the default output directory's name? 
+- What is the default fragment size used by the pipeline? 
 - What happens if you do not specify a profile (`-profile`)?
 
-3.3 In the [nextflow-io *awesome* pipelines](https://github.com/nextflow-io/awesome-nextflow), look for the featured `BABS-aDNASeq` workflow:
+3. In the [nextflow-io *awesome* pipelines](https://github.com/nextflow-io/awesome-nextflow), look for the featured `BABS-aDNASeq` workflow:
 - What tool is used for calling variants?
 - What version of Nextflow is it advised to use?
 - How do you download the `BABS-aDNASeq` pipeline locally?
-````
-````{tab} Solution 3
-3.1. As of 09/11/2023: 93 pipelines are available, of which 55 are released, 26 are under development, and 12 are archived. 
 
-3.2 [link](https://nf-co.re/atacseq)   
- - 2.1.2 (09/11/2023)  
- - 8 versions: current (2.1.1), 2.1.0, 2.0, 1.2.2, 1.2.1, 1.2.0, 1.1.0, and 1.0.0.  
+<details>
+
+<summary>Solution 3</summary>
+
+1. As of 15/10/2024: 113 pipelines are available, of which 68 are released, 32 are under development, and 13 are archived. 
+
+2. [link](https://nf-co.re/atacseq)   
+ - 2.1.2 (15/10/2024)  
+ - 9 versions: current (2.1.2), 2.1.1, 2.1.0, 2.0, 1.2.2, 1.2.1, 1.2.0, 1.1.0, and 1.0.0.  
  - Only one required parameter: `--input` (Path to comma-separated file containing information about the samples in the experiment)  
- - `./results` (parameter `--outdir`)  
+ - 200 (parameter `--fragment_size`)  
  - If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the PATH. More information is available [here](https://nf-co.re/atacseq/1.2.2/usage#main-arguments).   
 
-3.3 [link](https://github.com/crickbabs/BABS-aDNASeq).  
+3. [link](https://github.com/crickbabs/BABS-aDNASeq).  
  - `samtools mpileup`  
- - version 0.30.2 (Note that the current version is 23.10.0 (09/11/2023))  
- - `git clone https://github.com/crickbabs/BABS-aDNASeq`  (or `nextflow clone`)  
+ - version 0.32.0 (Note that the current version is 24.04.4 (15/10/2024))  
+ - `git clone https://github.com/crickbabs/BABS-aDNASeq`  (or `nextflow clone` or `nextflow pull`)  
 
-````
+</details>
 
 
 
@@ -1230,15 +1277,14 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 In this chapter we will build a basic RNA-seq pipeline consisting of quality controls, trimming of reads and mapping to a reference genome (excl. counting). We will build the pipeline step by step, starting from quality control with FastQC. The figure below was generated with Nextflow and represents the processes that we will build and the overview of the dataflow from the beginning to the end of the workflow. 
 
 
-```{image} ../img/nextflow/RNAseq.PNG
-:align: center
-```
+![](docs/img/nextflow/RNAseq.PNG)
 
 
 ## Quality control with `FastQC` 
 
 The following script can be found and run in `exercises/03_first_pipeline/fastqc.nf`.
-```bash
+
+```groovy
 #!/usr/bin/env nextflow
 
 params.reads = "${launchDir}/data/*.fq.gz"
@@ -1247,8 +1293,7 @@ params.reads = "${launchDir}/data/*.fq.gz"
  * Quality control fastq
  */
 
-reads_ch = Channel
-    .fromPath( params.reads )
+
     
 process fastqc {
 
@@ -1262,95 +1307,131 @@ process fastqc {
 }
 
 workflow {
+    def reads_ch = Channel
+        .fromPath( params.reads )
+
     fastqc(reads_ch)
 }
 ```
 
 The first line of our script is always a shebang line, declaring the environment where the OS can find the software (i.e. Nextflow). Generally, the input files and parameters of the processes are first assigned into *parameters* which allows flexibility in the pipeline. Input files are then assigned to channels and they serve as input for the process. 
 
-```{note}
-- `$launchDir`: The directory from where the script is launched (replaces `$baseDir` in version >20). 
-- There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created,...
-```
+> **note**
+>
+> - `$launchDir`: The directory from where the script is launched. 
+> - There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created,...
+
 
 Let's first run this script with the following command. If you have `htop` installed, keep an eye on the distribution of the workload and notice how Nextflow parallelises the jobs. 
+
 ```
 nextflow run exercises/03_first_pipeline/fastqc.nf
 ```
 
-```{note}
-The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, and the `nextflow.config` file in the same folder activates the use of docker. If this directive was not there or docker was not enabled, you would need to make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
-```
+> **note**
+>
+> The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, and the `nextflow.config` file in the same folder activates the use of docker.  If this directive was not there or apptainer was not enabled, you would need to make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
+
 
 
 In the following steps we will add new features to this script:
 
-````{tab} Exercise 2.1
+**Exercise 2.1**
+=============
 - Overwrite the parameter `reads` on runtime (when running Nextflow on the command-line) so that it only takes `ggal_gut_1.fq.gz` as an input read. 
 - Additionally, FastQC generates a html- and zip-file for each read. Where are these output files located? 
-````
-````{tab} Solution 2.1
+
+<details>
+
+<summary>Solution 2.1</summary>
+
 ```
 nextflow run exercises/03_first_pipeline/fastqc.nf --reads data/ggal_gut_1.fq.gz
 ```
+
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process. 
-````
+
+</details>
 
 ---
 
 
-````{tab} Exercise 2.2
+**Exercise 2.2**
+============
 Change the the script in order to accept & work with paired-end reads. For this we will need to:
+
 - Adapt something in the reads parameter (`params.reads`)
 - Change how the channel is generated 
 - Change the `input` declaration in the process (from `path` to a `tuple`).  
-````
-````{tab} Solution 2.2
+
+<details>
+
+<summary>Solution 2.2</summary>
+
 The solution is given in `exercises/03_first_pipeline/solutions/2.2_fastqc.nf`. Note that if you run this script, only two processes will be launched, one for each paired-end reads dataset.
-````
+
+</details>
 
 ---
-````{tab} Exercise 2.3
+
+**Exercise 2.3**
+==============
 Run the script with: 
+
 ```
 nextflow run exercises/03_first_pipeline/fastqc.nf -bg > log
 ```
+
 What does the `-bg > log` mean? What would the advantage be?
-````
-````{tab} Solution 2.3
+
+<details>
+
+<summary>Solution 2.3</summary>
+
 Run in the background and push output of nextflow to the log file. No need of explicitly using nohup, screen or tmux.
-````
+
+</details>
 
 --- 
 
-````{tab} Exercise 2.4
+**Exercise 2.4**
+============
 Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g. 
+
 ```
 nextflow run exercises/03_first_pipeline/fastqc.nf --reads wrongfilename
-````
+```
 
-````{tab} Solution 2.4
+<details>
+
+<summary>Solution 2.4</summary>
+
 The solution is given in `exercises/03_first_pipeline/solutions/2.4_fastqc.nf`
-````
+
+</details>
 
 --- 
 
-````{tab} Exercise 2.5
+**Exercise 2.5**
+============
 Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/process.html?highlight=publishdir#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results. 
 
 
-````
-````{tab} Solution 2.5
+<details>
+
+<summary>Solution 2.5</summary>
+
 The solution is given in `exercises/03_first_pipeline/solutions/2.5_fastqc.nf` 
 
 - Without any additional arguments, a hyperlink will be created to the files stored in the `work/` directory, with mode set to copy (`mode: 'copy'`) the files will be made available in the defined directory. 
 - If the output is to be used by another process, and the files are being moved, they won't be accessible for the next process and hence you're pipeline will fail complaining about files not being present.
 
-```{warning}
-Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason files published by a process must not be accessed by other downstream processes.
-```
+> **warning**
+>
+> Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason files published by a process must not be accessed by other downstream processes.
 
-````
+</details>
+
 --- 
 
 
