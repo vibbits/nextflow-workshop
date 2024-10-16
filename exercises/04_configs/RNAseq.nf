@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 // General parameters
-params.datadir = "$launchDir/data"
+params.datadir = "$projectDir/../../data"
 params.outdir = "$launchDir/results"
 
 // Input parameters
