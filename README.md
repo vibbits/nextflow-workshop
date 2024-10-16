@@ -1981,17 +1981,13 @@ includeConfig "https://github.com/nf-core/configs/raw/refs/heads/master/conf/vsc
 
 **Extra exercise 1**
 ==============
-Complete the `nextflow.config` and `params.config` files in the `exercises/04_configs/` folder. These config files should accompany the script `exercises/04_configs/RNAseq.nf`. Move into this directory (`cd exercises/04_configs`) and run the commmand to run this pipeline: `nextflow run RNAseq.nf -profile apptainer`.
+Complete the `nextflow.config`, `standard.config` and `params.yaml` files in the `exercises/04_configs/` folder. These config files should accompany the script `exercises/04_configs/RNAseq.nf`. Move into this directory (`cd exercises/04_configs`) and run the commmand to run this pipeline: `nextflow run RNAseq.nf -profile standard,apptainer -params-file params.yaml`.
 
 <details>
 
 <summary>Solution 1</summary>
 
 The solution is available in the `exercises/04_configs/solutions/` folder.
-
-> **Note**
->
-> Try changing a parameter in the config file and see the updated value printed by the workflow. Also try leaving an option out of the config file to see how the defaults in the script are then used, when they'd normally be overwritten.
 
 </details>
 
