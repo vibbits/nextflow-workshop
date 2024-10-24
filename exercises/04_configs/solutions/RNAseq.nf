@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 // These are now default parameters used when no config file is provided
-params.datadir = "$launchDir/data"
+params.datadir = "$projectDir/../../data"
 params.outdir = "$launchDir/results"
 params.reads = "${params.datadir}/*{1,2}.fq.gz"
 params.genome = "${params.datadir}/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
@@ -63,13 +63,14 @@ workflow {
     // Multi QC on all results
     multiqc((fastqc_raw.out.fastqc_out).mix(fastqc_trim.out.fastqc_out).collect())
 
-    workflow.onComplete {
+    workflow.onComplete = {
         println "Pipeline completed at: $workflow.complete"
         println "Time to complete workflow execution: $workflow.duration"
         println "Execution status: ${workflow.success ? 'Succesful' : 'Failed' }"
     }
 
-    workflow.onError {
+    workflow.onError = {
         println "Oops... Pipeline execution stopped with the following message: $workflow.errorMessage"
     }
+
 }
