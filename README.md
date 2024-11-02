@@ -582,7 +582,7 @@ This is a `tuple` qualifier which we will use a lot during this workshop and dis
 
 </details>
 
-     {{1}}
+     {{1-2}}
 ****************
 
 **Exercise 1.1**
