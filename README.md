@@ -471,12 +471,11 @@ Nextflow is not the only player in the field[[2](https://github.com/pditommaso/a
 + Re-usability: with the introduction of modules it becomes (theoretically) simple to re-use processes written in other pipelines
 + Community[[3](https://nf-co.re/)]: even though the community is never a reason why to choose for a tool (functionality is more important), it is still very relevant to know that when you are facing problems, there are people out there ready to help you out.
 
-
-
 Some thoughts or disadvantages from my personal point of view. It takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis.
 
-
-<!-- Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic) -->
+<!-- 
+Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic) 
+-->
 
 ## Main abstractions
 Nextflow consists of four main components: channels, operators, processes and workflows.
@@ -486,9 +485,7 @@ Nextflow consists of four main components: channels, operators, processes and wo
 - *Processes*: define the piece of script that is actually being run (e.g. an alignment process with STAR).
 - *Workflows*: call the processes as functions with channels as input arguments, only processes defined in the workflow are run.
 
-
 ![](docs/img/nextflow/nextflow-conceptually.png)
-
 
 The script [`exercises/01_building_blocks/firstscript.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/firstscript.nf) is using these three components and gives an idea of how Nextflow scripts are being build.
 
@@ -520,7 +517,6 @@ workflow {
     valuesToFile(numbers_ch, strings_ch)
 }
 ```
-
 
 <div class="admonition admonition-info">
 <p class="admonition-title">Parameters</p>
@@ -571,7 +567,6 @@ Once the Nextflow script is saved, run it with: `nextflow run exercises/01_build
 
 Paired fastq files are provided in the `data` folder.
 
-
 <details>
 
 <summary>solution 1.1</summary>
@@ -586,6 +581,38 @@ Note that the content of the channel is constructed in a following manner:
 This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again.
 
 </details>
+
+     {{1}}
+****************
+
+**Exercise 1.1**
+
+**Reminder: Run all exercises from the root nextflow-workshop folder**
+
+Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
+
+Once the Nextflow script is saved, run it with: `nextflow run exercises/01_building_blocks/template.nf`.
+
+Paired fastq files are provided in the `data` folder.
+
+*************
+
+          {{2}}
+****************
+
+**Solution 1.1**
+
+The solution is available in the file `exercises/01_building_blocks/solutions/1.1_template-paired-end.nf`.
+
+Note that the content of the channel is constructed in a following manner:
+
+```bash
+[common-name, [/path/to/read1.fq, /path/to/read2.fq]]
+```
+This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again.
+
+*************
+
 
 ### 2. Operators
 Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
