@@ -521,19 +521,20 @@ workflow {
 }
 ```
 
-> **Note**
->
-> Besides these main building blocks, we also already highlight the existence of the `params` parameters. In the previous code block we explicitly defined some input values in the channels. However, we can define the input values into a parameter instead, that is passed on to the channel.
->
-> ```groovy
-> // create a parameter 'input_read'
-> params.input_read = '/path/to/read_1.fq'
->
-> // use the input_read parameter as an input for the channel
-> def input_read_ch = Channel.fromPath(params.input_read)
-> ```
->
-> Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime.
+
+<div class="admonition admonition-info">
+<p class="admonition-title">Parameters</p>
+
+Besides these main building blocks, we also already highlight the existence of the `params` parameters. In the previous code block we explicitly defined some input values in the channels. However, we can define the input values into a parameter instead, that is passed on to the channel.
+
+```groovy
+// create a parameter 'input_read'
+params.input_read = '/path/to/read_1.fq'
+
+// use the input_read parameter as an input for the channel
+def input_read_ch = Channel.fromPath(params.input_read)
+```
+Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime.
 
 <!--
 (The workflows can be repesented as graphs where the nodes are the processes and the edges are the channels. The processes are block of code that can be executed such as scripts or programs, while the channels are asynchronous queue able to connect processess among them via input / output.)
@@ -542,7 +543,7 @@ workflow {
 
 (In the previous example the processes A, B and C can be run in parallel and only at their end the process D is triggered.)
 -->
-
+</div>
 
 
 ### 1. Channels
