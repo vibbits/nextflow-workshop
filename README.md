@@ -23,9 +23,13 @@ link:     https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min
 link:     https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300&display=swap
 link:     https://fonts.googleapis.com/css2?family=Open+Sans&display=swap
 link:     https://raw.githubusercontent.com/vibbits/material-liascript/master/vib-styles.css
+link: https://cdn.jsdelivr.net/npm/marked-admonition-extension@0.0.4/dist/index.min.css
 
-tutor:    Introduction to Nextflow
-edition:  5th
+@style
+.admonition {
+    font-size: initial !important;
+}
+@end
 
 @JSONLD
 <script run-once>
@@ -45,6 +49,10 @@ edition:  5th
 @end
 
 orcid:    [@0](@1)<!--class="orcid-logo-for-author-list"-->
+
+tutor:    Introduction to Nextflow
+edition:  5th
+
 -->
 
 # Nextflow workshop
