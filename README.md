@@ -569,7 +569,7 @@ Paired fastq files are provided in the `data` folder.
 
 <details>
 
-<summary>solution 1.1</summary>
+<summary>**Solution 1.1**</summary>
 
 The solution is available in the file `exercises/01_building_blocks/solutions/1.1_template-paired-end.nf`.
 
