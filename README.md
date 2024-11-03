@@ -897,15 +897,16 @@ process python {
 
 Check the output of the script in the `.command.out` file of the work-directory.
 
-> **note**
->
-> The work-directory of the last process can be seen in the output of nextflow.
->
-> `[f6/4916cd] process > python [100%] 1 of 1 ✔`
->
-> In this case, the output would be in the directory starting `work/f6/4916cd...`
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
 
----
+The work-directory of the last process can be seen in the output of nextflow.
+
+`[f6/4916cd] process > python [100%] 1 of 1 ✔`
+
+In this case, the output would be in the directory starting `work/f6/4916cd...`
+
+</div>
 
     {{1-2}}
 ****************
@@ -1115,10 +1116,10 @@ The output consists of:
 - Hash with process ID, progress and caching information
 - Optional output printed to the screen as defined in the script (if present)
 
-> **Question**
->
-> When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
-
+<div class="admonition admonition-question">
+<p class="admonition-title">Question</p>
+When we run this script, the result file will not be present in our folder structure. Where will the output of this script be stored?
+</div>
 
 The results are stored in the results file as described in the two last lines. By default the results of a process are stored in the `work/` directory in subfolders with names defined by the hashes. Besides the output that we generated, also a bunch of hidden `.command.*` files are present in the hashed `work` folders:
 
@@ -1229,17 +1230,18 @@ The `-r` option can also be used directly with `nextflow run` rather than runnin
 
 After importing our pipeline of interest, we can run it on the command-line using the nextflow run `<pipeline-name>` command, with `<pipeline-name>` being the name of the pipeline we just imported.
 
-> **Note**
->
-> When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), Nextflow will check GitHub for a corresponding repository, if one exists it will pull it and run it locally.
->
-> `nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
->
-> ```bash
-> APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer`
-> ```
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
 
----
+When you use `nextflow run` without pulling the pipeline first (`nextflow pull`), Nextflow will check GitHub for a corresponding repository, if one exists it will pull it and run it locally.
+
+`nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
+
+```bash
+APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer`
+```
+</div>
+
 
 
 ## Extra exercises
@@ -1378,11 +1380,13 @@ workflow {
 
 The first line of our script is always a shebang line, declaring the environment where the OS can find the software (i.e. Nextflow). Generally, the input files and parameters of the processes are first assigned into *parameters* which allows flexibility in the pipeline. Input files are then assigned to channels and they serve as input for the process.
 
-> **note**
->
-> - `$launchDir`: The directory from where the script is launched.
-> - There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created,...
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
 
+- `$launchDir`: The directory from where the script is launched.
+- There is a great flexibility in the Nextflow (Groovy) language: writing of whitespaces, newlines where channels are created,...
+
+</div>
 
 Let's first run this script with the following command. If you have `htop` installed, keep an eye on the distribution of the workload and notice how Nextflow parallelises the jobs.
 
@@ -1390,10 +1394,12 @@ Let's first run this script with the following command. If you have `htop` insta
 nextflow run exercises/03_first_pipeline/fastqc.nf
 ```
 
-> **note**
->
-> The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, and the `nextflow.config` file in the same folder activates the use of docker.  If this directive was not there or apptainer was not enabled, you would need to make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
 
+The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, and the `nextflow.config` file in the same folder activates the use of docker.  If this directive was not there or apptainer was not enabled, you would need to make sure that the tool `fastQC` is installed. Conda is already installed and activated, it allows us to easily install `fastqc` with the following command `conda install -c bioconda fastqc`.
+
+</div>
 
 
 In the following steps we will add new features to this script:
@@ -1703,9 +1709,12 @@ process star_alignment {
 
 ```
 
-> **Note**
->
-> This exercise could also be solved by converting the index and gtf channels to value channels
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+This exercise could also be solved by converting the index and gtf channels to value channels.
+
+</div>
 
 </details>
 
@@ -1756,11 +1765,12 @@ workflow {
 }
 ```
 
-> **Note**
->
-> The `take:` declaration block defines the input channels of the sub-workflow, `main:` is the declaration block that contains the processes and is required in order to separate the inputs from the workflow body. These options are useful when the pipeline is growing with multiple entry-levels to keep a tidy overview.
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
 
+The `take:` declaration block defines the input channels of the sub-workflow, `main:` is the declaration block that contains the processes and is required in order to separate the inputs from the workflow body. These options are useful when the pipeline is growing with multiple entry-levels to keep a tidy overview.
 
+</div>
 
 
 ## Extra exercises
@@ -1886,9 +1896,13 @@ We're referring to a Docker container image that exists on [Dockerhub](http://do
 
 Ultimately, the parameter `-with-docker` does not need to be defined on runtime and it should use the Docker container in the background at all times, for this purpose we can set `docker.enabled = true` option in the config file.
 
-> **Note**
->
-> Another interesting parameter to consider adding to the configuration file is the `docker.runOptions = '-u \$(id -u):\$(id -g)'`. This allows us to create files with permissions on user-level instead of the default root-level files.
+<div class="admonition admonition-info">
+<p class="admonition-title">Notes</p>
+
+Another interesting parameter to consider adding to the configuration file is the `docker.runOptions = '-u \$(id -u):\$(id -g)'`. This allows us to create files with permissions on user-level instead of the default root-level files.
+
+</div>
+
 
 **Singularity/Apptainer**:
 
@@ -2128,9 +2142,10 @@ Nextflow has an embedded function for reporting various information about the re
 > nextflow run exercises/05_reports/RNAseq.nf -with-dag rnaseq.html -profile docker
 > ```
 > 
-> > **note**
-> >
-> > As of Nextflow 22.04, the DAG can also be output in mermaid format, more information can be found [here](https://www.nextflow.io/docs/latest/tracing.html#dag-visualisation).
+> <div class="admonition admonition-info">
+> <p class="admonition-title">Parameters</p>
+> As of Nextflow 22.04, the DAG can also be output in mermaid format, more information can be found [here](https://www.nextflow.io/docs/latest/tracing.html#dag-visualisation).
+> </div>
 
 
 > **Timeline Report**
