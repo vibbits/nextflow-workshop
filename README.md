@@ -1494,9 +1494,10 @@ The solution is given in `exercises/03_first_pipeline/solutions/2.5_fastqc.nf`
 - Without any additional arguments, a hyperlink will be created to the files stored in the `work/` directory, with mode set to copy (`mode: 'copy'`) the files will be made available in the defined directory.
 - If the output is to be used by another process, and the files are being moved, they won't be accessible for the next process and hence you're pipeline will fail complaining about files not being present.
 
-> **warning**
->
-> Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason files published by a process must not be accessed by other downstream processes.
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
+Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason files published by a process must not be accessed by other downstream processes.
+</div>
 
 </details>
 
@@ -2049,9 +2050,10 @@ This even works for configs hosted online (e.g. on Github) by using the full lin
 includeConfig "https://github.com/nf-core/configs/raw/refs/heads/master/conf/vsc_ugent.config"
 ```
 
-> **Warning**
->
-> The order in which the configs are included matters. Configuration files included at the end of the `nextflow.config` will overwrite overlapping configuration options defined earlier in the config file (it doesn't matter if these options were specified in the configuration file itself or if they were included from another config file).
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
+The order in which the configs are included matters. Configuration files included at the end of the `nextflow.config` will overwrite overlapping configuration options defined earlier in the config file (it doesn't matter if these options were specified in the configuration file itself or if they were included from another config file).
+</div>
 
 ## Extra exercises
 
@@ -2104,9 +2106,10 @@ In the previous extra exercise we ran a Nextflow pipeline residing on GitHub. Im
 
 To change anything in the configuration file, the `nextflow.config` file needs to be edited. There are two options for this: in the `assets` where the pipeline is stored or by cloning the pipeline in our local folder structure. For this, you can use the following command: `nextflow clone <pipeline-name>` to clone (download) the pipeline locally. Then, open an editor and change the `nextflow.config` file so it contains the following:
 
-> **Warning**
->
-> Watch out for nested `git` folders!
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
+Watch out for nested `git` folders!
+</div>
 
 ```groovy
 profiles {
@@ -2210,9 +2213,10 @@ In this project, we’d like to combine publicly available tools and some basic 
 2. Trim primers from them and filter low-quality reads
 3. Find the unique 16S sequence variants & get a grasp of the diversity of the samples.
 
-```{warning}
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
 Before you start the project, make sure to `cd` to the `project` directory and work there to maintain a clean working environment.
-```
+</div>
 
 ## Data
 
