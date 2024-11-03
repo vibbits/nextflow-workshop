@@ -675,8 +675,11 @@ Channel
 25
 ```
 
+    {{1-2}}
+****************
+
 **Exercise 1.2**
-===============
+
 Create a channel from a csv-file (`input.csv`) and use an operator to view the contents. Generate the channel for the `input.csv`-file which you can find in the `exercises/01_building_blocks/` folder and contains the following content:
 
 | sampleId | Read 1                        | Read 2                        |
@@ -686,9 +689,12 @@ Create a channel from a csv-file (`input.csv`) and use an operator to view the c
 
 Test your Nextflow script with: `nextflow run <name>.nf`.
 
-<details>
+*************
 
-<summary>solution 1.2</summary>
+    {{2-3}}
+****************
+
+**Solution 1.2**
 
 The solution is available in the file `exercises/01_building_blocks/solutions/1.2_template-csv.nf`
 
@@ -699,22 +705,25 @@ def samples_ch = Channel
                 .fromPath('exercises/01_building_blocks/input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
 ```
-</details>
+**********
 
----
+    {{3-4}}
+****************
 
 **Exercise 1.3**
 ================
 Building on exercise 1.2 and using the `map` operator, create 2 channels, one containing the sampleId and the forward read as a tuple and the second containing the sampleId and reverse read as a tuple. Use the `view` operator to inspect the contents of thsee channels.
 
+********
 
-<details>
+    {{4}}
+****************
 
-<summary>solution 1.3</summary>
+**Solution 1.3**
 
 The solution is available in the file `exercises/01_building_blocks/solutions/1.3_template-csv-map.nf`
 
-</details>
+**************
 
 
 ---
@@ -898,15 +907,19 @@ Check the output of the script in the `.command.out` file of the work-directory.
 
 ---
 
+    {{1-2}}
+****************
 
 **Exercise 1.4**
-================
+
 A `tag` directive can be added at the top of the process definition and allows you to associate each process execution with a custom label. Hence, it is really useful for logging or debugging. Add a tag for `num` and `str` in the process of the script `exercises/01_building_blocks/firstscript.nf` and inspect the output.
 
+****************
 
-<details>
+    {{2}}
+****************
 
-<summary>solution 1.4</summary>
+**Solution 1.4**
 
 The process should be adapted, containing the following tag line in the directives.
 
@@ -933,9 +946,7 @@ When you execute the pipeline, the processes overwrite into one line and it is n
 nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
 ```
-</details>
-
----
+*************
 
 ### 4. Workflows
 Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow` scope, the processes are called as functions with input arguments being the channels.
@@ -952,13 +963,19 @@ workflow {
 
 ## Extra exercises
 
+    {{0-1}}
+****************
+
 **Extra exercise 1**
 ====================
 Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/latest/workflow.html#process-named-outputs).
 
-<details>
+****************
 
-<summary>solution ext 1</summary>
+    {{1-2}}
+****************
+
+**Solution ext 1**
 
 ```groovy
 ...
@@ -974,9 +991,12 @@ workflow {
     valuesToFile.out.result_ch.view()
 }
 ```
-</details>
+*************
 
 ---
+
+    {{2-3}}
+****************
 
 **Extra exercise 2**
 ====================
@@ -1000,11 +1020,12 @@ Given the file `input.csv` (in the exercises folder) with the following content:
 | 01       | data/ggal_gut_1.fq.gz         | data/ggal_gut_2.fq.gz         |
 | 02       | data/ggal_liver_1.fq.gz       | data/ggal_liver_2.fq.gz       |
 
+*******
 
+    {{3}}
+****************
 
-<details>
-
-<summary>solution ext 2</summary>
+**Solution ext 2**
 
 Find the solution also in `split-csv.nf`. Inspect the command that has ran in the intermediate `work/` directory following the hashed folders and look in the file `.command.sh`.
 
@@ -1032,11 +1053,8 @@ workflow {
     split_csv(samples_ch)
 }
 ```
-</details>
+************
 
-
-
----
 
 # Executing pipelines
 
@@ -1153,10 +1171,6 @@ The results are stored in the results file as described in the two last lines. B
 > `.exitcode`, contains the exitcode of the proccess, this is typically 0 if everything is ok, another value if there was a problem.
 
 
----
-
-
-
 
 ## Pipeline parameters vs Nextflow options
 
@@ -1230,15 +1244,19 @@ After importing our pipeline of interest, we can run it on the command-line usin
 
 ## Extra exercises
 
-
+    {{0-1}}
+****************
 
 **Extra exercise 1**
-=============
+
 Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the name of the folder where results are stored by using a different parameter on the command-line.
 
-<details>
+**************
 
-<summary>Solution 1</summary>
+    {{1-2}}
+****************
+
+**Solution 1**
 
 The directory with the final results:
 
@@ -1252,26 +1270,31 @@ or, the directory with temporary files (used for caching):
 APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-apptainer
 ```
 
-</details>
+*************
 
----
+    {{2-3}}
+****************
 
 **Extra exercise 2**
-==========
+
 Which pipeline parameters are defined, can you modify these in the rnaseq-nf pipeline?
 
-<details>
+***************
 
-<summary>Solution 2</summary>
+    {{3-4}}
+****************
+
+**Solution 2**
 
 The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 
-</details>
+***********
 
----
+    {{4-5}}
+****************
 
 **Extra exercises 3**
-========
+
 1. How many pipelines are currently available in [nf-core](https://nf-co.re/)? How many are under development, released, and archived?
 
 2. Find the pipeline for performing ATAC-seq data analysis in [nf-core](https://nf-co.re/).
@@ -1286,9 +1309,12 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 - What version of Nextflow is it advised to use?
 - How do you download the `BABS-aDNASeq` pipeline locally?
 
-<details>
+***********
 
-<summary>Solution 3</summary>
+    {{5}}
+****************
+
+**Solution 3**
 
 1. As of 15/10/2024: 113 pipelines are available, of which 68 are released, 32 are under development, and 13 are archived.
 
@@ -1304,7 +1330,7 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
  - version 0.32.0 (Note that the current version is 24.04.4 (15/10/2024))
  - `git clone https://github.com/crickbabs/BABS-aDNASeq`  (or `nextflow clone` or `nextflow pull`)
 
-</details>
+***********
 
 
 
