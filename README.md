@@ -582,6 +582,8 @@ This is a `tuple` qualifier which we will use a lot during this workshop and dis
 
 </details>
 
+#### Exercises
+
      {{1-2}}
 ****************
 
@@ -675,6 +677,8 @@ Channel
 25
 ```
 
+#### Exercises
+
     {{1-2}}
 ****************
 
@@ -725,8 +729,6 @@ The solution is available in the file `exercises/01_building_blocks/solutions/1.
 
 **************
 
-
----
 
 ### 3. Processes
 Processes are the backbone of the pipeline. They represent each individual subpart of the analysis. In the code-snippet below, you can see that it consists of a couple of blocks: directives, input, output, when-clause and the script itself.
@@ -907,6 +909,8 @@ The work-directory of the last process can be seen in the output of nextflow.
 In this case, the output would be in the directory starting `work/f6/4916cd...`
 
 </div>
+
+#### Exercises
 
     {{1-2}}
 ****************
@@ -1402,7 +1406,7 @@ The process in `exercises/03_first_pipeline/fastqc.nf` specifies a container, an
 </div>
 
 
-In the following steps we will add new features to this script:
+In the following exercises, we will add new features to this script.
 
 **Exercise 2.1**
 =============
@@ -1420,8 +1424,6 @@ nextflow run exercises/03_first_pipeline/fastqc.nf --reads data/ggal_gut_1.fq.gz
 - The output files are stored in the `work/` directory following the generated hashes. The hash at the beginning of each process reveals where you can find the result of each process.
 
 </details>
-
----
 
 
 **Exercise 2.2**
@@ -1501,8 +1503,6 @@ Files are copied into the specified directory in an asynchronous manner, thus th
 
 </details>
 
----
-
 
 The final FastQC script, with some additional comments is provided in `exercises/03_first_pipeline/solutions/fastqc_final.nf`.
 
@@ -1572,6 +1572,7 @@ workflow {
 
 Similarly as described above, we can extend this pipeline and map our trimmed reads on a reference genome. First, we'll have to create an index for our genome and afterwards we can map our reads onto it. These modules are called from the main script `RNAseq.nf`.
 
+#### Exercises
 
 **Exercise 2.6**
 ================
