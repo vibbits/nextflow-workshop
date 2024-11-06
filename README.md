@@ -1253,6 +1253,17 @@ One of them is to pull the pipeline using `nextflow pull`, like so:
 nextflow pull nextflow-io/rnaseq-nf
 ```
 
+The latest version of the pipeline is written in DSL2. Imagine that you would like to run the last DSL1 version of the pipeline (v1.2), we can pull this specific version using:
+
+```
+nextflow pull nextflow-io/rnaseq-nf -r v1.2
+```
+
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
+DSL1 support was removed in Nextflow version 22.12.0 so you would need to use an older version of Nextflow for this to work.
+</div>
+
 Nextflow enables to pull any specific tag, release or commit. To pull the pipeline from (1) a given branch, at a (2) specific git commit and at a (3) specific version, we use the following:
 
 ```
@@ -1860,8 +1871,6 @@ Pipeline configuration properties are defined in a file named `nextflow.config` 
 Let's have a look again at the structure of the workflow. The `nextflow.config` defines the technical and pipeline parameters and are used to configure the `main.nf` script. Actually, we can write any number of `*.config` files and include them in the general `nextflow.config` which is then used as default configuration for the `main.nf`.
 
 ![](docs/img/nextflow/overview-folder-structure.png)
-
-<!-- This image contains some wrong wording, TODO update this -->
 
 ### Technical parameters
 
