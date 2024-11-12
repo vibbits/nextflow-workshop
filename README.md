@@ -642,7 +642,7 @@ Operators are necessary to transform the content of channels in a format that is
 <details class="admonition admonition-info">
 
 <summary>Note</summary>
-The nextflow documentation details whether the out for each operator is a queue channel or a value channel.
+The nextflow documentation details whether each operator produces a queue channel or a value channel.
 </details>
 
   Example: [`exercises/01_building_blocks/operator_collect.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/operator_collect.nf)
