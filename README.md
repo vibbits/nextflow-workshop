@@ -277,7 +277,7 @@ There are two options for following this workshop:
   1. do the installations yourself & be in control of everything,
   2. use the setup that we have provided with the installations already done.
 
-In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/edge/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
+In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/stable/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
 
 ### Provided infrastructure
 
@@ -1531,7 +1531,7 @@ The solution is given in `exercises/03_first_pipeline/solutions/2.4_fastqc.nf`
 
 **Exercise 2.5**
 
-Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/process.html?highlight=publishdir#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results.
+Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/reference/process.html#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results.
 
 
 <details>
@@ -1825,7 +1825,7 @@ The `take:` declaration block defines the input channels of the sub-workflow, `m
 
 **Extra exercise 1**
 
-Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/latest/metadata.html).
+Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about global variables [here](https://www.nextflow.io/docs/latest/reference/stdlib.html#constants) and global functions [here](https://www.nextflow.io/docs/latest/reference/stdlib.html#functions).
 
 <details>
 
