@@ -483,7 +483,7 @@ Nextflow consists of four main components: channels, operators, processes and wo
 - *Channels*: contain the input of the workflows used by the processes. Channels connect processes with each other.
 - *Operators*: transform the content of channels by applying functions or transformations. Usually operators are applied on channels to get the input of a process in the right format.
 - *Processes*: define the piece of script that is actually being run (e.g. an alignment process with STAR).
-- *Workflows*: call the processes as functions with channels as input arguments, only processes defined in the workflow are run. Workflows were introduced in DSL2.
+- *Workflows*: call the processes as functions with channels as input arguments, only processes defined in the workflow are run.
 
 ![](docs/img/nextflow/nextflow-conceptually.png)
 
