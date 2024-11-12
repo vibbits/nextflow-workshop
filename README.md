@@ -24,6 +24,7 @@ link:     https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300&disp
 link:     https://fonts.googleapis.com/css2?family=Open+Sans&display=swap
 link:     https://raw.githubusercontent.com/vibbits/material-liascript/master/vib-styles.css
 link: https://cdn.jsdelivr.net/npm/marked-admonition-extension@0.0.4/dist/index.min.css
+mode: Presentation
 
 @style
 .admonition {
@@ -353,7 +354,11 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Open a new terminal within VSCode: Terminal -> New Terminal
 - Create a new folder for the workshop
 - Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
-- Load the nextflow module: `module load Nextflow/24.10.0`
+- For the Gent cluster usage, in any terminal where you want to run your excercises 
+  1. Load the nextflow module: `module load Nextflow/24.10.0`
+  2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
+   - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
+   - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
 
 ## Citing this lesson
 
@@ -635,7 +640,7 @@ queue_channel2 = Channel.fromPath('/path/to/files/*.txt')
 More info about value and queue channels can be found in the [documentation](https://www.nextflow.io/docs/latest/channel.html#channel-types).
 
 #### 2. Operators
-Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
+Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There are a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
 
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type).
 
@@ -957,7 +962,7 @@ A `tag` directive can be added at the top of the process definition and allows y
 
 ****************
 
-    {{2}}
+    {{2-3}}
 ****************
 
 **Solution 1.4**
@@ -988,6 +993,47 @@ nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
 ```
 *************
+
+    {{3-4}}
+****************
+
+**Exercise 1.5**
+
+The script in `exercises/01_building_blocks/channel_types.nf` uses two queue channels as the input to a process, but only a single value from the `y` channel is utilized, this is because the single value in the `x` channel is consumed leaving an empty channel. Change channel `x` to be a value channel, so that channel `y` is completely consumed.
+
+****************
+
+    {{4}}
+****************
+**Solution 1.5**
+
+The script should be changed to use `Channel.value` for channel `x`.
+
+```groovy
+process bar {
+  input:
+  val x
+  val y
+  script:
+  """
+  echo $x and $y
+  """
+}
+workflow {
+  x = Channel.value(1)
+  y = Channel.of('a', 'b', 'c')
+  foo(x, y)
+}
+```
+You should get the following output:
+
+```
+1 and a
+1 and b
+1 and c
+```
+
+****************
 
 #### 4. Workflows
 Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow` scope, the processes are called as functions with input arguments being the channels.
