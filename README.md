@@ -2417,14 +2417,14 @@ As hopefully Cutadapt has done its job, we’d now like to take another look at 
 
 <div class="admonition admonition-abstract">
 <p class="admonition-title">Objective 5</p>
-Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
+Write a new workflow and include it in `main.nf`. The workflow needs to run FastQC and MultiQC on the FastQ files. Use this workflow to run quality control on the reads before and after trimming.
 </div>
 
 <details>
 
 <summary>Hint</summary>
 
-Combine the FastQC and MultiQC processes into a named workflow.
+Combine the FastQC and MultiQC processes into a named workflow. Use aliases to import the workflow without issues.
 
 </details>
 
@@ -2445,7 +2445,7 @@ Write and incorporate a process that executes this Rscript and outputs the `coun
 
 <summary>Hint</summary>
 
-The container that you use should have the R-package ‘DADA2’ installed.
+The container that you use should have the R-package ‘DADA2’ installed. The R script takes all fastq files as an argument.
 
 </details>
 

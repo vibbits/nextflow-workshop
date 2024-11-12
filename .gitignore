@@ -8,3 +8,6 @@ presentation.md
 .nextflow*
 work/
 results*
+data1/
+data2/
+output/
