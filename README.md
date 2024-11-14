@@ -24,6 +24,7 @@ link:     https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300&disp
 link:     https://fonts.googleapis.com/css2?family=Open+Sans&display=swap
 link:     https://raw.githubusercontent.com/vibbits/material-liascript/master/vib-styles.css
 link: https://cdn.jsdelivr.net/npm/marked-admonition-extension@0.0.4/dist/index.min.css
+mode: Presentation
 
 @style
 .admonition {
@@ -277,7 +278,7 @@ There are two options for following this workshop:
   1. do the installations yourself & be in control of everything,
   2. use the setup that we have provided with the installations already done.
 
-In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/edge/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
+In the former case, you will have to download [Nextflow](https://www.nextflow.io/docs/stable/getstarted.html) and [Apptainer](https://apptainer.org/). In the latter case, you can follow the instructions below.
 
 ### Provided infrastructure
 
@@ -349,11 +350,28 @@ You are free to connect to the cluster however you want, but the above 2 methods
 
 ### Common Setup
 
-- Install the Nextflow VSCcode Package - This will give you syntax highlighting and linting for Nextflow
+- Install the Nextflow VSCcode Extension - This will give you syntax highlighting and linting for Nextflow
+
+  1. Go to extensions (CTRL+SHIFT+X)
+  2. Search for "Nextflow"
+  3. Install the Nextflow extension
+  4. Click on the cogwheel ("Manage") and open the "Extension Settings"
+  5. Scroll down to the `Nextflow > Java: Home` section and click on "Edit in settings.json"
+  6. Change the `nextflow.java.home` setting to `"/apps/gent/RHEL8/cascadelake-ib/software/Java/21.0.2"`
+  7. Open the command prompt (CTRL+SHIFT+P) and type `Nextflow: Restart language server` and press enter
+
 - Open a new terminal within VSCode: Terminal -> New Terminal
 - Create a new folder for the workshop
 - Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
-- Load the nextflow module: `module load Nextflow/24.10.0`
+- For the Gent cluster usage, in any terminal where you want to run your excercises 
+
+  1. Load the nextflow module: `module load Nextflow/24.10.0`
+  2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
+   - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
+   - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
+  3. If these tmp folders don't exist yet in your scratch folder, you will have to create them first
+   - `mkdir ${VSC_SCRATCH}/.apptainer_cache`
+   - `mkdir ${VSC_SCRATCH}/.apptainer_tmp`
 
 ## Citing this lesson
 
@@ -635,7 +653,7 @@ queue_channel2 = Channel.fromPath('/path/to/files/*.txt')
 More info about value and queue channels can be found in the [documentation](https://www.nextflow.io/docs/latest/channel.html#channel-types).
 
 #### 2. Operators
-Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There is a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
+Operators are necessary to transform the content of channels in a format that is necessary for usage in the processes. There are a plethora of different operators[[5](https://www.nextflow.io/docs/latest/operator.html?highlight=view#)], however only a handful are used extensively. Here are some examples that you might come accross:
 
 - `collect`: e.g. when using a channel consisting of multiple independent files (e.g. fastq-files) and need to be assembled for a next process (output in a list data-type).
 
@@ -957,7 +975,7 @@ A `tag` directive can be added at the top of the process definition and allows y
 
 ****************
 
-    {{2}}
+    {{2-3}}
 ****************
 
 **Solution 1.4**
@@ -988,6 +1006,47 @@ nextflow run exercises/01_building_blocks/firstscript.nf -bg > nf.log
 tail -f nf.log
 ```
 *************
+
+    {{3-4}}
+****************
+
+**Exercise 1.5**
+
+The script in `exercises/01_building_blocks/channel_types.nf` uses two queue channels as the input to a process, but only a single value from the `y` channel is utilized, this is because the single value in the `x` channel is consumed leaving an empty channel. Change channel `x` to be a value channel, so that channel `y` is completely consumed.
+
+****************
+
+    {{4}}
+****************
+**Solution 1.5**
+
+The script should be changed to use `Channel.value` for channel `x`.
+
+```groovy
+process bar {
+  input:
+  val x
+  val y
+  script:
+  """
+  echo $x and $y
+  """
+}
+workflow {
+  x = Channel.value(1)
+  y = Channel.of('a', 'b', 'c')
+  foo(x, y)
+}
+```
+You should get the following output:
+
+```
+1 and a
+1 and b
+1 and c
+```
+
+****************
 
 #### 4. Workflows
 Defining processes will not produce anything, because you need another part that actually calls the process and connects it to the input channel. Thus, in the `workflow` scope, the processes are called as functions with input arguments being the channels.
@@ -1531,7 +1590,7 @@ The solution is given in `exercises/03_first_pipeline/solutions/2.4_fastqc.nf`
 
 **Exercise 2.5**
 
-Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/process.html?highlight=publishdir#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results.
+Control where and how the output is stored. Have a look at the directive [`publishDir`](https://www.nextflow.io/docs/latest/reference/process.html#publishdir). Nextflow will only store the files that are defined in the `output` declaration block of the process, therefore we now also need to define the output. Put a copy of the output files in a new folder that contains only these results.
 
 
 <details>
@@ -1825,7 +1884,7 @@ The `take:` declaration block defines the input channels of the sub-workflow, `m
 
 **Extra exercise 1**
 
-Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about workflow introspection [here](https://www.nextflow.io/docs/latest/metadata.html).
+Extend the workflow pipeline with a final note printed on completion of the workflow. Read more about global variables [here](https://www.nextflow.io/docs/latest/reference/stdlib.html#constants) and global functions [here](https://www.nextflow.io/docs/latest/reference/stdlib.html#functions).
 
 <details>
 
@@ -2291,6 +2350,7 @@ All the docker containers we will need are already publicly available, so don’
 The following docker containers will work well with Nextflow for the pipeline you're going to create:
 
 * fastqc: `biocontainers/fastqc:v0.11.9_cv8` 
+* multiqc: `multiqc/multiqc:v1.25.1`
 * DADA2: `blekhmanlab/dada2:1.26.0` 
 * Python: `python:slim-bullseye` 
 * Cutadapt: `biocontainers/cutadapt:4.7--py310h4b81fae_1`
@@ -2303,7 +2363,7 @@ After pulling in and setting up the data, we’re first interested in examining 
 
 <div class="admonition admonition-abstract">
 <p class="admonition-title">Objective 2</p>
-Write a process which executes FastQC over the raw samples.
+Write a process which executes FastQC over the raw samples. 
 </div>
 
 As we’re not really looking forward to inspecting each FastQC report individually, we should pool these in a single report using MultiQC.
@@ -2357,14 +2417,14 @@ As hopefully Cutadapt has done its job, we’d now like to take another look at 
 
 <div class="admonition admonition-abstract">
 <p class="admonition-title">Objective 5</p>
-Write a workflow in your `main.nf` file which runs FastQC and MultiQC on the raw reads, filters and trims these reads using Cutadapt, and then reruns FastQC and MultiQC on the preprocessed reads.
+Write a new workflow and include it in `main.nf`. The workflow needs to run FastQC and MultiQC on the FastQ files. Use this workflow to run quality control on the reads before and after trimming.
 </div>
 
 <details>
 
 <summary>Hint</summary>
 
-Combine the FastQC and MultiQC processes into a named workflow.
+Combine the FastQC and MultiQC processes into a named workflow. Use aliases to import the workflow without issues.
 
 </details>
 
@@ -2372,7 +2432,7 @@ Combine the FastQC and MultiQC processes into a named workflow.
 
 To closely examine amplicon sequencing data and to extract the unique 16S sequence variants from these, there is an incredibly useful package in R called DADA2. You have been provided with a small R script (`reads2counts.r`) which uses this package to count the abundance of each unique sequence in each sample. Based on these abundances, the script can compare samples to each other and can construct a distance tree (also known as a dendrogram):
 
-![enter image dendrogram](../img/nextflow/dendrogram.png) 
+![enter image dendrogram](docs/img/nextflow/dendrogram.png) 
 
 The script takes the preprocessed forward & reverse reads (in no specific order) as input arguments on the command line.
 
@@ -2385,7 +2445,7 @@ Write and incorporate a process that executes this Rscript and outputs the `coun
 
 <summary>Hint</summary>
 
-The container that you use should have the R-package ‘DADA2’ installed.
+The container that you use should have the R-package ‘DADA2’ installed. The R script takes all fastq files as an argument.
 
 </details>
 
