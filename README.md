@@ -75,7 +75,7 @@ Let's start!
 
 ## General context
 
-This repository contains the materials (exercises) for the workshop on Nextflow on 10-11th November 2024.
+This repository contains the materials (exercises) for the workshop on Nextflow on 21-22nd November 2024.
 
 The **presentations** which goes alongside this material can be found [in the Lesson overview: Slides](#2) .
 
@@ -212,11 +212,6 @@ Contributors
 
 - we welcome contributors for these materials
 
-## Citing this lesson
-
-Please cite as:
-
-  1. to be added once we have released the first version
 
 ## Chapters List
 
@@ -285,6 +280,7 @@ Host login-gent
     User vscXXXXX # Replace Xs with your VSC ID
     HostName login.hpc.ugent.be
     IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
+
 ```
 - Start a terminal in VSCode (select Terminal and then New Terminal)
 - Connect to the cluster with the following command: `ssh login-gent`
@@ -300,6 +296,8 @@ Host node4006
     ProxyCommand ssh login-gent -W %h:%p
     # On windows you should use
     # ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe login-gent -W %h:%p
+    IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
+
 ```
 - Finally you can open a this host in VSCode by typing `Ctrl-Shift-P` and selecting `Remote-SSH: Connect to Host...` and selecting the host you just added.
 
@@ -326,7 +324,7 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
 - For the Gent cluster usage, in any terminal where you want to run your excercises 
 
-  1. Load the nextflow module: `module load Nextflow/24.10.0`
+  1. Load the nextflow module: `module load Nextflow/24.04.2`
   2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
    - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
    - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
@@ -338,7 +336,7 @@ You are free to connect to the cluster however you want, but the above 2 methods
 
 Please cite as:
 
-  1. Koeb Lavaerts, Tuur Muldermans, Kris Davies, Bruna Piereck, Kobe, Alexander Botzki. (2023). VIB Nextflow course (v2.0.0). Zenodo. tbc
+  1. Kobe Lavaerts, Tuur Muldermans, Kris Davies, Bruna Piereck, Kobe, Alexander Botzki. (2023). VIB Nextflow course (v2.0.0). Zenodo. tbc
   2. Geert van Geest, Elin Kronander, Jose Alejandro Romero Herrera, Nadja Žlender, & Alexia Cardona. (2023). The ELIXIR Training Lesson Template - Developing Training Together (v1.0.0-alpha). Zenodo. https://doi.org/10.5281/zenodo.7913092.
 
 ## References
@@ -452,9 +450,6 @@ Nextflow is not the only player in the field[[2](https://github.com/pditommaso/a
 
 Some thoughts or disadvantages from my personal point of view. It takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis.
 
-<!-- 
-Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic) 
--->
 
 ### Main abstractions
 Nextflow consists of four main components: channels, operators, processes and workflows.
@@ -510,14 +505,6 @@ params.input_read = '/path/to/read_1.fq'
 def input_read_ch = Channel.fromPath(params.input_read)
 ```
 Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime.
-
-<!--
-(The workflows can be repesented as graphs where the nodes are the processes and the edges are the channels. The processes are block of code that can be executed such as scripts or programs, while the channels are asynchronous queue able to connect processess among them via input / output.)
-
-(Each process is independent from the other and can be run in parallel depending on the availability of processors or if you are in a cluster environment with a scheduler supported by Nextflow. Note also the implicit parallelisation *.fastq in a channel one channel will split it out over multiple processes simultaneously. No need of making a fors–loop.)
-
-(In the previous example the processes A, B and C can be run in parallel and only at their end the process D is triggered.)
--->
 </div>
 
 
@@ -2295,7 +2282,7 @@ To start using Seqera Platform, first create an account on [cloud.seqera.io](htt
 
 ```bash
 export TOWER_ACCESS_TOKEN=<YOUR ACCESS TOKEN>
-export NXF_VER=24.04.4
+export NXF_VER=24.04.2
 ```
 
 Verify the Nextflow version (NXF_VER) with `nextflow -v`. The access token can be obtained from clicking on the top-right profile icon, select *Your tokens* and create *New token*.
