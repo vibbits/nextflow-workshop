@@ -230,45 +230,6 @@ Please cite as:
 | 5     | [Creating reports](#47)  |
 | 6     | [Project](#49)  |
 
-## References
-
-Here are some great tips for learning and to get inspired for writing your own pipelines: 
-
-- Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
-- Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
-- Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
-- Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
-- Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
-- Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
-- Nextflow community training portal ([link](https://training.nextflow.io/))
-- Nextflow community basic training ([link](https://training.nextflow.io/basic_training/))
-
-## About us
-
-*About ELIXIR Training Platform*
-
-The ELIXIR Training Platform was established to develop a training community that spans all ELIXIR member states (see the list of Training Coordinators). It aims to strengthen national training programmes, grow bioinformatics training capacity and competence across Europe, and empower researchers to use ELIXIR's services and tools.
-
-One service offered by the Training Platform is TeSS, the training registry for the ELIXIR community. Together with ELIXIR France and ELIXIR Slovenia, VIB as lead node for ELIXIR Belgium is engaged in consolidating quality and impact of the TeSS training resources (2022-23) (https://elixir-europe.org/internal-projects/commissioned-services/2022-trp3).
-
-The Training eSupport System was developed to help trainees, trainers and their institutions to have a one-stop shop where they can share and find information about training and events, including training material. This way we can create a catalogue that can be shared within the community. How it works is what we are going to find out in this course.
-
-*About VIB and VIB Technologies*
-
-VIB is an entrepreneurial non-profit research institute, with a clear focus on groundbreaking strategic basic research in life sciences and operates in close partnership with the five universities in Flanders – Ghent University, KU Leuven, University of Antwerp, Vrije Universiteit Brussel and Hasselt University.
-
-As part of the VIB Technologies, the 12 VIB Core Facilities, provide support in a wide array of research fields and housing specialized scientific equipment for each discipline. Science and technology go hand in hand. New technologies advance science and often accelerate breakthroughs in scientific research. VIB has a visionary approach to science and technology, founded on its ability to identify and foster new innovations in life sciences.
-
-The goal of VIB Technology Training is to up-skill life scientists to excel in the domains of VIB Technologies, Bioinformatics & AI, Software Development, and Research Data Management.
-
---------------------------------------------
-
-*Editorial team for this course*
-
-Authors: @[orcid(Alexander Botzki)](https://orcid.org/0000-0001-6691-4233), @[orcid(Bruna Piereck)](https://orcid.org/0000-0001-5958-0669)
-
-Technical Editors: Alexander Botzki
-
 ## Get ready for the course
 
 Please read this page carefully **before** the start of the workshop.
@@ -388,10 +349,10 @@ Here are some great tips for learning and to get inspired for writing your own p
 - Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
 - Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
-- Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
+- Curated ready-to-use analysis pipelines by nf-core ([link](https://nf-co.re/))
 - Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
 - Tutorial by Andrew Severin ([link](https://bioinformaticsworkbook.org/dataAnalysis/nextflow/02_creatingAworkflow.html#gsc.tab=0))
-- Nextflow community basic training ([link](https://training.nextflow.io/basic_training/))
+- Nextflow community fundamentals training ([link](https://training.nextflow.io/basic_training/))
 
 --------------------------------------------
 
@@ -421,7 +382,7 @@ Contributors: Finn Bacall, Aitor Apaolaza, Munazah Andrabi, Chris Child, Carole 
 
 Technical Editors: Alexander Botzki
 
-License: [![CC BY](img/picture003.jpg)](http://creativecommons.org/licenses/by/4.0/)
+License: [![CC BY](docs/img/picture003.jpg)](http://creativecommons.org/licenses/by/4.0/)
 
 
 # Nextflow
