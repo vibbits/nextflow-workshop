@@ -206,7 +206,7 @@ Authors
 - @[orcid(Kobe Lavaerts)](https://orcid.org/0000-0003-0490-5969)
 - @[orcid(Tuur Muyldermans)](https://orcid.org/0000-0002-3926-7293)
 - @[orcid(Steff Taelman)](https://orcid.org/0000-0002-2685-4130)
-- Nicolas Vannieuwkerke <!-- TODO Add Orcid once Nicolas has one -->
+- @[orcid(Nicolas Vannieuwkerke)](https://orcid.org/0009-0003-5619-1555)
 
 Contributors
 
