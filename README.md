@@ -75,7 +75,7 @@ Let's start!
 
 ## General context
 
-This repository contains the materials (exercises) for the workshop on Nextflow on 10-11th November 2024.
+This repository contains the materials (exercises) for the workshop on Nextflow on 21-22nd November 2024.
 
 The **presentations** which goes alongside this material can be found [in the Lesson overview: Slides](#2) .
 
@@ -212,11 +212,6 @@ Contributors
 
 - we welcome contributors for these materials
 
-## Citing this lesson
-
-Please cite as:
-
-  1. to be added once we have released the first version
 
 ## Chapters List
 
@@ -229,45 +224,6 @@ Please cite as:
 | 4     | [Configuration files](#38)  |
 | 5     | [Creating reports](#47)  |
 | 6     | [Project](#49)  |
-
-## References
-
-Here are some great tips for learning and to get inspired for writing your own pipelines: 
-
-- Nextflow's official documentation ([link](https://www.nextflow.io/docs/latest/index.html))
-- Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
-- Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
-- Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
-- Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
-- Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
-- Nextflow community training portal ([link](https://training.nextflow.io/))
-- Nextflow community basic training ([link](https://training.nextflow.io/basic_training/))
-
-## About us
-
-*About ELIXIR Training Platform*
-
-The ELIXIR Training Platform was established to develop a training community that spans all ELIXIR member states (see the list of Training Coordinators). It aims to strengthen national training programmes, grow bioinformatics training capacity and competence across Europe, and empower researchers to use ELIXIR's services and tools.
-
-One service offered by the Training Platform is TeSS, the training registry for the ELIXIR community. Together with ELIXIR France and ELIXIR Slovenia, VIB as lead node for ELIXIR Belgium is engaged in consolidating quality and impact of the TeSS training resources (2022-23) (https://elixir-europe.org/internal-projects/commissioned-services/2022-trp3).
-
-The Training eSupport System was developed to help trainees, trainers and their institutions to have a one-stop shop where they can share and find information about training and events, including training material. This way we can create a catalogue that can be shared within the community. How it works is what we are going to find out in this course.
-
-*About VIB and VIB Technologies*
-
-VIB is an entrepreneurial non-profit research institute, with a clear focus on groundbreaking strategic basic research in life sciences and operates in close partnership with the five universities in Flanders – Ghent University, KU Leuven, University of Antwerp, Vrije Universiteit Brussel and Hasselt University.
-
-As part of the VIB Technologies, the 12 VIB Core Facilities, provide support in a wide array of research fields and housing specialized scientific equipment for each discipline. Science and technology go hand in hand. New technologies advance science and often accelerate breakthroughs in scientific research. VIB has a visionary approach to science and technology, founded on its ability to identify and foster new innovations in life sciences.
-
-The goal of VIB Technology Training is to up-skill life scientists to excel in the domains of VIB Technologies, Bioinformatics & AI, Software Development, and Research Data Management.
-
---------------------------------------------
-
-*Editorial team for this course*
-
-Authors: @[orcid(Alexander Botzki)](https://orcid.org/0000-0001-6691-4233), @[orcid(Bruna Piereck)](https://orcid.org/0000-0001-5958-0669)
-
-Technical Editors: Alexander Botzki
 
 ## Get ready for the course
 
@@ -324,6 +280,7 @@ Host login-gent
     User vscXXXXX # Replace Xs with your VSC ID
     HostName login.hpc.ugent.be
     IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
+
 ```
 - Start a terminal in VSCode (select Terminal and then New Terminal)
 - Connect to the cluster with the following command: `ssh login-gent`
@@ -339,6 +296,8 @@ Host node4006
     ProxyCommand ssh login-gent -W %h:%p
     # On windows you should use
     # ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe login-gent -W %h:%p
+    IdentityFile ~/.ssh/id_rsa # This should be replaced with the path to your private key ( windows users might look like this: C:\Users\KrisDavie\Documents\VSC\vsc_id_rsa)
+
 ```
 - Finally you can open a this host in VSCode by typing `Ctrl-Shift-P` and selecting `Remote-SSH: Connect to Host...` and selecting the host you just added.
 
@@ -365,7 +324,7 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
 - For the Gent cluster usage, in any terminal where you want to run your excercises 
 
-  1. Load the nextflow module: `module load Nextflow/24.10.0`
+  1. Load the nextflow module: `module load Nextflow/24.04.2`
   2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
    - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
    - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
@@ -377,7 +336,7 @@ You are free to connect to the cluster however you want, but the above 2 methods
 
 Please cite as:
 
-  1. Koeb Lavaerts, Tuur Muldermans, Kris Davies, Bruna Piereck, Kobe, Alexander Botzki. (2023). VIB Nextflow course (v2.0.0). Zenodo. tbc
+  1. Kobe Lavaerts, Tuur Muldermans, Kris Davies, Bruna Piereck, Kobe, Alexander Botzki. (2023). VIB Nextflow course (v2.0.0). Zenodo. tbc
   2. Geert van Geest, Elin Kronander, Jose Alejandro Romero Herrera, Nadja Žlender, & Alexia Cardona. (2023). The ELIXIR Training Lesson Template - Developing Training Together (v1.0.0-alpha). Zenodo. https://doi.org/10.5281/zenodo.7913092.
 
 ## References
@@ -388,10 +347,10 @@ Here are some great tips for learning and to get inspired for writing your own p
 - Reach out to the community on Slack ([link](https://www.nextflow.io/slack-invite.html))
 - Curated collection of patterns ([link](https://github.com/nextflow-io/patterns))
 - Workshop focused on DSL2 developed by CRG Bioinformatics Core ([link](https://github.com/biocorecrg/ELIXIR_containers_nextflow))
-- Curated ready-to-use analysis pipelines by NF-core ([link](https://nf-co.re/))
+- Curated ready-to-use analysis pipelines by nf-core ([link](https://nf-co.re/))
 - Model example pipeline on Variant Calling Analysis with NGS RNA-Seq data developed by CRG ([link](https://github.com/CRG-CNAG/CalliNGS-NF))
 - Tutorial by Andrew Severin ([link](https://bioinformaticsworkbook.org/dataAnalysis/nextflow/02_creatingAworkflow.html#gsc.tab=0))
-- Nextflow community basic training ([link](https://training.nextflow.io/basic_training/))
+- Nextflow community fundamentals training ([link](https://training.nextflow.io/basic_training/))
 
 --------------------------------------------
 
@@ -421,7 +380,7 @@ Contributors: Finn Bacall, Aitor Apaolaza, Munazah Andrabi, Chris Child, Carole 
 
 Technical Editors: Alexander Botzki
 
-License: [![CC BY](img/picture003.jpg)](http://creativecommons.org/licenses/by/4.0/)
+License: [![CC BY](docs/img/picture003.jpg)](http://creativecommons.org/licenses/by/4.0/)
 
 
 # Nextflow
@@ -491,9 +450,6 @@ Nextflow is not the only player in the field[[2](https://github.com/pditommaso/a
 
 Some thoughts or disadvantages from my personal point of view. It takes some time to get used to the syntax of the Groovy language. As flexible as it is, as complex it gets. Often it's difficult to trace down the exact problem of a failure of a pipeline script, especially in the beginning. It's probably not the first thing you should be concerned of if you're doing a one-time analysis.
 
-<!-- 
-Fast prototyping => Custom DSL that enables tasks composition, simplifies most use cases + general purpose programming language for corner cases Easy parallelisation => declarative reactive programming model based on dataflow paradigm, implicit portable parallelism Decouple components => functional approach a task execution is idempotent, ie cannot modify the state of other tasks + isolate dependencies with containers Portable deployments => executor abstraction layer + deployment configuration from implementation logic) 
--->
 
 ### Main abstractions
 Nextflow consists of four main components: channels, operators, processes and workflows.
@@ -549,14 +505,6 @@ params.input_read = '/path/to/read_1.fq'
 def input_read_ch = Channel.fromPath(params.input_read)
 ```
 Here `params.input_read = '/path/to/read_1.fq'` will create a parameter `input_read` and give it the value `'/path/to/read_1.fq'` which is used as an input for the channel. We will later see that these parameters can then be overwritten on runtime.
-
-<!--
-(The workflows can be repesented as graphs where the nodes are the processes and the edges are the channels. The processes are block of code that can be executed such as scripts or programs, while the channels are asynchronous queue able to connect processess among them via input / output.)
-
-(Each process is independent from the other and can be run in parallel depending on the availability of processors or if you are in a cluster environment with a scheduler supported by Nextflow. Note also the implicit parallelisation *.fastq in a channel one channel will split it out over multiple processes simultaneously. No need of making a fors–loop.)
-
-(In the previous example the processes A, B and C can be run in parallel and only at their end the process D is triggered.)
--->
 </div>
 
 
