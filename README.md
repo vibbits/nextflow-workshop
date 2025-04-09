@@ -572,7 +572,11 @@ def file_ch = Channel.fromPath('data/sequencefile.fastq')
 
 // Channel consisting of multiple files by using a wildcard *
 def multfiles_ch = Channel.fromPath('data/*.fastq')
+
+// Create a channel structure from file pairs
+def pairs_ch = Channel.fromFilePairs('data/*.fq.gz')
 ```
+
 These channels can then be used by operators or serve as an input for the processes.
 
 
@@ -591,6 +595,13 @@ Once the Nextflow script is saved, run it with: `nextflow run exercises/01_build
 
 Paired fastq files are provided in the `data` folder.
 
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+Fastq files can be either single-end or paired-end. DNA is always double-stranded, single-end fastq only contain reads from a single strand, while paired end fastqs are two files, each file contains reads for one strand of the double-stranded DNA.This means in case of paired-end files, there are 2 fastq files per sample.
+
+</div>
+
 *************
 
           {{1-2}}
@@ -608,6 +619,8 @@ Note that the content of the channel is constructed in a following manner:
 This is a `tuple` qualifier which we will use a lot during this workshop and discuss later again.
 
 *************
+
+
 
 ##### Queue and Value channels
 
@@ -818,6 +831,13 @@ Here are a couple of examples of processes:
 > }
 > ```
 
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+FastQC is a tool to determine the quality of the FASTQ files.
+
+</div>
+
 > **Salmon**
 >
 > Quantifying in mapping-based mode with `salmon`
@@ -837,6 +857,13 @@ Here are a couple of examples of processes:
 >     """
 > }
 > ```
+
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+Salmon is a tool to figure out how much of different RNA pieces (called transcripts) are present in a sample. 
+
+</div>
 
 > **Trimming & quality filtering reads**
 >
@@ -863,6 +890,13 @@ Here are a couple of examples of processes:
 > }
 > ```
 
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+Trimmomatic is a tool used to trim FASTQ reads. Trimming is sometimes necessary to trim low quality bases, or unwanted sequences from the sequenced reads to make sure the reads only contain high quality basepairs present in the sequenced genome. An example of unwanted sequences that can be trimmed are adapter sequences, which are present in all reads and function as primer sites to start the sequencing.
+
+</div>
+
 ---
 
 The **input** declaration block defines the channels where the process expects to receive its data. The input defenition starts with an input qualifier followed by the input name ([more information](https://www.nextflow.io/docs/latest/process.html#inputs)). The most frequently used qualifiers are `val`, `path` and `tuple`, respectively representing a value (e.g. numbers or strings), a path towards a file and a combination of input values having one of the available qualifiers (e.g. tuple containing a value and two files).
@@ -870,7 +904,7 @@ The **input** declaration block defines the channels where the process expects t
 <div class="admonition admonition-warning">
 <p class="admonition-title">Warning</p>
 
-The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appears a lot in older tutorials.
+The keyword `from` is a remainder of DSL1 and is not used in DSL2. Therefore we can neglect this keyword in this course even though we will see it appear a lot in older tutorials.
 
 </div>
 
@@ -900,7 +934,6 @@ Each process is executed independently and isolated from any other process. They
 Let's exemplify this by running the script [`exercises/01_building_blocks/fifo.nf`](https://github.com/vibbits/nextflow-workshop/blob/main/exercises/01_building_blocks/fifo.nf) and inspect the order that the channels are being processed.
 
 ```
-N E X T F L O W  ~  version 24.04.2
 Launching `fifo.nf` [nauseous_mahavira] - revision: a71d904cf6
 [-        ] process > whosfirst -
 This is job number 6
@@ -1185,7 +1218,6 @@ workflow {
 Nextflow will generate an output that has a standard lay-out:
 
 ```bash
-N E X T F L O W  ~  version 24.04.2
 Launching `exercises/02_run_first_script/firstscript.nf` [distracted_almeida] DSL2 - revision: 1a87b5fe26
 executor >  local (2)
 [eb/9af3b0] process > valuesToFile (2) [100%] 2 of 2 ✔
@@ -1699,6 +1731,15 @@ Similarly as described above, we can extend this pipeline and map our trimmed re
 
 In the folder `modules/` find the script `star.nf` which contains two processes: `star_index` and `star_alignment`. Complete the script `RNAseq.nf` so it includes these processes and hence the pipeline is extended with an indexing and alignment step. The parameters used in the modules are already defined for you.
 
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+STAR is a tool that aligns the sequenced reads in a FASTQ file to a reference genome. This determines where on the genome the read is located so you can create a 'map' of how the genome of the sequenced organism looks like.
+
+STAR index is a tool that creates a reference index from the reference genome so that STAR can do the alignment more easily.
+
+</div>
+
 ****************
 
     {{1-2}}
@@ -1870,6 +1911,13 @@ workflow hisat {
   hisat_alignment(arg1, arg2)
 }
 ```
+
+<div class="admonition admonition-info">
+<p class="admonition-title">Note</p>
+
+Hisat is alternative to STAR to align reads to a reference genome.
+
+</div>
 
 These sub-workflows allow us to use this workflow from within another workflow. The workflow that does not cary any name is considered to be the main workflow and will be executed implicitly. This is thus the entry point of the pipeline, however alternatively we can overwrite it by using the `-entry` parameter. The following code snippet defines two sub-workflows and one main workflow. If we would only be interested in the star alignment workflow, then we would use `nextflow run pipeline.nf -entry star`.
 
@@ -2101,7 +2149,7 @@ profiles {
         }
     }
 
-    conda { params.enable_conda = true }
+    conda { conda.enabled = true }
 
     docker {
         // Enabling docker
@@ -2334,7 +2382,7 @@ To start using Seqera Platform, first create an account on [cloud.seqera.io](htt
 
 ```bash
 export TOWER_ACCESS_TOKEN=<YOUR ACCESS TOKEN>
-export NXF_VER=24.04.4
+export NXF_VER=24.10.5
 ```
 
 Verify the Nextflow version (NXF_VER) with `nextflow -v`. The access token can be obtained from clicking on the top-right profile icon, select *Your tokens* and create *New token*.
@@ -2418,6 +2466,12 @@ The following docker containers will work well with Nextflow for the pipeline yo
 * DADA2: `blekhmanlab/dada2:1.26.0` 
 * Python: `python:slim-bullseye` 
 * Cutadapt: `biocontainers/cutadapt:4.7--py310h4b81fae_1`
+
+MultiQC is a tool to summarize quality control metrics coming from different tools for multiple samples. E.g. this is used to create a summary of all quality control metrics determined by FastQ for all samples in the pipeline run.
+
+DADA2 is a tool to identify and quantify the microorganisms present from (amplicon) sequencing data.
+
+Cutadapt is an alternative of Trimmomatic for trimming FASTQ reads.
 
 </div>
 
