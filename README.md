@@ -199,9 +199,9 @@ Schedule day 2:
 
 Authors
 
-- [Bruna Piereck](@[orcid](https://orcid.org/0000-0001-5958-0669)
-- [Alexander Botzki](@[orcid](https://orcid.org/0000-0001-6691-4233)
-- [Tuur Muyldermans](@[orcid](https://orcid.org/0000-0002-3926-7293)
+- @[orcid(Bruna Piereck)](https://orcid.org/0000-0001-5958-0669)
+- @[orcid(Alexander Botzki)](https://orcid.org/0000-0001-6691-4233)
+- @[orcid(Tuur Muyldermans)](https://orcid.org/0000-0002-3926-7293)
 - @[orcid(Kris Davie)](https://orcid.org/0000-0003-2182-1249)
 - @[orcid(Kobe Lavaerts)](https://orcid.org/0000-0003-0490-5969)
 - @[orcid(Tuur Muyldermans)](https://orcid.org/0000-0002-3926-7293)
