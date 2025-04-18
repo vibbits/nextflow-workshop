@@ -52,7 +52,7 @@ mode: Presentation
 orcid:    [@0](@1)<!--class="orcid-logo-for-author-list"-->
 
 tutor:    Introduction to Nextflow
-edition:  5th
+edition:  6th
 
 -->
 
@@ -83,23 +83,22 @@ The **presentations** which goes alongside this material can be found [in the Le
 
 Schedule day 1:
 
-- 9:30 - 11:00 - Introduction to Nextflow: Building Blocks
-- 11:00 - 11:15 - break
-- 11:15 - 12:45 - Processes and Workflows
-- 12:45 - 13:45 - lunch
-- 13:45 - 15:15 - Creating our first pipeline
-- 15:15 - 15:30 - break
-- 15:30 - 17:00 - Modules and Subworkflow
+- 9:30 - 10:30 - Introduction to Nextflow: Building Blocks
+- 10:30 - 10:45 - Break
+- 10:45 - 12:00 - Exercises
+- 12:00 - 13:00 - lunch
+- 13:00 - 14:45 - Processes and Workflows
+- 14:45 - 15:00 - break
+- 15:00 - 17:30 - Creating our first pipeline
 
 Schedule day 2:
 
-- 9:30 - 10:45 - recap day 1
-   - Config files, Containers and Reports
+- 9:30 - 10:45 - Modules
 - 10:45 - 11:00 - break
-- 11:00 - 12:15 - Exercise
-- 12:15 - 13:15 - lunch
-- 13:15 - 15:00 - Project Challenge
-- 15:15 - 15:30 - break
+- 11:00 - 12:30 - Exercises, Config files, Reports
+- 12:30 - 13:30 - lunch
+- 13:30 - 15:00 - Project Challenge
+- 15:00 - 15:15 - break
 - 15:30 - 17:00 - Project Challenge
 
 </section>
