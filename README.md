@@ -250,6 +250,7 @@ _If you normally use VSCode locally, this setup is completely seperate and won't
 - Navigate to [https://login.hpc.ugent.be/](https://login.hpc.ugent.be/) and login with your credentials.
 - Select "Interactive Apps" from the top bar -> "Code Server"
 - Fill in the following settings:
+
   - Cluster: `donphan (interactive/debug)`
   - Time: 12 (hours)
   - Nodes: 1
