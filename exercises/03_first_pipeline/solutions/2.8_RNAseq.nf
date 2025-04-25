@@ -20,7 +20,7 @@ params.lengthreads = 98
 
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "../../../modules/fastqc" //addParams(OUTPUT: fastqcOutputFolder)
 include { trimmomatic } from "../../../modules/trimmomatic"
-include { star_idx; star_alignment } from "star"
+include { star_idx; star_alignment } from "./star"
 include { multiqc } from "../../../modules/multiqc"
 
 // Running a workflow with the defined processes here.  

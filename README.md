@@ -52,7 +52,7 @@ mode: Presentation
 orcid:    [@0](@1)<!--class="orcid-logo-for-author-list"-->
 
 tutor:    Introduction to Nextflow
-edition:  5th
+edition:  6th
 
 -->
 
@@ -75,7 +75,7 @@ Let's start!
 
 ## General context
 
-This repository contains the materials (exercises) for the workshop on Nextflow on 21-22nd November 2024.
+This repository contains the materials (exercises) for the workshop on Nextflow on 28-29th April 2025.
 
 The **presentations** which goes alongside this material can be found [in the Lesson overview: Slides](#2) .
 
@@ -83,23 +83,22 @@ The **presentations** which goes alongside this material can be found [in the Le
 
 Schedule day 1:
 
-- 9:30 - 11:00 - Introduction to Nextflow: Building Blocks
-- 11:00 - 11:15 - break
-- 11:15 - 12:45 - Processes and Workflows
-- 12:45 - 13:45 - lunch
-- 13:45 - 15:15 - Creating our first pipeline
-- 15:15 - 15:30 - break
-- 15:30 - 17:00 - Modules and Subworkflow
+- 9:30 - 10:30 - Introduction to Nextflow: Building Blocks
+- 10:30 - 10:45 - Break
+- 10:45 - 12:00 - Exercises
+- 12:00 - 13:00 - lunch
+- 13:00 - 14:45 - Processes and Workflows
+- 14:45 - 15:00 - break
+- 15:00 - 17:30 - Creating our first pipeline
 
 Schedule day 2:
 
-- 9:30 - 10:45 - recap day 1
-   - Config files, Containers and Reports
+- 9:30 - 10:45 - Modules
 - 10:45 - 11:00 - break
-- 11:00 - 12:15 - Exercise
-- 12:15 - 13:15 - lunch
-- 13:15 - 15:00 - Project Challenge
-- 15:15 - 15:30 - break
+- 11:00 - 12:30 - Exercises, Config files, Reports
+- 12:30 - 13:30 - lunch
+- 13:30 - 15:00 - Project Challenge
+- 15:00 - 15:15 - break
 - 15:30 - 17:00 - Project Challenge
 
 </section>
@@ -251,6 +250,7 @@ _If you normally use VSCode locally, this setup is completely seperate and won't
 - Navigate to [https://login.hpc.ugent.be/](https://login.hpc.ugent.be/) and login with your credentials.
 - Select "Interactive Apps" from the top bar -> "Code Server"
 - Fill in the following settings:
+
   - Cluster: `donphan (interactive/debug)`
   - Time: 12 (hours)
   - Nodes: 1
@@ -324,7 +324,7 @@ You are free to connect to the cluster however you want, but the above 2 methods
 - Clone this repository into the folder: `git clone https://github.com/vibbits/nextflow-workshop.git`
 - For the Gent cluster usage, in any terminal where you want to run your excercises 
 
-  1. Load the nextflow module: `module load Nextflow/24.04.2`
+  1. Load the nextflow module: `module load Nextflow/24.10.2`
   2. Export the following envrionment variables - these are required so that your home folder is not filled when building and storing apptainer images
    - `export APPTAINER_CACHEDIR=${VSC_SCRATCH}/.apptainer_cache`
    - `export APPTAINER_TMPDIR=${VSC_SCRATCH}/.apptainer_tmp`
@@ -522,7 +522,7 @@ def file_ch = Channel.fromPath('data/sequencefile.fastq')
 def multfiles_ch = Channel.fromPath('data/*.fastq')
 
 // Create a channel structure from file pairs
-def pairs_ch = Channel.fromFilePairs('data/*.fq.gz')
+def pairs_ch = Channel.fromFilePairs('data/*{1,2}.fq.gz')
 ```
 
 These channels can then be used by operators or serve as an input for the processes.
@@ -537,7 +537,7 @@ These channels can then be used by operators or serve as an input for the proces
 
 **Reminder: Run all exercises from the root nextflow-workshop folder**
 
-Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/channel.html#fromfilepairs).
+Inspect and edit the `exercises/01_building_blocks/template.nf` script. Create a channel consisting of multiple paired-end files. For more information, read [`fromFilePairs`](https://www.nextflow.io/docs/latest/reference/channel.html#fromfilepairs).
 
 Once the Nextflow script is saved, run it with: `nextflow run exercises/01_building_blocks/template.nf`.
 
@@ -693,6 +693,7 @@ The file is imported with `.fromPath()`, followed by the `splitCsv()` operator w
 def samples_ch = Channel
                 .fromPath('exercises/01_building_blocks/input.csv')  // make sure that the path towards the file is correct
                 .splitCsv(header:true)
+
 ```
 **********
 
@@ -828,8 +829,8 @@ Salmon is a tool to figure out how much of different RNA pieces (called transcri
 >     tuple val(sample), path(reads)
 >
 >     output:
->     tuple val("${sample}"), path("${sample}*_P.fq"), emit: trim_fq
->     tuple val("${sample}"), path("${sample}*_U.fq"), emit: untrim_fq
+>     tuple val(sample), path("${sample}*_P.fq"), emit: trim_fq
+>     tuple val(sample), path("${sample}*_U.fq"), emit: untrim_fq
 >
 >     script:
 >     """
@@ -866,7 +867,7 @@ By default, the output of a process is a queue channel, however, when all of the
 
 </div>
 
-**Directives** are defined at the top of the process (see `trimmomatic` example) and can be any of the [following long list of possibilities](https://www.nextflow.io/docs/latest/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way.
+**Directives** are optional settings that affect the process execution, and are defined at the top of the process (see `trimmomatic` example). They can be any of the [following long list of possibilities](https://www.nextflow.io/docs/latest/reference/process.html#directives). We can define the directory where the outputs should be published, add labels or tags, define containers used for the virtual environment of the process, and much more. We will discover some of the possibilities along the way.
 
 **Conditionals** are not considered in this course.
 
@@ -999,8 +1000,8 @@ process bar {
   """
 }
 workflow {
-  x = Channel.value(1)
-  y = Channel.of('a', 'b', 'c')
+  def x = Channel.value(1)
+  def y = Channel.of('a', 'b', 'c')
   foo(x, y)
 }
 ```
@@ -1034,7 +1035,7 @@ workflow {
 
 **Extra exercise 1**
 
-Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/latest/workflow.html#process-named-outputs).
+Use the `view` operator on the output of the `valuesToFile` process in the script `exercises/01_building_blocks/firstscript.nf`. For this, you will first need to add an `emit` argument to the output of the process. More information is available in the documentation [here](https://www.nextflow.io/docs/latest/process.html#process-naming-outputs).
 
 ****************
 
@@ -1171,6 +1172,7 @@ executor >  local (2)
 [eb/9af3b0] process > valuesToFile (2) [100%] 2 of 2 ✔
 /home/training/git/nextflow-workshop/work/c8/b5f6c2d2a5932f77d5bc53320b8a5d/result.txt
 /home/training/git/nextflow-workshop/work/eb/9af3b0384ef96c011b4da69e86fca7/result.txt
+
 ```
 
 The output consists of:
@@ -1313,7 +1315,8 @@ When you use `nextflow run` without pulling the pipeline first (`nextflow pull`)
 `nextflow run nextflow-io/rnaseq-nf` will result in an error due to uninstalled tools on our system. To fix this, simply add the parameter `-with-apptainer`. We will discover what is happening when we enable this setting later. On the Gent VSC system, apptainer containers can only be run from certain locations, therefore you'll need to also set the cache directory to be used, we can do this with a config (covered later) or using some runtime environment variables `APPTAINER_CACHEDIR` and `NXF_APPTAINER_CACHEDIR`, these should be set to `$VSC_SCRATCH`. Your final command should look something like this:
 
 ```bash
-APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -with-apptainer`
+APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache nextflow run nextflow-io/rnaseq-nf -with-apptainer
+
 ```
 </div>
 
@@ -1338,13 +1341,15 @@ Run the publicly available pipeline `nextflow-io/rnaseq-nf`. Try to modify the n
 The directory with the final results:
 
 ```bash
-APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -with-apptainer
+APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache nextflow run nextflow-io/rnaseq-nf --outdir 'myAwesomeResults' -with-apptainer
+
 ```
 
 or, the directory with temporary files (used for caching):
 
 ```bash
-APPTAINER_CACHEDIR=$VSC_SCRATCH NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-apptainer
+APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache NXF_APPTAINER_CACHEDIR=$VSC_SCRATCH/.apptainer_cache nextflow run nextflow-io/rnaseq-nf -w 'myAwesomeResults' -with-apptainer
+
 ```
 
 *************
@@ -1393,7 +1398,7 @@ The `reads`, `transcriptome`, `outdir` and `multiqc` parameters.
 
 **Solution 3**
 
-1. As of 15/10/2024: 113 pipelines are available, of which 68 are released, 32 are under development, and 13 are archived.
+1. As of 22/04/2025: 128 pipelines are available, of which 79 are released, 37 are under development, and 12 are archived.
 
 2. [link](https://nf-co.re/atacseq)
  - `2.1.2` (15/10/2024)
@@ -1557,7 +1562,7 @@ Run in the background and push output of nextflow to the log file. No need of ex
 
 **Exercise 2.4**
 
-Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/channel.html)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g.
+Check if the files exist ([`checkIfExists`](https://www.nextflow.io/docs/latest/reference/channel.html#frompath)) upon creating the channels and invoke an error by running the nextflow script with wrong reads, e.g.
 
 ```
 nextflow run exercises/03_first_pipeline/fastqc.nf --reads wrongfilename
@@ -1589,15 +1594,14 @@ Control where and how the output is stored. Have a look at the directive [`publi
 
 The solution is given in `exercises/03_first_pipeline/solutions/2.5_fastqc.nf`
 
-- Without any additional arguments, a hyperlink will be created to the files stored in the `work/` directory, with mode set to copy (`mode: 'copy'`) the files will be made available in the defined directory.
-- If the output is to be used by another process, and the files are being moved, they won't be accessible for the next process and hence you're pipeline will fail complaining about files not being present.
+- Without any additional arguments, a hyperlink will be created to the files stored in the `work/` directory. With mode set to copy (`mode: 'copy'`), a copy of the files will be made available in the defined directory instead.
+- If the output is to be used by another process, and the files are being moved, they won't be accessible for the next process and hence you're pipeline will fail complaining about files not being present. For this reason, we recommend avoiding the use of `mode: 'move'` in most cases.
 
 <div class="admonition admonition-warning">
 <p class="admonition-title">Warning</p>
-Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason files published by a process must not be accessed by other downstream processes.
+Files are copied into the specified directory in an asynchronous manner, thus they may not be immediately available in the published directory at the end of the process execution. For this reason, files published by a process must not be accessed by other downstream processes by referencing the path of the publish directory, but by utilising process output channels.
 </div>
 
-</details>
 
 
 The final FastQC script, with some additional comments is provided in `exercises/03_first_pipeline/solutions/fastqc_final.nf`.
@@ -1647,6 +1651,7 @@ This doesn't overcome the problem that we can only use a process once. However, 
 
 ```groovy
 include { fastqc as fastqc_raw; fastqc as fastqc_trim } from "./modules/fastqc"
+
 ```
 
 Now we're ready to use a process, defined in a module, multiple times in a workflow.
@@ -1660,6 +1665,8 @@ include { trimmomatic } from "../../modules/trimmomatic"
 
 // Running a workflow with the defined processes here.
 workflow {
+  def read_pairs_ch = Channel
+    .fromFilePairs(params.reads, checkIfExists:true)
 
   read_pairs_ch.view()
   fastqc_raw(read_pairs_ch)
